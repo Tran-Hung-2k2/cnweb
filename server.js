@@ -1,11 +1,19 @@
 import express from 'express';
+import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
+import route from './routes/index.js';
+
+dotenv.config();
+const PORT = process.env.PORT || 8000;
 
 const app = express();
 
-const port = 3000;
+app.use(cookieParser());
+app.use(express.json());
+app.use(express.static('public'));
 
-app.get('/', (req, res) => {
-    res.send('Hello World');
+route(app);
+
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
-
-app.listen(3000, () => console.log(`server is running at http://localhost:${port}`));
