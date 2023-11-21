@@ -1,0 +1,507 @@
+{
+    "tables": {
+        "Categories": {
+            "tableName": "Categories",
+            "schema": {
+                "Category_ID": {
+                    "defaultValue": {
+                        "internal": true,
+                        "value": "Sequelize.UUIDV4"
+                    },
+                    "primaryKey": true,
+                    "field": "Category_ID",
+                    "seqType": "Sequelize.UUID"
+                },
+                "Name": {
+                    "allowNull": false,
+                    "field": "Name",
+                    "seqType": "Sequelize.STRING"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
+        "Courses": {
+            "tableName": "Courses",
+            "schema": {
+                "Course_ID": {
+                    "defaultValue": {
+                        "internal": true,
+                        "value": "Sequelize.UUIDV4"
+                    },
+                    "primaryKey": true,
+                    "field": "Course_ID",
+                    "seqType": "Sequelize.UUID"
+                },
+                "Organization_ID": {
+                    "allowNull": false,
+                    "field": "Organization_ID",
+                    "references": {
+                        "model": "Training_Organizations",
+                        "key": "Training_Organization_ID"
+                    },
+                    "onDelete": "NO ACTION",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.UUID"
+                },
+                "Category_ID": {
+                    "allowNull": false,
+                    "field": "Category_ID",
+                    "references": {
+                        "model": "Categories",
+                        "key": "Category_ID"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.UUID"
+                },
+                "Name": {
+                    "allowNull": false,
+                    "field": "Name",
+                    "seqType": "Sequelize.STRING"
+                },
+                "Description": {
+                    "allowNull": false,
+                    "field": "Description",
+                    "seqType": "Sequelize.STRING"
+                },
+                "Level": {
+                    "allowNull": false,
+                    "field": "Level",
+                    "seqType": "Sequelize.STRING"
+                },
+                "isNeedReview": {
+                    "allowNull": false,
+                    "field": "isNeedReview",
+                    "seqType": "Sequelize.BOOLEAN"
+                },
+                "Status": {
+                    "allowNull": false,
+                    "field": "Status",
+                    "seqType": "Sequelize.STRING"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
+        "Lectures": {
+            "tableName": "Lectures",
+            "schema": {
+                "Lecture_ID": {
+                    "defaultValue": {
+                        "internal": true,
+                        "value": "Sequelize.UUIDV4"
+                    },
+                    "primaryKey": true,
+                    "field": "Lecture_ID",
+                    "seqType": "Sequelize.UUID"
+                },
+                "Week_ID": {
+                    "allowNull": false,
+                    "field": "Week_ID",
+                    "references": {
+                        "model": "Weeks",
+                        "key": "Week_ID"
+                    },
+                    "onDelete": "NO ACTION",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.UUID"
+                },
+                "Lecture_Title": {
+                    "allowNull": false,
+                    "field": "Lecture_Title",
+                    "seqType": "Sequelize.STRING"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
+        "Lessons": {
+            "tableName": "Lessons",
+            "schema": {
+                "Lesson_ID": {
+                    "defaultValue": {
+                        "internal": true,
+                        "value": "Sequelize.UUIDV4"
+                    },
+                    "primaryKey": true,
+                    "field": "Lesson_ID",
+                    "seqType": "Sequelize.UUID"
+                },
+                "Lecture_ID": {
+                    "allowNull": false,
+                    "field": "Lecture_ID",
+                    "references": {
+                        "model": "Lectures",
+                        "key": "Lecture_ID"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.UUID"
+                },
+                "Title": {
+                    "allowNull": false,
+                    "field": "Title",
+                    "seqType": "Sequelize.STRING"
+                },
+                "Type": {
+                    "allowNull": false,
+                    "field": "Type",
+                    "seqType": "Sequelize.STRING"
+                },
+                "Time": {
+                    "allowNull": false,
+                    "field": "Time",
+                    "seqType": "Sequelize.STRING"
+                },
+                "Content": {
+                    "allowNull": false,
+                    "field": "Content",
+                    "seqType": "Sequelize.STRING"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
+        "Notes": {
+            "tableName": "Notes",
+            "schema": {
+                "Note_ID": {
+                    "defaultValue": {
+                        "internal": true,
+                        "value": "Sequelize.UUIDV4"
+                    },
+                    "primaryKey": true,
+                    "field": "Note_ID",
+                    "seqType": "Sequelize.UUID"
+                },
+                "Lesson_ID": {
+                    "allowNull": false,
+                    "field": "Lesson_ID",
+                    "references": {
+                        "model": "Lessons",
+                        "key": "Lesson_ID"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.UUID"
+                },
+                "Note_Content": {
+                    "field": "Note_Content",
+                    "seqType": "Sequelize.STRING"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
+        "Participating_Courses": {
+            "tableName": "Participating_Courses",
+            "schema": {
+                "Student_ID": {
+                    "allowNull": false,
+                    "field": "Student_ID",
+                    "primaryKey": true,
+                    "references": {
+                        "model": "Students",
+                        "key": "Student_ID"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "unique": "Participating_Courses_Student_ID_Course_ID_unique",
+                    "seqType": "Sequelize.UUID"
+                },
+                "Course_ID": {
+                    "allowNull": false,
+                    "field": "Course_ID",
+                    "primaryKey": true,
+                    "references": {
+                        "model": "Courses",
+                        "key": "Course_ID"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "unique": "Participating_Courses_Student_ID_Course_ID_unique",
+                    "seqType": "Sequelize.UUID"
+                },
+                "Review_Content": {
+                    "field": "Review_Content",
+                    "seqType": "Sequelize.STRING"
+                },
+                "Review_Star": {
+                    "field": "Review_Star",
+                    "seqType": "Sequelize.INTEGER.UNSIGNED"
+                },
+                "Date_Achieved": {
+                    "field": "Date_Achieved",
+                    "seqType": "Sequelize.DATE"
+                },
+                "Status": {
+                    "allowNull": false,
+                    "field": "Status",
+                    "seqType": "Sequelize.STRING"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
+        "Participating_Lessons": {
+            "tableName": "Participating_Lessons",
+            "schema": {
+                "Student_ID": {
+                    "allowNull": false,
+                    "field": "Student_ID",
+                    "primaryKey": true,
+                    "references": {
+                        "model": "Students",
+                        "key": "Student_ID"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "unique": "Participating_Lessons_Student_ID_Lesson_ID_unique",
+                    "seqType": "Sequelize.UUID"
+                },
+                "Lesson_ID": {
+                    "allowNull": false,
+                    "field": "Lesson_ID",
+                    "primaryKey": true,
+                    "references": {
+                        "model": "Lessons",
+                        "key": "Lesson_ID"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "unique": "Participating_Lessons_Student_ID_Lesson_ID_unique",
+                    "seqType": "Sequelize.UUID"
+                },
+                "Status": {
+                    "allowNull": false,
+                    "defaultValue": {
+                        "value": false
+                    },
+                    "field": "Status",
+                    "seqType": "Sequelize.BOOLEAN"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
+        "Students": {
+            "tableName": "Students",
+            "schema": {
+                "Student_ID": {
+                    "defaultValue": {
+                        "internal": true,
+                        "value": "Sequelize.UUIDV4"
+                    },
+                    "primaryKey": true,
+                    "field": "Student_ID",
+                    "seqType": "Sequelize.UUID"
+                },
+                "Name": {
+                    "allowNull": false,
+                    "field": "Name",
+                    "seqType": "Sequelize.STRING"
+                },
+                "Email": {
+                    "allowNull": false,
+                    "unique": true,
+                    "field": "Email",
+                    "seqType": "Sequelize.STRING"
+                },
+                "Password": {
+                    "allowNull": false,
+                    "field": "Password",
+                    "seqType": "Sequelize.STRING"
+                },
+                "Avatar": {
+                    "field": "Avatar",
+                    "seqType": "Sequelize.STRING"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
+        "Training_Organizations": {
+            "tableName": "Training_Organizations",
+            "schema": {
+                "Training_Organization_ID": {
+                    "defaultValue": {
+                        "internal": true,
+                        "value": "Sequelize.UUIDV4"
+                    },
+                    "primaryKey": true,
+                    "field": "Training_Organization_ID",
+                    "seqType": "Sequelize.UUID"
+                },
+                "Name": {
+                    "allowNull": false,
+                    "field": "Name",
+                    "seqType": "Sequelize.STRING"
+                },
+                "Email": {
+                    "allowNull": false,
+                    "unique": true,
+                    "field": "Email",
+                    "seqType": "Sequelize.STRING"
+                },
+                "Password": {
+                    "allowNull": false,
+                    "field": "Password",
+                    "seqType": "Sequelize.STRING"
+                },
+                "Avatar": {
+                    "field": "Avatar",
+                    "seqType": "Sequelize.STRING"
+                },
+                "Status": {
+                    "allowNull": false,
+                    "field": "Status",
+                    "seqType": "Sequelize.STRING"
+                },
+                "isAdmin": {
+                    "allowNull": false,
+                    "defaultValue": {
+                        "value": false
+                    },
+                    "field": "isAdmin",
+                    "seqType": "Sequelize.BOOLEAN"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
+        "Weeks": {
+            "tableName": "Weeks",
+            "schema": {
+                "Week_ID": {
+                    "defaultValue": {
+                        "internal": true,
+                        "value": "Sequelize.UUIDV4"
+                    },
+                    "primaryKey": true,
+                    "field": "Week_ID",
+                    "seqType": "Sequelize.UUID"
+                },
+                "Course_ID": {
+                    "allowNull": false,
+                    "field": "Course_ID",
+                    "references": {
+                        "model": "Courses",
+                        "key": "Course_ID"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.UUID"
+                },
+                "Week_Title": {
+                    "allowNull": false,
+                    "field": "Week_Title",
+                    "seqType": "Sequelize.STRING"
+                },
+                "Week_Description": {
+                    "allowNull": false,
+                    "field": "Week_Description",
+                    "seqType": "Sequelize.STRING"
+                },
+                "Target": {
+                    "allowNull": false,
+                    "field": "Target",
+                    "seqType": "Sequelize.STRING"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        }
+    },
+    "revision": 1
+}

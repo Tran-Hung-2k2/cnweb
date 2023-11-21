@@ -1,11 +1,16 @@
 {
-    "type": "module",
+    "type": "commonjs",
     "name": "backend",
     "version": "1.0.0",
     "description": "",
     "main": "server.js",
     "scripts": {
-        "start": "nodemon server.js",
+        "start": "nodemon --exec babel-node server.js",
+        "migrate": "cd src && npx sequelize-cli db:migrate",
+        "migrate:undo": "cd src && npx sequelize-cli db:migrate:undo:all",
+        "seed": "cd src && npx sequelize-cli db:seed:all",
+        "seed:undo": "cd src && npx sequelize-cli db:seed:undo:all",
+        "makemigrations": "cd src && node ./../node_modules/sequelize-auto-migrations-v2/bin/makemigration.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "hung",
