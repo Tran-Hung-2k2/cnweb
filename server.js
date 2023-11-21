@@ -1,18 +1,32 @@
 import express from 'express';
+import cors from 'cors';
 import dotenv from 'dotenv';
+import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-import route from './routes/index.js';
+import { ValidationError } from 'express-validation';
+import route from './src/routes/index.js';
+import api_response from './src/utils/api_response.js';
 
 dotenv.config();
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8080;
 
 const app = express();
 
+app.use(cors());
+app.options('*', cors());
 app.use(cookieParser());
-app.use(express.json());
-app.use(express.static('public'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 route(app);
+
+app.use(function (err, req, res, next) {
+    if (err instanceof ValidationError) {
+        return res.status(err.statusCode).json(err);
+    }
+    console.log(err);
+    return res.status(500).json(api_response(true, 'Có lỗi xảy ra. Vui lòng thử lại sau'));
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
