@@ -5,30 +5,42 @@ module.exports = {
         const data = [
             {
                 Student_ID: 'c3456789-abcd-4ef0-1234-567890abcdef',
-                Name: 'John Doe',
-                Email: 'john.doe@example.com',
-                Password: 'hashed_password_1', // Remember to hash passwords in a real application
-                Avatar: 'path/to/avatar1.jpg',
+                Course_ID: 'n4567890-abcd-4ef0-9012-345678abcdef',
+                Review_Content: 'Great course! Learned a lot.',
+                Review_Star: 5,
+                Date_Achieved: new Date('2023-01-01'),
+                Status: 'Completed',
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
             {
-                Student_ID: 'd4567890-bcde-4f01-2345-67890abcdef1',
-                Name: 'Jane Doe',
-                Email: 'jane.doe@example.com',
-                Password: 'hashed_password_2',
-                Avatar: 'path/to/avatar2.jpg',
+                Student_ID: 'd4567890-bcde-4f01-2345-67890abcdefgh',
+                Course_ID: 'o5678901-bcde-4f01-2345-67890abcdefgh',
+                Review_Content: '',
+                Review_Star: null,
+                Date_Achieved: null,
+                Status: 'Not Completed',
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            },
+            {
+                Student_ID: 'c3456789-abcd-4ef0-1234-567890abcdef',
+                Course_ID: 'p6789012-cdef-4f01-3456-7890abcdefghi',
+                Review_Content: '',
+                Review_Star: null,
+                Date_Achieved: null,
+                Status: 'Pending Approval',
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
         ];
 
-        await queryInterface.bulkInsert('Students', data, {});
+        await queryInterface.bulkInsert('Participating_Courses', data, {});
 
         return Promise.resolve();
     },
 
     down: async (queryInterface, Sequelize) => {
-        await queryInterface.bulkDelete('Students', null, {});
+        await queryInterface.bulkDelete('Participating_Courses', null, {});
     },
 };

@@ -30,11 +30,15 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.UUID,
                 allowNull: false,
             },
-            Week_Title: {
+            Title: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            Week_Description: {
+            Index: {
+                type: DataTypes.INTERGER,
+                allowNull: false,
+            },
+            Description: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },

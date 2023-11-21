@@ -1,6 +1,6 @@
 'use strict';
-
 const bcrypt = require('bcrypt');
+
 module.exports = {
     up: async (queryInterface, Sequelize) => {
         const salt = await bcrypt.genSalt(10);
@@ -16,7 +16,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
-                Student_ID: 'd4567890-bcde-4f01-2345-67890abcdef1',
+                Student_ID: 'd4567890-bcde-4f01-2345-67890abcdefgh',
                 Name: 'Dương Ngọc Hải',
                 Email: 'hai@gmail.com',
                 Password: hashed_user_password,
