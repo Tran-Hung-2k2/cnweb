@@ -5,169 +5,99 @@ import api_response from '../utils/api_response.js';
 import hash_password from '../utils/hash_password.js';
 import send_email from '../utils/send_email.js';
 import generate_random_password from '../utils/generate_random_password.js';
+import async_wrap from '../utils/async_wrap.js';
 
 const PORT = process.env.PORT || 8080;
 
 const controller = {
     // [POST] /api/auth/register/
-    async register(req, res) {
-        try {
-            const { User_Name, Email, User_Password, Gender, Birthday, Phone_Number, Address } = req.body;
-
-            const is_user = await db.User.findOne({ where: { Email } });
-            if (is_user) {
-                return res.status(400).json(api_response(true, 'Email đã được đăng ký trước đó'));
-            }
-
-            const user = await db.User.create({
-                User_Name,
-                Email,
-                User_Password: await hash_password(User_Password),
-                Gender,
-                Birthday,
-                Phone_Number,
-                Address,
-            });
-
-            return res.status(201).json(api_response(false, 'Đăng ký thành công', user));
-        } catch (error) {
-            return res.status(500).json(api_response(true, 'Đăng ký thất bại'));
-        }
-    },
+    register: async_wrap(async (req, res) => {
+        const user = await db.User.create({
+            ...req.body,
+            User_Password: await hash_password(req.body.User_Password),
+        });
+        return res.status(201).json(api_response(false, 'Đăng ký thành công', user));
+    }),
 
     // [POST] /api/auth/login/
-    async login(req, res) {
-        const { Email, User_Password } = req.body;
-
+    login: async_wrap(async (req, res) => {
         const user = await db.User.findOne({
-            where: { Email },
+            where: { Email: req.body.Email },
         });
 
-        if (!user || !(await bcrypt.compare(User_Password, user.User_Password))) {
+        if (!user || !(await bcrypt.compare(req.body.User_Password, user.User_Password)))
             return res.status(401).json(api_response(true, 'Email hoặc mật khẩu không chính xác'));
-        }
 
-        const access_token = token.generate_access_token(user.User_ID);
-        res.cookie('access_token', access_token, {
+        res.cookie('access_token', token.generate_access_token(user.User_ID), {
             httpOnly: true,
         });
-
-        const refresh_token = token.generate_refresh_token(user.User_ID);
-        res.cookie('refresh_token', refresh_token, {
+        res.cookie('refresh_token', token.generate_refresh_token(user.User_ID), {
             httpOnly: true,
         });
-
-        console.log(user);
 
         return res.status(200).json(api_response(false, 'Đăng nhập thành công', user));
-    },
+    }),
 
     // [POST] /api/auth/change_password/
-    async change_password(req, res) {
-        try {
-            const { Email, Old_Password, New_Password, Confirm_Password } = req.body;
+    change_password: async_wrap(async (req, res) => {
+        const user = await db.User.findOne({
+            where: { Email: req.body.Email },
+        });
 
-            const user = await db.User.findOne({
-                where: { Email },
-            });
+        if (!user || !(await bcrypt.compare(req.body.Old_Password, user.User_Password)))
+            return res.status(401).json(api_response(true, 'Email hoặc mật khẩu không chính xác'));
 
-            if (!user || !(await bcrypt.compare(Old_Password, user.User_Password))) {
-                return res.status(401).json(api_response(true, 'Email hoặc mật khẩu không chính xác'));
-            }
+        user.User_Password = await hash_password(req.body.User_Password);
+        await user.save();
 
-            if (New_Password != Confirm_Password) {
-                return res.status(401).json(api_response(true, 'Mật khẩu xác nhận không chính xác'));
-            }
-
-            // Đặt lại mật khẩu cho người dùng
-            user.User_Password = await hash_password(New_Password);
-            await user.save();
-            return res.status(401).json(api_response(true, 'Đổi mật khẩu thành công'));
-        } catch (error) {
-            return res.status(500).json(api_response(true, 'Đổi mật khẩu thất bại'));
-        }
-    },
+        return res.status(401).json(api_response(true, 'Đổi mật khẩu thành công'));
+    }),
 
     // [POST] /api/auth/forget_password/
-    async forget_password(req, res) {
-        try {
-            const { Email } = req.body;
-            const isUser = await db.User.findOne({ where: { Email } });
-
-            if (!isUser) {
-                return res.status(400).json(api_response(true, 'Email chưa được đăng ký tài khoản'));
-            }
-
-            // Tạo và lưu trữ token reset password
-            const reset_pass_token = token.generate_reset_password_token(Email);
-
-            // Gửi email xác nhận với link reset password
-            const is_send = await send_email(
-                Email,
-                'Reset Password',
-                `Click the following link to reset your password: http://127.0.0.1:${PORT}/api/auth/verify_forget_password?reset_pass_token=${reset_pass_token}`,
-            );
-
-            // Phản hồi thành công
-            if (is_send)
-                return res
-                    .status(200)
-                    .json(api_response(false, 'Email xác nhận đã được gửi. Vui lòng kiểm tra hộp thư đến của bạn.'));
-            else return res.status(500).json(api_response(true, 'Gửi email thất bại vui lòng thử lại sau'));
-        } catch (error) {
-            return res.status(500).json(api_response(true, 'Đặt lại mật khẩu thất bại'));
-        }
-    },
+    forget_password: async_wrap(async (req, res) => {
+        const reset_pass_token = token.generate_reset_password_token(req.body.Email);
+        await send_email(
+            req.body.Email,
+            'Reset Password',
+            `Click the following link to reset your password: http://127.0.0.1:${PORT}/api/auth/verify_forget_password?reset_pass_token=${reset_pass_token}`,
+        );
+        return res
+            .status(200)
+            .json(api_response(false, 'Email xác nhận đã được gửi. Vui lòng kiểm tra hộp thư đến của bạn.'));
+    }),
 
     // [GET] /api/auth/verify_forget_password/
-    async verify_forget_password(req, res) {
-        try {
-            const { reset_pass_token } = req.query;
-
-            // Xác minh token
-            token.verify_token(reset_pass_token, process.env.JWT_RESET_PASSWORD_KEY, async (err, token_decode) => {
-                if (err) {
-                    return res.status(403).json(api_response(true, 'Token đã hết hạn hoặc không chính xác'));
-                }
-                // Lấy thông tin người dùng từ token
-                const { Email } = token_decode;
-
-                // Tìm người dùng theo email
-                const user = await db.User.findOne({ where: { Email } });
-
-                if (!user) {
-                    return res.status(404).json(api_response(true, 'Người dùng không tồn tại'));
-                }
-
-                // Đặt lại mật khẩu cho người dùng
+    verify_forget_password: async_wrap(async (req, res) => {
+        token.verify_token(
+            req.query.reset_pass_token,
+            process.env.JWT_RESET_PASSWORD_KEY,
+            async (err, token_decode) => {
+                if (err) return res.status(403).json(api_response(true, 'Token không chính xác'));
+                const user = await db.User.findOne({ where: { Email: token_decode.Email } });
                 const new_password = generate_random_password(6);
                 user.User_Password = await hash_password(new_password);
                 await user.save();
 
-                // Gửi email xác nhận mật khẩu đã được thay đổi
                 await send_email(
-                    Email,
+                    token_decode.Email,
                     'Đặt lại mật khẩu thành công',
                     `Mật khẩu của bạn đã được đặt lại thành công. Mật khẩu mới của bạn là ${new_password}, vui lòng không chia sẻ mật khẩu với người khác.`,
                 );
 
-                // Phản hồi thành công
                 return res
                     .status(200)
                     .json(
                         api_response(
                             false,
-                            'Mật khẩu đã được đặt lại thành công và được gửi về email của bạn. Vui lỏng kiểm tra hộp thư đến của bạn.',
+                            'Mật khẩu đã được đặt lại thành công và được gửi về email của bạn. Vui lòng kiểm tra hộp thư đến của bạn.',
                         ),
                     );
-            });
-        } catch (error) {
-            return res.status(500).json(api_response(true, 'Xác nhận mật khẩu thất bại'));
-        }
-    },
+            },
+        );
+    }),
 
     // [POST] /api/auth/refresh_token/
-    async refresh_token(req, res) {
+    refresh_token: async_wrap(async (req, res) => {
         const refresh_token = req.cookies.refresh_token;
         if (!refresh_token) return res.status(401).json(api_response(true, 'Vui lòng đăng nhập để tiếp tục'));
 
@@ -181,14 +111,14 @@ const controller = {
             });
             return res.status(200).json(api_response(false, 'Làm mới access token thành công'));
         });
-    },
+    }),
 
     // [POST] /api/auth/logout/
-    async logout(req, res) {
+    logout: async_wrap(async (req, res) => {
         res.clearCookie('access_token');
         res.clearCookie('refresh_token');
         return res.status(200).json(api_response(false, 'Đăng xuất thành công'));
-    },
+    }),
 };
 
 export default controller;

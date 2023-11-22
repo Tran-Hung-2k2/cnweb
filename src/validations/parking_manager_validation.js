@@ -1,6 +1,6 @@
 import { Joi } from 'express-validation';
 
-const parking_manager_validation = {
+const validation = {
     // [POST] api/parking_manager/
     add_parking_manager: () => ({
         body: Joi.object({
@@ -17,4 +17,4 @@ const parking_manager_validation = {
     }),
 };
 
-export default parking_manager_validation;
+export default validation;

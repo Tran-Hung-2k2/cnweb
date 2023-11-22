@@ -1,13 +1,13 @@
 import { Joi } from 'express-validation';
 import messages from '../utils/validation_message';
+import custom_validation from './custom_validation';
 
-const auth_validation = {
+const validation = {
     // [POST] /api/auth/register/
     register: () => ({
         body: Joi.object({
             User_Name: Joi.string()
                 .trim()
-                .min(1)
                 .required()
                 .label('Tên người dùng')
                 .messages({
@@ -16,12 +16,19 @@ const auth_validation = {
             Email: Joi.string()
                 .email()
                 .required()
+                .external(custom_validation.isNotRegistered)
                 .messages({
                     ...messages,
                 }),
             User_Password: Joi.string()
                 .required()
                 .label('Mật khẩu')
+                .messages({
+                    ...messages,
+                }),
+            Confirm_Password: Joi.string()
+                .required()
+                .label('Mật khẩu xác nhận')
                 .messages({
                     ...messages,
                 }),
@@ -46,7 +53,12 @@ const auth_validation = {
                 .messages({
                     ...messages,
                 }),
-        }).unknown(true),
+        })
+            .unknown(false)
+            .custom(custom_validation.confirmPassword)
+            .messages({
+                ...messages,
+            }),
     }),
 
     // [POST] /api/auth/login/
@@ -86,7 +98,7 @@ const auth_validation = {
                 .messages({
                     ...messages,
                 }),
-            New_Password: Joi.string()
+            User_Password: Joi.string()
                 .required()
                 .label('Mật khẩu mới')
                 .messages({
@@ -98,7 +110,12 @@ const auth_validation = {
                 .messages({
                     ...messages,
                 }),
-        }),
+        })
+            .unknown(false)
+            .custom(custom_validation.confirmPassword)
+            .messages({
+                ...messages,
+            }),
     }),
 
     // [POST] /api/auth/forget_password/
@@ -107,6 +124,7 @@ const auth_validation = {
             Email: Joi.string()
                 .email()
                 .required()
+                .external(custom_validation.isRegistered)
                 .messages({
                     ...messages,
                 }),
@@ -129,4 +147,4 @@ const auth_validation = {
     }),
 };
 
-export default auth_validation;
+export default validation;

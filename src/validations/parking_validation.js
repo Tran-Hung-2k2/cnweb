@@ -1,6 +1,6 @@
 import { Joi } from 'express-validation';
 
-const auth_validation = {
+const validation = {
     // [POST] api/parking/
     add_parking: () => ({
         body: Joi.object({
@@ -21,4 +21,4 @@ const auth_validation = {
     }),
 };
 
-export default auth_validation;
+export default validation;
