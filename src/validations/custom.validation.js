@@ -43,6 +43,27 @@ const validation = {
             return helpers.message(error.message);
         }
     },
+
+    isManager: async (value, helpers) => {
+        try {
+            const manager = await db.User.findByPk(value);
+            if (!manager || (manager.Role != 'manager' && manager.Role != 'admin'))
+                return helpers.message('Không tìm thấy người quản lý');
+            return value;
+        } catch (error) {
+            return helpers.message(error.message);
+        }
+    },
+
+    isParking: async (value, helpers) => {
+        try {
+            const isParking = await db.Parking.findByPk(value);
+            if (!isParking) return helpers.message('Không tìm thấy bãi đỗ xe');
+            return value;
+        } catch (error) {
+            return helpers.message(error.message);
+        }
+    },
 };
 
 export default validation;

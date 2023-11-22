@@ -1,6 +1,6 @@
 import { Joi } from 'express-validation';
 import messages from '../utils/validation_message';
-import custom_validation from './custom_validation';
+import custom_validation from './custom.validation';
 
 const validation = {
     // [GET] /api/parking_card/user/:id
@@ -31,10 +31,14 @@ const validation = {
         }),
     }),
 
-    // [PUT] api/parking_card/:id
+    // [PATCH] api/parking_card/:id
     update_parking_card: () => ({
         body: Joi.object({
-            Is_Lock: Joi.boolean().required(),
+            Is_Lock: Joi.boolean()
+                .required()
+                .messages({
+                    ...messages,
+                }),
         }),
     }),
 };

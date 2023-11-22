@@ -52,11 +52,8 @@ const controller = {
             where: { Card_ID: req.params.id },
         });
 
-        if (result === 1) {
-            return res.status(200).json(api_response(false, 'Xóa thẻ gửi xe thành công'));
-        } else {
-            return res.status(404).json(api_response(true, 'Không tìm thấy thẻ gửi xe'));
-        }
+        if (result === 1) return res.status(200).json(api_response(false, 'Xóa thẻ gửi xe thành công'));
+        else return res.status(404).json(api_response(true, 'Không tìm thấy thẻ gửi xe'));
     }),
 };
 

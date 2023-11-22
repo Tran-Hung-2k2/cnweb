@@ -1,6 +1,6 @@
 import { Joi } from 'express-validation';
 import messages from '../utils/validation_message';
-import custom_validation from './custom_validation';
+import custom_validation from './custom.validation';
 
 const validation = {
     // [POST] /api/auth/register/
