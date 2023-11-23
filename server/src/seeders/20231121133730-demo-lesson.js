@@ -4,31 +4,44 @@ module.exports = {
     up: async (queryInterface, Sequelize) => {
         const data = [
             {
-                Student_ID: 'c3456789-abcd-4ef0-1234-567890abcdef',
-                Name: 'John Doe',
-                Email: 'john.doe@example.com',
-                Password: 'hashed_password_1', // Remember to hash passwords in a real application
-                Avatar: 'path/to/avatar1.jpg',
+                Lesson_ID: 'x1234567-abcd-4ef0-9012-345678abcdef',
+                Lecture_ID: 'u1234567-abcd-4ef0-9012-345678abcdef',
+                Title: 'Course Introduction',
+                Type: 'Reading',
+                Time: 1 * 60,
+                Content: 'Welcome to the course! In this lesson, we introduce the course content and objectives.',
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
             {
-                Student_ID: 'd4567890-bcde-4f01-2345-67890abcdef1',
-                Name: 'Jane Doe',
-                Email: 'jane.doe@example.com',
-                Password: 'hashed_password_2',
-                Avatar: 'path/to/avatar2.jpg',
+                Lesson_ID: 'y2345678-bcde-4f01-2345-67890abcdefgh',
+                Lecture_ID: 'u1234567-abcd-4ef0-9012-345678abcdef',
+                Title: 'Business Ethics',
+                Type: 'Reading',
+                Time: 5 * 60,
+                Content:
+                    "This lesson covers the principles of business ethics and its importance in today's business environment.",
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            },
+            {
+                Lesson_ID: 'z3456789-cdef-4f01-3456-7890abcdefghi',
+                Lecture_ID: 'u1234567-abcd-4ef0-9012-345678abcdef',
+                Title: 'Data Visualization Techniques',
+                Type: 'Video',
+                Time: 10 * 60,
+                Content: 'Explore various data visualization techniques and tools for effective analysis.',
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
         ];
 
-        await queryInterface.bulkInsert('Students', data, {});
+        await queryInterface.bulkInsert('Lessons', data, {});
 
         return Promise.resolve();
     },
 
     down: async (queryInterface, Sequelize) => {
-        await queryInterface.bulkDelete('Students', null, {});
+        await queryInterface.bulkDelete('Lessons', null, {});
     },
 };

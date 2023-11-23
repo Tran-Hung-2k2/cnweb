@@ -4,31 +4,34 @@ module.exports = {
     up: async (queryInterface, Sequelize) => {
         const data = [
             {
-                Student_ID: 'c3456789-abcd-4ef0-1234-567890abcdef',
-                Name: 'John Doe',
-                Email: 'john.doe@example.com',
-                Password: 'hashed_password_1', // Remember to hash passwords in a real application
-                Avatar: 'path/to/avatar1.jpg',
+                Lecture_ID: 'u1234567-abcd-4ef0-9012-345678abcdef',
+                Week_ID: 'r1234567-abcd-4ef0-9012-345678abcdef',
+                Lecture_Title: 'Introduction to the Course Material',
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
             {
-                Student_ID: 'd4567890-bcde-4f01-2345-67890abcdef1',
-                Name: 'Jane Doe',
-                Email: 'jane.doe@example.com',
-                Password: 'hashed_password_2',
-                Avatar: 'path/to/avatar2.jpg',
+                Lecture_ID: 'v2345678-bcde-4f01-2345-67890abcdefgh',
+                Week_ID: 'r1234567-abcd-4ef0-9012-345678abcdef',
+                Lecture_Title: 'Business Fundamentals Overview',
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            },
+            {
+                Lecture_ID: 'w3456789-cdef-4f01-3456-7890abcdefghi',
+                Week_ID: 'r1234567-abcd-4ef0-9012-345678abcdef',
+                Lecture_Title: 'Exploring Data Analysis Techniques',
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
         ];
 
-        await queryInterface.bulkInsert('Students', data, {});
+        await queryInterface.bulkInsert('Lectures', data, {});
 
         return Promise.resolve();
     },
 
     down: async (queryInterface, Sequelize) => {
-        await queryInterface.bulkDelete('Students', null, {});
+        await queryInterface.bulkDelete('Lectures', null, {});
     },
 };

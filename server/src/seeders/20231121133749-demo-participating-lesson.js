@@ -5,30 +5,33 @@ module.exports = {
         const data = [
             {
                 Student_ID: 'c3456789-abcd-4ef0-1234-567890abcdef',
-                Name: 'John Doe',
-                Email: 'john.doe@example.com',
-                Password: 'hashed_password_1', // Remember to hash passwords in a real application
-                Avatar: 'path/to/avatar1.jpg',
+                Lesson_ID: 'x1234567-abcd-4ef0-9012-345678abcdef',
+                Status: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
             {
-                Student_ID: 'd4567890-bcde-4f01-2345-67890abcdef1',
-                Name: 'Jane Doe',
-                Email: 'jane.doe@example.com',
-                Password: 'hashed_password_2',
-                Avatar: 'path/to/avatar2.jpg',
+                Student_ID: 'c3456789-abcd-4ef0-1234-567890abcdef',
+                Lesson_ID: 'y2345678-bcde-4f01-2345-67890abcdefgh',
+                Status: false,
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            },
+            {
+                Student_ID: 'c3456789-abcd-4ef0-1234-567890abcdef',
+                Lesson_ID: 'z3456789-cdef-4f01-3456-7890abcdefghi',
+                Status: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
         ];
 
-        await queryInterface.bulkInsert('Students', data, {});
+        await queryInterface.bulkInsert('Participating_Lessons', data, {});
 
         return Promise.resolve();
     },
 
     down: async (queryInterface, Sequelize) => {
-        await queryInterface.bulkDelete('Students', null, {});
+        await queryInterface.bulkDelete('Participating_Lessons', null, {});
     },
 };

@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false,
             },
             Time: {
-                type: DataTypes.STRING,
+                type: DataTypes.INTERGER,
                 allowNull: false,
             },
             Content: {
