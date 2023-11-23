@@ -38,6 +38,7 @@ module.exports = (sequelize, DataTypes) => {
             Avatar: DataTypes.STRING,
             Status: {
                 type: DataTypes.STRING,
+                defaultValue: '',
                 allowNull: false,
             },
             isAdmin: {

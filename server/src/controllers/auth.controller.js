@@ -14,7 +14,7 @@ const controller = {
     register: async_wrap(async (req, res) => {
         const user = await db.User.create({
             ...req.body,
-            User_Password: await hash_password(req.body.User_Password),
+            Password: await hash_password(req.body.Password),
         });
         return res.status(201).json(api_response(false, 'Đăng ký thành công', user));
     }),
@@ -25,7 +25,7 @@ const controller = {
             where: { Email: req.body.Email },
         });
 
-        if (!user || !(await bcrypt.compare(req.body.User_Password, user.User_Password)))
+        if (!user || !(await bcrypt.compare(req.body.Password, user.Password)))
             return res.status(401).json(api_response(true, 'Email hoặc mật khẩu không chính xác'));
 
         res.cookie('access_token', token.generate_access_token(user.User_ID), {
@@ -44,10 +44,10 @@ const controller = {
             where: { Email: req.body.Email },
         });
 
-        if (!user || !(await bcrypt.compare(req.body.Old_Password, user.User_Password)))
+        if (!user || !(await bcrypt.compare(req.body.Old_Password, user.Password)))
             return res.status(401).json(api_response(true, 'Email hoặc mật khẩu không chính xác'));
 
-        user.User_Password = await hash_password(req.body.User_Password);
+        user.Password = await hash_password(req.body.Password);
         await user.save();
 
         return res.status(401).json(api_response(true, 'Đổi mật khẩu thành công'));
@@ -75,7 +75,7 @@ const controller = {
                 if (err) return res.status(403).json(api_response(true, 'Token không chính xác'));
                 const user = await db.User.findOne({ where: { Email: token_decode.Email } });
                 const new_password = generate_random_password(6);
-                user.User_Password = await hash_password(new_password);
+                user.Password = await hash_password(new_password);
                 await user.save();
 
                 await send_email(

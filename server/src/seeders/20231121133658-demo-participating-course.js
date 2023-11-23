@@ -1,5 +1,7 @@
 'use strict';
 
+const label = require('../constants/label');
+
 module.exports = {
     up: async (queryInterface, Sequelize) => {
         const data = [
@@ -9,7 +11,7 @@ module.exports = {
                 Review_Content: 'Great course! Learned a lot.',
                 Review_Star: 5,
                 Date_Achieved: new Date('2023-01-01'),
-                Status: 'Completed',
+                Status: label.parti_course.COMPLETED,
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
@@ -19,7 +21,7 @@ module.exports = {
                 Review_Content: '',
                 Review_Star: null,
                 Date_Achieved: null,
-                Status: 'Not Completed',
+                Status: label.parti_course.NOT_COMPLETED,
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
@@ -29,7 +31,7 @@ module.exports = {
                 Review_Content: '',
                 Review_Star: null,
                 Date_Achieved: null,
-                Status: 'Pending Approval',
+                Status: label.parti_course.PENDING_APPROVAL,
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },

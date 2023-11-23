@@ -20,7 +20,7 @@ const validation = {
                 .messages({
                     ...messages,
                 }),
-            User_Password: Joi.string()
+            Password: Joi.string()
                 .required()
                 .label('Mật khẩu')
                 .messages({
@@ -70,7 +70,7 @@ const validation = {
                 .messages({
                     ...messages,
                 }),
-            User_Password: Joi.string()
+            Password: Joi.string()
                 .required()
                 .label('Mật khẩu')
                 .messages({
@@ -98,7 +98,7 @@ const validation = {
                 .messages({
                     ...messages,
                 }),
-            User_Password: Joi.string()
+            Password: Joi.string()
                 .required()
                 .label('Mật khẩu mới')
                 .messages({

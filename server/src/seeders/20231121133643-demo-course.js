@@ -1,4 +1,5 @@
 'use strict';
+const label = require('../constants/label');
 
 module.exports = {
     up: async (queryInterface, Sequelize) => {
@@ -9,9 +10,9 @@ module.exports = {
                 Category_ID: 'g7890123-abcd-4ef0-9012-345678abcdef',
                 Name: 'Introduction to Data Science',
                 Description: 'A beginner-friendly course on data science principles.',
-                Level: 'Beginner',
+                Level: label.course_level.BEGINNER,
                 isNeedReview: false,
-                Status: 'Visible',
+                Status: label.course.VISIBLE,
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
@@ -21,9 +22,9 @@ module.exports = {
                 Category_ID: 'h8901234-bcde-4f01-2345-67890abcdefgh1',
                 Name: 'Business Fundamentals',
                 Description: 'Learn the basics of business operations and management.',
-                Level: 'Intermediate',
+                Level: label.course_level.INTERMEDIATE,
                 isNeedReview: true,
-                Status: 'Pending Approval',
+                Status: label.course.PENDING_APPROVAL,
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
@@ -33,9 +34,9 @@ module.exports = {
                 Category_ID: 'i9012345-cdef-4f01-3456-7890abcdefghi2',
                 Name: 'Advanced Data Analysis',
                 Description: 'Explore advanced techniques in data analysis and visualization.',
-                Level: 'Advanced',
+                Level: label.course_level.ADVANCED,
                 isNeedReview: false,
-                Status: 'Hidden',
+                Status: label.course.HIDDEN,
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
@@ -45,9 +46,9 @@ module.exports = {
                 Category_ID: 'j0123456-defg-4f01-4567-890abcijklmn3',
                 Name: 'Strategic Business Management',
                 Description: 'Develop strategic thinking and decision-making skills for business leaders.',
-                Level: 'Expert',
+                Level: label.course_level.EXPERT,
                 isNeedReview: true,
-                Status: 'Visible',
+                Status: label.course.VISIBLE,
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
