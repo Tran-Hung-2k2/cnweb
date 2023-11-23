@@ -176,10 +176,10 @@
                     "field": "Type",
                     "seqType": "Sequelize.STRING"
                 },
-                "Time": {
+                "Duration": {
                     "allowNull": false,
-                    "field": "Time",
-                    "seqType": "Sequelize.STRING"
+                    "field": "Duration",
+                    "seqType": "Sequelize.INTEGER"
                 },
                 "Content": {
                     "allowNull": false,
@@ -474,14 +474,19 @@
                     "onUpdate": "CASCADE",
                     "seqType": "Sequelize.UUID"
                 },
-                "Week_Title": {
+                "Title": {
                     "allowNull": false,
-                    "field": "Week_Title",
+                    "field": "Title",
                     "seqType": "Sequelize.STRING"
                 },
-                "Week_Description": {
+                "Index": {
                     "allowNull": false,
-                    "field": "Week_Description",
+                    "field": "Index",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "Description": {
+                    "allowNull": false,
+                    "field": "Description",
                     "seqType": "Sequelize.STRING"
                 },
                 "Target": {

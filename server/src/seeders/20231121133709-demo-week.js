@@ -35,12 +35,12 @@ module.exports = {
             },
         ];
 
-        await queryInterface.bulkInsert('Students', data, {});
+        await queryInterface.bulkInsert('Weeks', data, {});
 
         return Promise.resolve();
     },
 
     down: async (queryInterface, Sequelize) => {
-        await queryInterface.bulkDelete('Students', null, {});
+        await queryInterface.bulkDelete('Weeks', null, {});
     },
 };

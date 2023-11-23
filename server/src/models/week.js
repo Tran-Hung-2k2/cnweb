@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false,
             },
             Index: {
-                type: DataTypes.INTERGER,
+                type: DataTypes.INTEGER,
                 allowNull: false,
             },
             Description: {
