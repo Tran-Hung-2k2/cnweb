@@ -3,55 +3,118 @@ import messages from '../utils/validation_message';
 import custom_validation from './custom.validation';
 
 const validation = {
-    // [POST] api/parking/
-    add_parking: () => ({
-        body: Joi.object({
-            Parking_Name: Joi.string()
+    // [GET] /api/week/:id
+    get_week_by_id: () => ({
+        params: Joi.object({
+            id: Joi.string()
                 .required()
-                .messages({
-                    ...messages,
-                }),
-            Address: Joi.string().messages({
-                ...messages,
-            }),
-            Max_Space: Joi.number()
-                .integer()
-                .min(0)
+                .custom(custom_validation.uuidv4Id)
                 .messages({
                     ...messages,
                 }),
         })
             .unknown(false)
-            .custom(custom_validation.confirmPassword)
             .messages({
                 ...messages,
             }),
     }),
 
-    // [PATCH] api/parking/:id
-    update_parking: () => ({
+    // [POST] /api/week/
+    add_week: () => ({
         body: Joi.object({
-            Parking_Name: Joi.string().messages({
-                ...messages,
-            }),
-            Address: Joi.string().messages({
-                ...messages,
-            }),
-            Max_Space: Joi.number()
-                .integer()
-                .min(0)
+            Course_ID: Joi.string()
+                .required()
+                .custom(custom_validation.uuidv4Id)
+                .label('ID Khóa học')
                 .messages({
                     ...messages,
                 }),
-            Number_Of_Vehicles: Joi.number()
-                .integer()
-                .min(0)
+            Title: Joi.string()
+                .required()
+                .label('Tiêu đề')
+                .messages({
+                    ...messages,
+                }),
+            Index: Joi.integer()
+                .positive()
+                .required()
+                .label('Thứ tự')
+                .messages({
+                    ...messages,
+                }),
+            Description: Joi.string()
+                .required()
+                .label('Miêu tả')
+                .messages({
+                    ...messages,
+                }),
+            Target: Joi.string()
+                .required()
+                .label('Mục tiêu')
                 .messages({
                     ...messages,
                 }),
         })
             .unknown(false)
-            .custom(custom_validation.confirmPassword)
+            .messages({
+                ...messages,
+            }),
+    }),
+
+    // [PATCH] /api/week/:id
+    update_week: () => ({
+        params: Joi.object({
+            id: Joi.string()
+                .required()
+                .custom(custom_validation.uuidv4Id)
+                .messages({
+                    ...messages,
+                }),
+        })
+            .unknown(false)
+            .messages({
+                ...messages,
+            }),
+        body: Joi.object({
+            Title: Joi.string()
+                .label('Tiêu đề')
+                .messages({
+                    ...messages,
+                }),
+            Index: Joi.integer()
+                .positive()
+                .label('Thứ tự')
+                .messages({
+                    ...messages,
+                }),
+            Description: Joi.string()
+                .label('Miêu tả')
+                .messages({
+                    ...messages,
+                }),
+            Target: Joi.string()
+                .label('Mục tiêu')
+                .messages({
+                    ...messages,
+                }),
+        })
+            .unknown(false)
+            .messages({
+                ...messages,
+            }),
+    }),
+
+    // [DELETE] /api/week/:id
+    delete_week: () => ({
+        params: Joi.object({
+            id: Joi.string()
+                .required()
+                .custom(custom_validation.uuidv4Id)
+                .messages({
+                    ...messages,
+                }),
+        })
+            .unknown(false)
             .messages({
                 ...messages,
             }),

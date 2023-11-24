@@ -32,7 +32,7 @@ const controller = {
         const course = await db.Course.findByPk(req.params.id);
         if (!course) return res.status(404).json(api_response(true, 'Không tìm thấy khóa học'));
         if (course.User_ID != req.token.id)
-            return res.status(404).json(api_response(true, 'Bạn không có quyền chỉnh sửa khóa học này'));
+            return res.status(403).json(api_response(true, 'Bạn không có quyền chỉnh sửa khóa học này'));
 
         course.Category_ID = req.body.Category_ID || course.Category_ID;
         course.Name = req.body.Name || course.Name;
@@ -50,10 +50,10 @@ const controller = {
         const course = await db.Course.findByPk(req.params.id);
         if (!course) return res.status(404).json(api_response(true, 'Không tìm thấy khóa học'));
         if (course.User_ID != req.token.id)
-            return res.status(404).json(api_response(true, 'Bạn không có quyền chỉnh sửa khóa học này'));
+            return res.status(403).json(api_response(true, 'Bạn không có quyền chỉnh sửa khóa học này'));
 
         await db.Course.destroy({
-            where: { Course_ID: course.User_ID },
+            where: { Course_ID: req.params.id },
         });
 
         return res.status(200).json(api_response(false, 'Xóa khóa học thành công'));
