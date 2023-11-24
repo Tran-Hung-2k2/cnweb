@@ -17,10 +17,10 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: 'Lesson_ID',
             });
 
-            Lesson.belongsToMany(models.Student, {
+            Lesson.belongsToMany(models.User, {
                 through: 'Participating_Lesson',
                 foreignKey: 'Lesson_ID',
-                otherKey: 'Student_ID',
+                otherKey: 'User_ID',
             });
         }
     }

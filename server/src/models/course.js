@@ -9,18 +9,18 @@ module.exports = (sequelize, DataTypes) => {
          * Tệp `models/index` sẽ tự động gọi phương thức này.
          */
         static associate(models) {
-            Course.belongsTo(models.Training_Organization, {
-                foreignKey: 'Organization_ID',
+            Course.belongsTo(models.User, {
+                foreignKey: 'User_ID',
             });
 
             Course.belongsTo(models.Category, {
                 foreignKey: 'Category_ID',
             });
 
-            Course.belongsToMany(models.Student, {
+            Course.belongsToMany(models.User, {
                 through: 'Participating_Course',
                 foreignKey: 'Course_ID',
-                otherKey: 'Student_ID',
+                otherKey: 'User_ID',
             });
 
             Course.hasMany(models.Week, {
@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
                 defaultValue: DataTypes.UUIDV4,
                 primaryKey: true,
             },
-            Organization_ID: {
+            User_ID: {
                 type: DataTypes.UUID,
                 allowNull: false,
             },
@@ -56,7 +56,7 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            isNeedReview: {
+            Need_Approval: {
                 type: DataTypes.BOOLEAN,
                 allowNull: false,
             },

@@ -32,7 +32,7 @@ module.exports = {
                 Title: 'Data Visualization Techniques',
                 Type: label.lesson_type.VIDEO,
                 Duration: 10 * 60,
-                Content: 'Explore various data visualization techniques and tools for effective analysis.',
+                Content: 'https://youtu.be/fNs6_k5sWiU?si=RybnrcNDXQDN-U6W',
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },

@@ -6,22 +6,21 @@ var Sequelize = require('sequelize');
  * Actions summary:
  *
  * createTable "Categories", deps: []
- * createTable "Students", deps: []
- * createTable "Training_Organizations", deps: []
- * createTable "Courses", deps: [Training_Organizations, Categories]
+ * createTable "Users", deps: []
+ * createTable "Courses", deps: [Users, Categories]
  * createTable "Weeks", deps: [Courses]
  * createTable "Lectures", deps: [Weeks]
  * createTable "Lessons", deps: [Lectures]
- * createTable "Participating_Courses", deps: [Students, Courses]
+ * createTable "Participating_Courses", deps: [Users, Courses]
  * createTable "Notes", deps: [Lessons]
- * createTable "Participating_Lessons", deps: [Students, Lessons]
+ * createTable "Participating_Lessons", deps: [Users, Lessons]
  *
  **/
 
 var info = {
     "revision": 1,
     "name": "noname",
-    "created": "2023-11-23T12:12:07.935Z",
+    "created": "2023-11-24T00:20:50.138Z",
     "comment": ""
 };
 
@@ -58,56 +57,11 @@ var migrationCommands = [{
     {
         fn: "createTable",
         params: [
-            "Students",
+            "Users",
             {
-                "Student_ID": {
+                "User_ID": {
                     "type": Sequelize.UUID,
-                    "field": "Student_ID",
-                    "primaryKey": true,
-                    "defaultValue": Sequelize.UUIDV4
-                },
-                "Name": {
-                    "type": Sequelize.STRING,
-                    "field": "Name",
-                    "allowNull": false
-                },
-                "Email": {
-                    "type": Sequelize.STRING,
-                    "field": "Email",
-                    "unique": true,
-                    "allowNull": false
-                },
-                "Password": {
-                    "type": Sequelize.STRING,
-                    "field": "Password",
-                    "allowNull": false
-                },
-                "Avatar": {
-                    "type": Sequelize.STRING,
-                    "field": "Avatar"
-                },
-                "createdAt": {
-                    "type": Sequelize.DATE,
-                    "field": "createdAt",
-                    "allowNull": false
-                },
-                "updatedAt": {
-                    "type": Sequelize.DATE,
-                    "field": "updatedAt",
-                    "allowNull": false
-                }
-            },
-            {}
-        ]
-    },
-    {
-        fn: "createTable",
-        params: [
-            "Training_Organizations",
-            {
-                "Training_Organization_ID": {
-                    "type": Sequelize.UUID,
-                    "field": "Training_Organization_ID",
+                    "field": "User_ID",
                     "primaryKey": true,
                     "defaultValue": Sequelize.UUIDV4
                 },
@@ -136,10 +90,9 @@ var migrationCommands = [{
                     "field": "Status",
                     "allowNull": false
                 },
-                "isAdmin": {
-                    "type": Sequelize.BOOLEAN,
-                    "field": "isAdmin",
-                    "defaultValue": false,
+                "Role": {
+                    "type": Sequelize.STRING,
+                    "field": "Role",
                     "allowNull": false
                 },
                 "createdAt": {
@@ -167,15 +120,15 @@ var migrationCommands = [{
                     "primaryKey": true,
                     "defaultValue": Sequelize.UUIDV4
                 },
-                "Organization_ID": {
+                "User_ID": {
                     "type": Sequelize.UUID,
                     "onUpdate": "CASCADE",
                     "onDelete": "NO ACTION",
                     "references": {
-                        "model": "Training_Organizations",
-                        "key": "Training_Organization_ID"
+                        "model": "Users",
+                        "key": "User_ID"
                     },
-                    "field": "Organization_ID",
+                    "field": "User_ID",
                     "allowNull": false
                 },
                 "Category_ID": {
@@ -204,9 +157,9 @@ var migrationCommands = [{
                     "field": "Level",
                     "allowNull": false
                 },
-                "isNeedReview": {
+                "Need_Approval": {
                     "type": Sequelize.BOOLEAN,
-                    "field": "isNeedReview",
+                    "field": "Need_Approval",
                     "allowNull": false
                 },
                 "Status": {
@@ -386,22 +339,22 @@ var migrationCommands = [{
         params: [
             "Participating_Courses",
             {
-                "Student_ID": {
+                "User_ID": {
                     "type": Sequelize.UUID,
-                    "unique": "Participating_Courses_Student_ID_Course_ID_unique",
+                    "unique": "Participating_Courses_User_ID_Course_ID_unique",
                     "onUpdate": "CASCADE",
                     "onDelete": "CASCADE",
                     "references": {
-                        "model": "Students",
-                        "key": "Student_ID"
+                        "model": "Users",
+                        "key": "User_ID"
                     },
                     "primaryKey": true,
-                    "field": "Student_ID",
+                    "field": "User_ID",
                     "allowNull": false
                 },
                 "Course_ID": {
                     "type": Sequelize.UUID,
-                    "unique": "Participating_Courses_Student_ID_Course_ID_unique",
+                    "unique": "Participating_Courses_User_ID_Course_ID_unique",
                     "onUpdate": "CASCADE",
                     "onDelete": "CASCADE",
                     "references": {
@@ -488,22 +441,22 @@ var migrationCommands = [{
         params: [
             "Participating_Lessons",
             {
-                "Student_ID": {
+                "User_ID": {
                     "type": Sequelize.UUID,
-                    "unique": "Participating_Lessons_Student_ID_Lesson_ID_unique",
+                    "unique": "Participating_Lessons_User_ID_Lesson_ID_unique",
                     "onUpdate": "CASCADE",
                     "onDelete": "CASCADE",
                     "references": {
-                        "model": "Students",
-                        "key": "Student_ID"
+                        "model": "Users",
+                        "key": "User_ID"
                     },
                     "primaryKey": true,
-                    "field": "Student_ID",
+                    "field": "User_ID",
                     "allowNull": false
                 },
                 "Lesson_ID": {
                     "type": Sequelize.UUID,
-                    "unique": "Participating_Lessons_Student_ID_Lesson_ID_unique",
+                    "unique": "Participating_Lessons_User_ID_Lesson_ID_unique",
                     "onUpdate": "CASCADE",
                     "onDelete": "CASCADE",
                     "references": {

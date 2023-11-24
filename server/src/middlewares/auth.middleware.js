@@ -1,3 +1,4 @@
+import label from '../constants/label.js';
 import db from '../models/index.js';
 import token from '../utils/token.js';
 
@@ -25,8 +26,8 @@ const middleware = {
 
     verify(req, res, next, roles) {
         middleware.verify_token(req, res, async () => {
-            const is_user = await db.User.findByPk(req.token.id);
-            if (is_user && roles.includes(is_user.Role)) {
+            const user = await db.User.findByPk(req.token.id);
+            if (user && roles.includes(user.Role)) {
                 next();
             } else {
                 return res.status(403).json({
@@ -38,27 +39,15 @@ const middleware = {
     },
 
     verify_user(req, res, next) {
-        middleware.verify(req, res, next, ['user']);
+        middleware.verify(req, res, next, [label.role.STUDENT]);
     },
 
-    verify_manager(req, res, next) {
-        middleware.verify(req, res, next, ['manager']);
+    verify_org(req, res, next) {
+        middleware.verify(req, res, next, [label.role.ORGANIZATION]);
     },
 
     verify_admin(req, res, next) {
-        middleware.verify(req, res, next, ['admin']);
-    },
-
-    verify_admin_and_user(req, res, next) {
-        middleware.verify(req, res, next, ['admin', 'user']);
-    },
-
-    verify_admin_and_manager(req, res, next) {
-        middleware.verify(req, res, next, ['admin', 'manager']);
-    },
-
-    verify_all_user(req, res, next) {
-        middleware.verify(req, res, next, ['admin', 'manager', 'user']);
+        middleware.verify(req, res, next, [label.role.ADMIN]);
     },
 };
 

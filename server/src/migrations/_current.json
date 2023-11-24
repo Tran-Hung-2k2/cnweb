@@ -42,12 +42,12 @@
                     "field": "Course_ID",
                     "seqType": "Sequelize.UUID"
                 },
-                "Organization_ID": {
+                "User_ID": {
                     "allowNull": false,
-                    "field": "Organization_ID",
+                    "field": "User_ID",
                     "references": {
-                        "model": "Training_Organizations",
-                        "key": "Training_Organization_ID"
+                        "model": "Users",
+                        "key": "User_ID"
                     },
                     "onDelete": "NO ACTION",
                     "onUpdate": "CASCADE",
@@ -79,9 +79,9 @@
                     "field": "Level",
                     "seqType": "Sequelize.STRING"
                 },
-                "isNeedReview": {
+                "Need_Approval": {
                     "allowNull": false,
-                    "field": "isNeedReview",
+                    "field": "Need_Approval",
                     "seqType": "Sequelize.BOOLEAN"
                 },
                 "Status": {
@@ -242,17 +242,17 @@
         "Participating_Courses": {
             "tableName": "Participating_Courses",
             "schema": {
-                "Student_ID": {
+                "User_ID": {
                     "allowNull": false,
-                    "field": "Student_ID",
+                    "field": "User_ID",
                     "primaryKey": true,
                     "references": {
-                        "model": "Students",
-                        "key": "Student_ID"
+                        "model": "Users",
+                        "key": "User_ID"
                     },
                     "onDelete": "CASCADE",
                     "onUpdate": "CASCADE",
-                    "unique": "Participating_Courses_Student_ID_Course_ID_unique",
+                    "unique": "Participating_Courses_User_ID_Course_ID_unique",
                     "seqType": "Sequelize.UUID"
                 },
                 "Course_ID": {
@@ -265,7 +265,7 @@
                     },
                     "onDelete": "CASCADE",
                     "onUpdate": "CASCADE",
-                    "unique": "Participating_Courses_Student_ID_Course_ID_unique",
+                    "unique": "Participating_Courses_User_ID_Course_ID_unique",
                     "seqType": "Sequelize.UUID"
                 },
                 "Review_Content": {
@@ -301,17 +301,17 @@
         "Participating_Lessons": {
             "tableName": "Participating_Lessons",
             "schema": {
-                "Student_ID": {
+                "User_ID": {
                     "allowNull": false,
-                    "field": "Student_ID",
+                    "field": "User_ID",
                     "primaryKey": true,
                     "references": {
-                        "model": "Students",
-                        "key": "Student_ID"
+                        "model": "Users",
+                        "key": "User_ID"
                     },
                     "onDelete": "CASCADE",
                     "onUpdate": "CASCADE",
-                    "unique": "Participating_Lessons_Student_ID_Lesson_ID_unique",
+                    "unique": "Participating_Lessons_User_ID_Lesson_ID_unique",
                     "seqType": "Sequelize.UUID"
                 },
                 "Lesson_ID": {
@@ -324,7 +324,7 @@
                     },
                     "onDelete": "CASCADE",
                     "onUpdate": "CASCADE",
-                    "unique": "Participating_Lessons_Student_ID_Lesson_ID_unique",
+                    "unique": "Participating_Lessons_User_ID_Lesson_ID_unique",
                     "seqType": "Sequelize.UUID"
                 },
                 "Status": {
@@ -348,61 +348,16 @@
             },
             "indexes": []
         },
-        "Students": {
-            "tableName": "Students",
+        "Users": {
+            "tableName": "Users",
             "schema": {
-                "Student_ID": {
+                "User_ID": {
                     "defaultValue": {
                         "internal": true,
                         "value": "Sequelize.UUIDV4"
                     },
                     "primaryKey": true,
-                    "field": "Student_ID",
-                    "seqType": "Sequelize.UUID"
-                },
-                "Name": {
-                    "allowNull": false,
-                    "field": "Name",
-                    "seqType": "Sequelize.STRING"
-                },
-                "Email": {
-                    "allowNull": false,
-                    "unique": true,
-                    "field": "Email",
-                    "seqType": "Sequelize.STRING"
-                },
-                "Password": {
-                    "allowNull": false,
-                    "field": "Password",
-                    "seqType": "Sequelize.STRING"
-                },
-                "Avatar": {
-                    "field": "Avatar",
-                    "seqType": "Sequelize.STRING"
-                },
-                "createdAt": {
-                    "allowNull": false,
-                    "field": "createdAt",
-                    "seqType": "Sequelize.DATE"
-                },
-                "updatedAt": {
-                    "allowNull": false,
-                    "field": "updatedAt",
-                    "seqType": "Sequelize.DATE"
-                }
-            },
-            "indexes": []
-        },
-        "Training_Organizations": {
-            "tableName": "Training_Organizations",
-            "schema": {
-                "Training_Organization_ID": {
-                    "defaultValue": {
-                        "internal": true,
-                        "value": "Sequelize.UUIDV4"
-                    },
-                    "primaryKey": true,
-                    "field": "Training_Organization_ID",
+                    "field": "User_ID",
                     "seqType": "Sequelize.UUID"
                 },
                 "Name": {
@@ -430,13 +385,10 @@
                     "field": "Status",
                     "seqType": "Sequelize.STRING"
                 },
-                "isAdmin": {
+                "Role": {
                     "allowNull": false,
-                    "defaultValue": {
-                        "value": false
-                    },
-                    "field": "isAdmin",
-                    "seqType": "Sequelize.BOOLEAN"
+                    "field": "Role",
+                    "seqType": "Sequelize.STRING"
                 },
                 "createdAt": {
                     "allowNull": false,

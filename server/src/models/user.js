@@ -2,22 +2,34 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-    class Training_Organization extends Model {
+    class User extends Model {
         /**
          * Phương thức hỗ trợ để định nghĩa các mối quan hệ.
          * Phương thức này không thuộc về vòng đời Sequelize.
          * Tệp `models/index` sẽ tự động gọi phương thức này.
          */
         static associate(models) {
-            Training_Organization.hasMany(models.Course, {
-                foreignKey: 'Organization_ID',
+            User.belongsToMany(models.Course, {
+                through: 'Participating_Course',
+                foreignKey: 'User_ID',
+                otherKey: 'Course_ID',
+            });
+
+            User.belongsToMany(models.Lesson, {
+                through: 'Participating_Lesson',
+                foreignKey: 'User_ID',
+                otherKey: 'Lesson_ID',
+            });
+
+            User.hasMany(models.Course, {
+                foreignKey: 'User_ID',
             });
         }
     }
 
-    Training_Organization.init(
+    User.init(
         {
-            Training_Organization_ID: {
+            User_ID: {
                 type: DataTypes.UUID,
                 defaultValue: DataTypes.UUIDV4,
                 primaryKey: true,
@@ -38,19 +50,17 @@ module.exports = (sequelize, DataTypes) => {
             Avatar: DataTypes.STRING,
             Status: {
                 type: DataTypes.STRING,
-                defaultValue: '',
                 allowNull: false,
             },
-            isAdmin: {
-                type: DataTypes.BOOLEAN,
+            Role: {
+                type: DataTypes.STRING,
                 allowNull: false,
-                defaultValue: false,
             },
         },
         {
             sequelize,
-            modelName: 'Training_Organization',
+            modelName: 'User',
         },
     );
-    return Training_Organization;
+    return User;
 };

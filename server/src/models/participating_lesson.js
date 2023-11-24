@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Participating_Lesson.init(
         {
-            Student_ID: {
+            User_ID: {
                 type: DataTypes.UUID,
                 allowNull: false,
             },

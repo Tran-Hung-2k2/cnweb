@@ -4,7 +4,7 @@ const label = {
         ORGANIZATION: 'organization',
         STUDENT: 'student',
     },
-    org: {
+    user: {
         APPROVAL: 'approval',
         PENDING_APPROVAL: 'pending approval',
     },
