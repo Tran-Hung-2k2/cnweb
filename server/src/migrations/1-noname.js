@@ -20,7 +20,7 @@ var Sequelize = require('sequelize');
 var info = {
     "revision": 1,
     "name": "noname",
-    "created": "2023-11-24T00:20:50.138Z",
+    "created": "2023-11-24T04:09:49.724Z",
     "comment": ""
 };
 
@@ -38,6 +38,7 @@ var migrationCommands = [{
                 "Name": {
                     "type": Sequelize.STRING,
                     "field": "Name",
+                    "unique": true,
                     "allowNull": false
                 },
                 "createdAt": {

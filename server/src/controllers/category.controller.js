@@ -38,7 +38,7 @@ const controller = {
     // [DELETE] /api/category/:id
     delete_category: async_wrap(async (req, res) => {
         const result = await db.Category.destroy({
-            where: { Card_ID: req.params.id },
+            where: { Category_ID: req.params.id },
         });
 
         if (result === 1) return res.status(200).json(api_response(false, 'Xóa danh mục khóa học thành công'));

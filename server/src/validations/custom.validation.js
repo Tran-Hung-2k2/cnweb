@@ -19,8 +19,8 @@ const validation = {
 
     isNotRegistered: async (value, helpers) => {
         try {
-            const isUserExist = await db.User.findOne({ where: { Email: value } });
-            if (isUserExist) return helpers.message('"{{#label}}" đã được đăng ký trước đó');
+            const user = await db.User.findOne({ where: { Email: value } });
+            if (user) return helpers.message('"{{#label}}" đã được đăng ký trước đó');
             return value;
         } catch (error) {
             return helpers.message(error.message);
@@ -29,8 +29,18 @@ const validation = {
 
     isRegistered: async (value, helpers) => {
         try {
-            const isUserExist = await db.User.findOne({ where: { Email: value } });
-            if (!isUserExist) return helpers.message('"{{#label}}" chưa được đăng ký tài khoản trước đó');
+            const user = await db.User.findOne({ where: { Email: value } });
+            if (!user) return helpers.message('"{{#label}}" chưa được đăng ký tài khoản trước đó');
+            return value;
+        } catch (error) {
+            return helpers.message(error.message);
+        }
+    },
+
+    isCategoryNameExists: async (value, helpers) => {
+        try {
+            const category = await db.Category.findOne({ where: { Name: value } });
+            if (category) return helpers.message('"{{#label}}" đã tồn tại');
             return value;
         } catch (error) {
             return helpers.message(error.message);
