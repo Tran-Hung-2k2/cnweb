@@ -1,20 +1,15 @@
 import { Joi } from 'express-validation';
 import messages from '../utils/validation_message';
 import custom_validation from './custom.validation';
+import label from '../constants/label';
 
 const validation = {
-    // [POST] api/parking_manager/
-    add_parking_manager: () => ({
-        body: Joi.object({
-            User_ID: Joi.string()
+    // [GET] /api/course/:id
+    get_course_by_id: () => ({
+        params: Joi.object({
+            id: Joi.string()
                 .required()
-                .external(custom_validation.isManager)
-                .messages({
-                    ...messages,
-                }),
-            Parking_ID: Joi.string()
-                .required()
-                .external(custom_validation.isParking)
+                .custom(custom_validation.uuidv4Id)
                 .messages({
                     ...messages,
                 }),
@@ -25,11 +20,39 @@ const validation = {
             }),
     }),
 
-    // [PATCH] api/parking_manager/:user_id/:parking_id
-    update_parking_manager: () => ({
+    // [POST] /api/course/
+    add_course: () => ({
         body: Joi.object({
-            Is_Managing: Joi.boolean()
+            Category_ID: Joi.string()
                 .required()
+                .custom(custom_validation.uuidv4Id)
+                .external(custom_validation.isCategoryExists)
+                .label('Danh mục khóa học')
+                .messages({
+                    ...messages,
+                }),
+            Name: Joi.string()
+                .required()
+                .label('Tên khóa học')
+                .messages({
+                    ...messages,
+                }),
+            Description: Joi.string()
+                .required()
+                .label('Mô tả')
+                .messages({
+                    ...messages,
+                }),
+            Level: Joi.string()
+                .required()
+                .valid(...Object.values(label.course_level))
+                .label('Cấp độ')
+                .messages({
+                    ...messages,
+                }),
+            Need_Approval: Joi.boolean()
+                .required()
+                .label('Cần xét duyệt')
                 .messages({
                     ...messages,
                 }),
@@ -38,16 +61,70 @@ const validation = {
             .messages({
                 ...messages,
             }),
+    }),
+
+    // [PATCH] /api/course/:id
+    update_course: () => ({
         params: Joi.object({
-            user_id: Joi.string()
+            id: Joi.string()
                 .required()
-                .external(custom_validation.isManager)
+                .custom(custom_validation.uuidv4Id)
                 .messages({
                     ...messages,
                 }),
-            parking_id: Joi.string()
+        })
+            .unknown(false)
+            .messages({
+                ...messages,
+            }),
+        body: Joi.object({
+            Category_ID: Joi.string()
+                .custom(custom_validation.uuidv4Id)
+                .external(custom_validation.isCategoryExists)
+                .label('Danh mục khóa học')
+                .messages({
+                    ...messages,
+                }),
+            Name: Joi.string()
+                .label('Tên khóa học')
+                .messages({
+                    ...messages,
+                }),
+            Description: Joi.string()
+                .label('Mô tả')
+                .messages({
+                    ...messages,
+                }),
+            Level: Joi.string()
+                .valid(...Object.values(label.course_level))
+                .label('Cấp độ')
+                .messages({
+                    ...messages,
+                }),
+            Need_Approval: Joi.boolean()
+                .label('Cần xét duyệt')
+                .messages({
+                    ...messages,
+                }),
+            Status: Joi.string()
+                .valid(...Object.values(label.course))
+                .label('Trạng thái khóa học')
+                .messages({
+                    ...messages,
+                }),
+        })
+            .unknown(false)
+            .messages({
+                ...messages,
+            }),
+    }),
+
+    // [DELETE] /api/course/:id
+    delete_course: () => ({
+        params: Joi.object({
+            id: Joi.string()
                 .required()
-                .external(custom_validation.isParking)
+                .custom(custom_validation.uuidv4Id)
                 .messages({
                     ...messages,
                 }),

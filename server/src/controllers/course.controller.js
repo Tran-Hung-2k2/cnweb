@@ -1,72 +1,62 @@
+import label from '../constants/label.js';
 import db from '../models/index.js';
 import api_response from '../utils/api_response.js';
 import async_wrap from '../utils/async_wrap.js';
 
 const controller = {
-    // [GET] /api/parking_manager/
-    get_all_parking_manager: async_wrap(async (req, res) => {
-        const parking_managers = await db.Parking_Manager.findAll();
-        return res
-            .status(200)
-            .json(api_response(false, 'Lấy danh sách quản lý bãi đỗ xe thành công', parking_managers));
+    // [GET] /api/course/
+    get_all_courses: async_wrap(async (req, res) => {
+        const courses = await db.Course.findAll();
+        return res.status(200).json(api_response(false, 'Lấy danh sách khóa học thành công', courses));
     }),
 
-    // [POST] /api/parking_manager/
-    add_parking_manager: async_wrap(async (req, res) => {
-        const parking_manager = await db.Parking_Manager.create({
-            User_ID: req.body.User_ID,
-            Parking_ID: req.body.Parking_ID,
-        });
-        return res.status(201).json(api_response(false, 'Thêm quản lý bãi đỗ xe mới thành công', parking_manager));
+    // [GET] /api/course/:id
+    get_course_by_id: async_wrap(async (req, res) => {
+        const course = await db.Course.findByPk(req.params.id);
+        if (!course) return res.status(404).json(api_response(true, 'Không tìm thấy khóa học'));
+        return res.status(200).json(api_response(false, 'Lấy thông tin khóa học thành công', course));
     }),
 
-    // [PATCH] /api/parking_manager/:user_id/:parking_id
-    update_parking_manager: async_wrap(async (req, res) => {
-        const parking_managers = await db.Parking_Manager.findAll({
-            where: {
-                [db.Sequelize.Op.or]: [{ User_ID: req.params.user_id }, { Parking_ID: req.params.parking_id }],
-            },
+    // [POST] /api/course/
+    add_course: async_wrap(async (req, res) => {
+        req.body.User_ID = req.token.id;
+        req.body.Status = label.course.PENDING_APPROVAL;
+        const course = await db.Course.create({
+            ...req.body,
         });
-        const has_manager = parking_managers.some((manager) => manager.Is_Managing === true);
-        if (has_manager && req.body.Is_Managing == true) {
-            return res
-                .status(400)
-                .json(
-                    api_response(
-                        true,
-                        'Bạn đang quản lý 1 bãi đỗ xe hoặc bãi đỗ xe này đã có người khác đang quản lý. Vui lòng thử lại sau.',
-                    ),
-                );
-        }
-
-        const manager = await db.User.findByPk(req.token.id);
-        const parking_manager = await db.Parking_Manager.findOne({
-            where: { User_ID: req.params.user_id, Parking_ID: req.params.parking_id },
-        });
-
-        if (manager.User_ID != parking_manager.User_ID && manager.Role != 'admin')
-            return res
-                .status(400)
-                .json(
-                    api_response(true, 'Bạn không có quyền sửa đổi thông tin quản lý bãi đỗ xe của người quản lý khác'),
-                );
-        if (manager.User_ID == parking_manager.User_ID && manager.Role == 'admin')
-            return res.status(400).json(api_response(true, 'Admin không có quyền cho phép xe ra vào'));
-
-        parking_manager.Is_Managing = req.body.Is_Managing;
-        await parking_manager.save();
-
-        return res.status(200).json(api_response(false, 'Cập nhật thông tin quản lý bãi đỗ xe thành công'));
+        return res.status(201).json(api_response(false, 'Thêm khóa học mới thành công', course));
     }),
 
-    // [DELETE] /api/parking_manager/:user_id/:parking_id
-    delete_parking_manager: async_wrap(async (req, res) => {
-        const result = await db.Parking_Manager.destroy({
-            where: { User_ID: req.params.user_id, Parking_ID: req.params.parking_id },
+    // [PATCH] /api/course/:id
+    update_course: async_wrap(async (req, res) => {
+        const course = await db.Course.findByPk(req.params.id);
+        if (!course) return res.status(404).json(api_response(true, 'Không tìm thấy khóa học'));
+        if (course.User_ID != req.token.id)
+            return res.status(404).json(api_response(true, 'Bạn không có quyền chỉnh sửa khóa học này'));
+
+        course.Category_ID = req.body.Category_ID;
+        course.Name = req.body.Name;
+        course.Description = req.body.Description;
+        course.Level = req.body.Level;
+        course.Need_Approval = req.body.Need_Approval;
+        course.Status = req.body.Status;
+        await course.save();
+
+        return res.status(200).json(api_response(false, 'Cập nhật thông tin khóa học thành công'));
+    }),
+
+    // [DELETE] /api/course/:id
+    delete_course: async_wrap(async (req, res) => {
+        const course = await db.Course.findByPk(req.params.id);
+        if (!course) return res.status(404).json(api_response(true, 'Không tìm thấy khóa học'));
+        if (course.User_ID != req.token.id)
+            return res.status(404).json(api_response(true, 'Bạn không có quyền chỉnh sửa khóa học này'));
+
+        await db.Course.destroy({
+            where: { Course_ID: course.User_ID },
         });
 
-        if (result === 1) return res.status(200).json(api_response(false, 'Xóa quản lý bãi đỗ xe thành công'));
-        else return res.status(404).json(api_response(true, 'Không tìm thấy quản lý bãi đỗ xe'));
+        return res.status(200).json(api_response(false, 'Xóa khóa học thành công'));
     }),
 };
 

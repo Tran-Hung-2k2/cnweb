@@ -35,7 +35,7 @@ const validation = {
                 }),
             Role: Joi.string()
                 .required()
-                .valid(label.role.ADMIN, label.role.STUDENT, label.role.ORGANIZATION)
+                .valid(...Object.values(label.role))
                 .label('Vai trò')
                 .messages({
                     ...messages,

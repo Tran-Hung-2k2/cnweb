@@ -24,7 +24,7 @@ const validation = {
         body: Joi.object({
             Name: Joi.string()
                 .required()
-                .external(custom_validation.isCategoryNameExists)
+                .external(custom_validation.isCategoryNameNotExists)
                 .label('Tên danh mục')
                 .messages({
                     ...messages,
@@ -53,7 +53,7 @@ const validation = {
         body: Joi.object({
             Name: Joi.string()
                 .required()
-                .external(custom_validation.isCategoryNameExists)
+                .external(custom_validation.isCategoryNameNotExists)
                 .label('Tên danh mục')
                 .messages({
                     ...messages,

@@ -37,7 +37,17 @@ const validation = {
         }
     },
 
-    isCategoryNameExists: async (value, helpers) => {
+    isCategoryExists: async (value, helpers) => {
+        try {
+            const category = await db.Category.findByPk(value);
+            if (category) return helpers.message('"{{#label}}" không tồn tại');
+            return value;
+        } catch (error) {
+            return helpers.message(error.message);
+        }
+    },
+
+    isCategoryNameNotExists: async (value, helpers) => {
         try {
             const category = await db.Category.findOne({ where: { Name: value } });
             if (category) return helpers.message('"{{#label}}" đã tồn tại');

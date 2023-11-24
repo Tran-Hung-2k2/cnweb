@@ -5,8 +5,8 @@ import async_wrap from '../utils/async_wrap.js';
 const controller = {
     // [GET] /api/category/
     get_all_categories: async_wrap(async (req, res) => {
-        const categorys = await db.Category.findAll();
-        return res.status(200).json(api_response(false, 'Lấy danh sách danh mục khóa học thành công', categorys));
+        const categories = await db.Category.findAll();
+        return res.status(200).json(api_response(false, 'Lấy danh sách danh mục khóa học thành công', categories));
     }),
 
     // [GET] /api/category/:id
