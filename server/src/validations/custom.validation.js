@@ -1,6 +1,8 @@
 import db from '../models/index.js';
+const label = require('../constants/label.js');
 
 const validation = {
+    // custom(fn)
     uuidv4Id: (value, helpers) => {
         if (!value.match(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/)) {
             return helpers.message('"{{#label}}" phải là UUIDv4');
@@ -14,11 +16,18 @@ const validation = {
         return value;
     },
 
+    addStatus: (value, helpers) => {
+        if (value.Role == label.role.ORGANIZATION) value.Status = label.user.PENDING_APPROVAL;
+        else value.Status = label.user.APPROVAL;
+        return value;
+    },
+
+    // external(fn)
+
     isNotRegistered: async (value, helpers) => {
         try {
-            const isStudentExist = await db.Student.findOne({ where: { Email: value } });
-            const isOrgExist = await db.Training_Organization.findOne({ where: { Email: value } });
-            if (isStudentExist || isOrgExist) return helpers.message('Email đã được đăng ký trước đó');
+            const isUserExist = await db.User.findOne({ where: { Email: value } });
+            if (isUserExist) return helpers.message('"{{#label}}" đã được đăng ký trước đó');
             return value;
         } catch (error) {
             return helpers.message(error.message);
@@ -27,9 +36,8 @@ const validation = {
 
     isRegistered: async (value, helpers) => {
         try {
-            const isStudentExist = await db.Student.findOne({ where: { Email: value } });
-            const isOrgExist = await db.Training_Organization.findOne({ where: { Email: value } });
-            if (!isOrgExist && !isStudentExist) return helpers.message('Email chưa được đăng ký tài khoản trước đó');
+            const isUserExist = await db.User.findOne({ where: { Email: value } });
+            if (!isUserExist) return helpers.message('"{{#label}}" chưa được đăng ký tài khoản trước đó');
             return value;
         } catch (error) {
             return helpers.message(error.message);

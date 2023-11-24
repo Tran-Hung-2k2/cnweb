@@ -1,6 +1,7 @@
 import { Joi } from 'express-validation';
 import messages from '../utils/validation_message';
 import custom_validation from './custom.validation';
+import label from '../constants/label';
 
 const validation = {
     // [POST] /api/auth/register/
@@ -32,9 +33,17 @@ const validation = {
                 .messages({
                     ...messages,
                 }),
+            Role: Joi.string()
+                .required()
+                .valid(label.role.ADMIN, label.role.STUDENT, label.role.ORGANIZATION)
+                .label('Vai trò')
+                .messages({
+                    ...messages,
+                }),
         })
             .unknown(false)
             .custom(custom_validation.confirmPassword)
+            .custom(custom_validation.addStatus)
             .messages({
                 ...messages,
             }),

@@ -7,7 +7,7 @@ import send_email from '../utils/send_email.js';
 import generate_random_password from '../utils/generate_random_password.js';
 import async_wrap from '../utils/async_wrap.js';
 
-const PORT = process.env.PORT || 8080;
+const BASE_URL = process.env.BASE_URL || 'http://localhost:8080';
 
 const controller = {
     // [POST] /api/auth/register/
@@ -26,7 +26,7 @@ const controller = {
         });
 
         if (!user || !(await bcrypt.compare(req.body.Password, user.Password)))
-            return res.status(401).json(api_response(true, 'Email hoặc mật khẩu không chính xác'));
+            return res.status(401).json(api_response(true, 'Tài khoản hoặc mật khẩu không chính xác'));
 
         res.cookie('access_token', token.generate_access_token(user.User_ID), {
             httpOnly: true,
@@ -45,7 +45,7 @@ const controller = {
         });
 
         if (!user || !(await bcrypt.compare(req.body.Old_Password, user.Password)))
-            return res.status(401).json(api_response(true, 'Email hoặc mật khẩu không chính xác'));
+            return res.status(401).json(api_response(true, 'Tài khoản hoặc mật khẩu không chính xác'));
 
         user.Password = await hash_password(req.body.Password);
         await user.save();
@@ -59,7 +59,7 @@ const controller = {
         await send_email(
             req.body.Email,
             'Reset Password',
-            `Click the following link to reset your password: http://127.0.0.1:${PORT}/api/auth/verify_forget_password?reset_pass_token=${reset_pass_token}`,
+            `Click the following link to reset your password: ${BASE_URL}/api/auth/verify_forget_password?reset_pass_token=${reset_pass_token}`,
         );
         return res
             .status(200)
@@ -81,7 +81,7 @@ const controller = {
                 await send_email(
                     token_decode.Email,
                     'Đặt lại mật khẩu thành công',
-                    `Mật khẩu của bạn đã được đặt lại thành công. Mật khẩu mới của bạn là ${new_password}, vui lòng không chia sẻ mật khẩu với người khác.`,
+                    `Mật khẩu của bạn đã được đặt lại thành công. Mật khẩu mới của bạn là "${new_password}", vui lòng không chia sẻ mật khẩu với người khác.`,
                 );
 
                 return res
