@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Video Upload</title>
+    </head>
+    <body>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input type="file" name="video" accept="video/*" required />
+            <button type="submit">Upload Video</button>
+        </form>
+
+        <div id="message"></div>
+        <video id="uploadedVideo" controls></video>
+
+        <script>
+            document.getElementById('uploadForm').addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                const formData = new FormData(this);
+
+                try {
+                    const response = await fetch('http://localhost:8080/upload', {
+                        method: 'POST',
+                        body: formData,
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        document.getElementById('message').innerText = 'File uploaded successfully.';
+                        document.getElementById('uploadedVideo').src = result.url;
+                    } else {
+                        document.getElementById('message').innerText = 'Error uploading file.';
+                    }
+                } catch (error) {
+                    console.error(error);
+                }
+            });
+        </script>
+    </body>
+</html>
