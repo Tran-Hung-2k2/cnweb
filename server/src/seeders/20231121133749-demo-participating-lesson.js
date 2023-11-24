@@ -4,22 +4,22 @@ module.exports = {
     up: async (queryInterface, Sequelize) => {
         const data = [
             {
-                User_ID: 'c3456789-abcd-4ef0-1234-567890abcdef',
-                Lesson_ID: 'x1234567-abcd-4ef0-9012-345678abcdef',
+                User_ID: 'ebf65320-86f7-4268-a634-4b24e52f700e',
+                Lesson_ID: 'ec2eb35e-b1ad-435a-849f-225ac6e983d0',
                 Status: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
             {
-                User_ID: 'c3456789-abcd-4ef0-1234-567890abcdef',
-                Lesson_ID: 'y2345678-bcde-4f01-2345-67890abcdefgh',
+                User_ID: 'ebf65320-86f7-4268-a634-4b24e52f700e',
+                Lesson_ID: '7196e3e2-3768-4570-b401-9231a2d59757',
                 Status: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
             {
-                User_ID: 'c3456789-abcd-4ef0-1234-567890abcdef',
-                Lesson_ID: 'z3456789-cdef-4f01-3456-7890abcdefghi',
+                User_ID: 'ebf65320-86f7-4268-a634-4b24e52f700e',
+                Lesson_ID: 'c01f160d-9bef-496b-90a2-d8d6ccdcc139',
                 Status: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),

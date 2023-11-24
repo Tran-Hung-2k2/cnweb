@@ -6,12 +6,15 @@ import hash_password from '../utils/hash_password.js';
 import send_email from '../utils/send_email.js';
 import generate_random_password from '../utils/generate_random_password.js';
 import async_wrap from '../utils/async_wrap.js';
+import label from '../constants/label.js';
 
 const BASE_URL = process.env.BASE_URL || 'http://localhost:8080';
 
 const controller = {
     // [POST] /api/auth/register/
     register: async_wrap(async (req, res) => {
+        if (req.body.Role == label.role.ORGANIZATION) req.body.Status = label.user.PENDING_APPROVAL;
+        else req.body.Status = label.user.APPROVAL;
         const user = await db.User.create({
             ...req.body,
             Password: await hash_password(req.body.Password),

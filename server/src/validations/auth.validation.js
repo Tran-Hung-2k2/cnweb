@@ -43,7 +43,6 @@ const validation = {
         })
             .unknown(false)
             .custom(custom_validation.confirmPassword)
-            .custom(custom_validation.addStatus)
             .messages({
                 ...messages,
             }),

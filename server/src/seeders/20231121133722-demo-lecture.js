@@ -4,22 +4,22 @@ module.exports = {
     up: async (queryInterface, Sequelize) => {
         const data = [
             {
-                Lecture_ID: 'u1234567-abcd-4ef0-9012-345678abcdef',
-                Week_ID: 'r1234567-abcd-4ef0-9012-345678abcdef',
+                Lecture_ID: 'eb1ec7f9-b306-457e-b07e-1bca2c2a8a09',
+                Week_ID: 'b5cea1b2-21b9-4078-9d82-9105bcd07c76',
                 Lecture_Title: 'Introduction to the Course Material',
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
             {
-                Lecture_ID: 'v2345678-bcde-4f01-2345-67890abcdefgh',
-                Week_ID: 'r1234567-abcd-4ef0-9012-345678abcdef',
+                Lecture_ID: '2ce84ffe-9aba-448d-bea4-05bf0d3bfa03',
+                Week_ID: 'b5cea1b2-21b9-4078-9d82-9105bcd07c76',
                 Lecture_Title: 'Business Fundamentals Overview',
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
             {
-                Lecture_ID: 'w3456789-cdef-4f01-3456-7890abcdefghi',
-                Week_ID: 'r1234567-abcd-4ef0-9012-345678abcdef',
+                Lecture_ID: 'e464d9ef-b3b7-4e06-81b9-034117ed98dd',
+                Week_ID: 'b5cea1b2-21b9-4078-9d82-9105bcd07c76',
                 Lecture_Title: 'Exploring Data Analysis Techniques',
                 createdAt: new Date(),
                 updatedAt: new Date(),

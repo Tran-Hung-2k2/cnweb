@@ -6,8 +6,8 @@ module.exports = {
     up: async (queryInterface, Sequelize) => {
         const data = [
             {
-                Lesson_ID: 'x1234567-abcd-4ef0-9012-345678abcdef',
-                Lecture_ID: 'u1234567-abcd-4ef0-9012-345678abcdef',
+                Lesson_ID: 'ec2eb35e-b1ad-435a-849f-225ac6e983d0',
+                Lecture_ID: 'eb1ec7f9-b306-457e-b07e-1bca2c2a8a09',
                 Title: 'Course Introduction',
                 Type: label.lesson_type.READING,
                 Duration: 1 * 60,
@@ -16,8 +16,8 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
-                Lesson_ID: 'y2345678-bcde-4f01-2345-67890abcdefgh',
-                Lecture_ID: 'u1234567-abcd-4ef0-9012-345678abcdef',
+                Lesson_ID: '7196e3e2-3768-4570-b401-9231a2d59757',
+                Lecture_ID: 'eb1ec7f9-b306-457e-b07e-1bca2c2a8a09',
                 Title: 'Business Ethics',
                 Type: label.lesson_type.READING,
                 Duration: 5 * 60,
@@ -27,8 +27,8 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
-                Lesson_ID: 'z3456789-cdef-4f01-3456-7890abcdefghi',
-                Lecture_ID: 'u1234567-abcd-4ef0-9012-345678abcdef',
+                Lesson_ID: 'c01f160d-9bef-496b-90a2-d8d6ccdcc139',
+                Lecture_ID: 'eb1ec7f9-b306-457e-b07e-1bca2c2a8a09',
                 Title: 'Data Visualization Techniques',
                 Type: label.lesson_type.VIDEO,
                 Duration: 10 * 60,

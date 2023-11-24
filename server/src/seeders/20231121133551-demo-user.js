@@ -10,7 +10,7 @@ module.exports = {
         const hashed_user_password = await bcrypt.hash('student', salt);
         const data = [
             {
-                User_ID: 'c3456789-abcd-4ef0-1234-567890abcdef',
+                User_ID: 'ebf65320-86f7-4268-a634-4b24e52f700e',
                 Name: 'Trần Việt Hùng',
                 Email: 'tranhung912002@gmail.com',
                 Password: hashed_user_password,
@@ -21,7 +21,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
-                User_ID: 'd4567890-bcde-4f01-2345-67890abcdefgh',
+                User_ID: '5f3e964e-8d2e-4b6a-9462-80bbdec33ae8',
                 Name: 'Dương Ngọc Hải',
                 Email: 'hai@gmail.com',
                 Password: hashed_user_password,
@@ -32,7 +32,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
-                User_ID: 'e5678901-abcd-4ef0-5678-901abcdef234',
+                User_ID: '06dab5f6-46bc-46df-9f76-4ed1f019017d',
                 Name: 'Admin',
                 Email: 'tranviethung912002@gmail.com',
                 Password: hashed_admin_password,
@@ -43,7 +43,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
-                User_ID: 'f6789012-bcde-4f01-7890-12abcdef345',
+                User_ID: '4f85c61a-2a20-41ff-b8ed-fbe2940d4c68',
                 Name: 'Đại học Bách khoa Hà Nội',
                 Email: 'hust@sis.hust.edu.vn',
                 Password: hashed_organization_password,
@@ -54,7 +54,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
-                User_ID: 'g7890123-abcd-4ef0-9012-345678abcdef',
+                User_ID: '27fe9583-6365-4046-8c3c-021c38a6b351',
                 Name: 'Đại học Xây dựng',
                 Email: 'nuce@sis.nuce.edu.vn',
                 Password: hashed_organization_password,

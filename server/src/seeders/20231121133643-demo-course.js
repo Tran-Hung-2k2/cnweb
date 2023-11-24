@@ -5,9 +5,9 @@ module.exports = {
     up: async (queryInterface, Sequelize) => {
         const data = [
             {
-                Course_ID: 'n4567890-abcd-4ef0-9012-345678abcdef',
-                User_ID: 'f6789012-bcde-4f01-7890-12abcdef345',
-                Category_ID: 'g7890123-abcd-4ef0-9012-345678abcdef',
+                Course_ID: 'f9fecc71-9114-437d-94fc-8c9b9e802f73',
+                User_ID: 'ebf65320-86f7-4268-a634-4b24e52f700e',
+                Category_ID: 'd97987a4-696d-4632-a4a8-7c46e9522286',
                 Name: 'Introduction to Data Science',
                 Description: 'A beginner-friendly course on data science principles.',
                 Level: label.course_level.BEGINNER,
@@ -17,9 +17,9 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
-                Course_ID: 'o5678901-bcde-4f01-2345-67890abcdefgh',
-                User_ID: 'f6789012-bcde-4f01-7890-12abcdef345',
-                Category_ID: 'h8901234-bcde-4f01-2345-67890abcdefgh1',
+                Course_ID: '26677ec6-8279-4253-84e4-e306e434392a',
+                User_ID: 'ebf65320-86f7-4268-a634-4b24e52f700e',
+                Category_ID: 'ad9dea2e-7b47-4d35-9291-a60e69245523',
                 Name: 'Business Fundamentals',
                 Description: 'Learn the basics of business operations and management.',
                 Level: label.course_level.INTERMEDIATE,
@@ -29,9 +29,9 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
-                Course_ID: 'p6789012-cdef-4f01-3456-7890abcdefghi',
-                User_ID: 'f6789012-bcde-4f01-7890-12abcdef345',
-                Category_ID: 'i9012345-cdef-4f01-3456-7890abcdefghi2',
+                Course_ID: 'd769034a-5192-4259-8f46-59f79a52d446',
+                User_ID: 'ebf65320-86f7-4268-a634-4b24e52f700e',
+                Category_ID: '1c33ffdb-a3be-4a3f-a7f8-d90186730b2b',
                 Name: 'Advanced Data Analysis',
                 Description: 'Explore advanced techniques in data analysis and visualization.',
                 Level: label.course_level.ADVANCED,
@@ -41,9 +41,9 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
-                Course_ID: 'q7890123-defg-4f01-4567-890abcijklmn',
-                User_ID: 'f6789012-bcde-4f01-7890-12abcdef345',
-                Category_ID: 'j0123456-defg-4f01-4567-890abcijklmn3',
+                Course_ID: '25e06a8e-43d9-4d62-b0c5-7ba7f19ebf2b',
+                User_ID: 'ebf65320-86f7-4268-a634-4b24e52f700e',
+                Category_ID: '1b4ca2dc-6bf8-44b5-90e7-7f45b2443ab9',
                 Name: 'Strategic Business Management',
                 Description: 'Develop strategic thinking and decision-making skills for business leaders.',
                 Level: label.course_level.EXPERT,

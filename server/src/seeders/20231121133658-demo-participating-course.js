@@ -6,8 +6,8 @@ module.exports = {
     up: async (queryInterface, Sequelize) => {
         const data = [
             {
-                User_ID: 'c3456789-abcd-4ef0-1234-567890abcdef',
-                Course_ID: 'n4567890-abcd-4ef0-9012-345678abcdef',
+                User_ID: 'ebf65320-86f7-4268-a634-4b24e52f700e',
+                Course_ID: 'f9fecc71-9114-437d-94fc-8c9b9e802f73',
                 Review_Content: 'Great course! Learned a lot.',
                 Review_Star: 5,
                 Date_Achieved: new Date('2023-01-01'),
@@ -16,8 +16,8 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
-                User_ID: 'd4567890-bcde-4f01-2345-67890abcdefgh',
-                Course_ID: 'o5678901-bcde-4f01-2345-67890abcdefgh',
+                User_ID: 'ebf65320-86f7-4268-a634-4b24e52f700e',
+                Course_ID: '26677ec6-8279-4253-84e4-e306e434392a',
                 Review_Content: '',
                 Review_Star: null,
                 Date_Achieved: null,
@@ -26,8 +26,8 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
-                User_ID: 'c3456789-abcd-4ef0-1234-567890abcdef',
-                Course_ID: 'p6789012-cdef-4f01-3456-7890abcdefghi',
+                User_ID: 'ebf65320-86f7-4268-a634-4b24e52f700e',
+                Course_ID: 'd769034a-5192-4259-8f46-59f79a52d446',
                 Review_Content: '',
                 Review_Star: null,
                 Date_Achieved: null,

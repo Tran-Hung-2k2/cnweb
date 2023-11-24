@@ -4,43 +4,43 @@ module.exports = {
     up: async (queryInterface, Sequelize) => {
         const data = [
             {
-                Category_ID: 'g7890123-abcd-4ef0-9012-345678abcdef',
+                Category_ID: 'd97987a4-696d-4632-a4a8-7c46e9522286',
                 Name: 'Data Science',
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
             {
-                Category_ID: 'h8901234-bcde-4f01-2345-67890abcdefgh1',
+                Category_ID: 'ad9dea2e-7b47-4d35-9291-a60e69245523',
                 Name: 'Business',
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
             {
-                Category_ID: 'i9012345-cdef-4f01-3456-7890abcdefghi2',
+                Category_ID: '1c33ffdb-a3be-4a3f-a7f8-d90186730b2b',
                 Name: 'Computer Science',
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
             {
-                Category_ID: 'j0123456-defg-4f01-4567-890abcijklmn3',
+                Category_ID: '1b4ca2dc-6bf8-44b5-90e7-7f45b2443ab9',
                 Name: 'Information Technology',
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
             {
-                Category_ID: 'k1234567-efgh-4i01-5678-90abcdefghij4',
+                Category_ID: 'a146ac00-a13c-4f43-8618-f996b1140acf',
                 Name: 'Language Learning',
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
             {
-                Category_ID: 'l2345678-fghi-4j01-6789-0abcdefghijkl5',
+                Category_ID: '986fcdfa-f66a-4a0f-a771-7c6189e66b11',
                 Name: 'Health',
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
             {
-                Category_ID: 'm3456789-hijk-4k01-7890-abcdefghijklm6',
+                Category_ID: '8f8a2313-70dd-4e81-909b-9fbd7e64dc0c',
                 Name: 'Math and Logic',
                 createdAt: new Date(),
                 updatedAt: new Date(),
