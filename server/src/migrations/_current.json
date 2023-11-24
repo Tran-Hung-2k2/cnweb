@@ -75,6 +75,11 @@
                     "field": "Description",
                     "seqType": "Sequelize.STRING"
                 },
+                "Image": {
+                    "allowNull": false,
+                    "field": "Image",
+                    "seqType": "Sequelize.STRING"
+                },
                 "Level": {
                     "allowNull": false,
                     "field": "Level",
@@ -131,6 +136,11 @@
                     "field": "Lecture_Title",
                     "seqType": "Sequelize.STRING"
                 },
+                "Index": {
+                    "allowNull": false,
+                    "field": "Index",
+                    "seqType": "Sequelize.INTEGER"
+                },
                 "createdAt": {
                     "allowNull": false,
                     "field": "createdAt",
@@ -176,6 +186,11 @@
                     "allowNull": false,
                     "field": "Type",
                     "seqType": "Sequelize.STRING"
+                },
+                "Index": {
+                    "allowNull": false,
+                    "field": "Index",
+                    "seqType": "Sequelize.INTEGER"
                 },
                 "Duration": {
                     "allowNull": false,

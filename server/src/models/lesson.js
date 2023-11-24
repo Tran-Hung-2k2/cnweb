@@ -44,6 +44,10 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
+            Index: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+            },
             Duration: {
                 type: DataTypes.INTEGER,
                 allowNull: false,

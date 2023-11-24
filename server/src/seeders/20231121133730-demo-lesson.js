@@ -10,6 +10,7 @@ module.exports = {
                 Lecture_ID: 'eb1ec7f9-b306-457e-b07e-1bca2c2a8a09',
                 Title: 'Course Introduction',
                 Type: label.lesson_type.READING,
+                Index: 1,
                 Duration: 1 * 60,
                 Content: 'Welcome to the course! In this lesson, we introduce the course content and objectives.',
                 createdAt: new Date(),
@@ -20,6 +21,7 @@ module.exports = {
                 Lecture_ID: 'eb1ec7f9-b306-457e-b07e-1bca2c2a8a09',
                 Title: 'Business Ethics',
                 Type: label.lesson_type.READING,
+                Index: 2,
                 Duration: 5 * 60,
                 Content:
                     "This lesson covers the principles of business ethics and its importance in today's business environment.",
@@ -31,6 +33,7 @@ module.exports = {
                 Lecture_ID: 'eb1ec7f9-b306-457e-b07e-1bca2c2a8a09',
                 Title: 'Data Visualization Techniques',
                 Type: label.lesson_type.VIDEO,
+                Index: 3,
                 Duration: 10 * 60,
                 Content: 'https://youtu.be/fNs6_k5sWiU?si=RybnrcNDXQDN-U6W',
                 createdAt: new Date(),

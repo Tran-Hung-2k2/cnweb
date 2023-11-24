@@ -35,7 +35,7 @@ const validation = {
                 .messages({
                     ...messages,
                 }),
-            Index: Joi.integer()
+            Index: Joi.number()
                 .positive()
                 .required()
                 .label('Thứ tự')
@@ -81,7 +81,7 @@ const validation = {
                 .messages({
                     ...messages,
                 }),
-            Index: Joi.integer()
+            Index: Joi.number()
                 .positive()
                 .label('Thứ tự')
                 .messages({

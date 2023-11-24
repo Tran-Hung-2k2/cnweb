@@ -1,5 +1,6 @@
 import label from '../constants/label.js';
 import db from '../models/index.js';
+import firebase_service from '../services/firebase.service.js';
 import api_response from '../utils/api_response.js';
 import async_wrap from '../utils/async_wrap.js';
 
@@ -21,6 +22,8 @@ const controller = {
     add_course: async_wrap(async (req, res) => {
         req.body.User_ID = req.token.id;
         req.body.Status = label.course.PENDING_APPROVAL;
+        if (!req.file) return res.status(400).json(api_response(true, 'Ảnh khóa học là bắt buộc'));
+        req.body.Image = await firebase_service.upload_image(req.file.path);
         const course = await db.Course.create({
             ...req.body,
         });
@@ -40,6 +43,10 @@ const controller = {
         course.Level = req.body.Level || course.Level;
         course.Need_Approval = req.body.Need_Approval || course.Need_Approval;
         course.Status = req.body.Status || course.Status;
+        if (req.file) {
+            await firebase_service.delete_file(course.Image);
+            course.Image = await firebase_service.upload_image(req.file.path);
+        }
         await course.save();
 
         return res.status(200).json(api_response(false, 'Cập nhật thông tin khóa học thành công'));
@@ -52,11 +59,15 @@ const controller = {
         if (course.User_ID != req.token.id)
             return res.status(403).json(api_response(true, 'Bạn không có quyền chỉnh sửa khóa học này'));
 
-        await db.Course.destroy({
-            where: { Course_ID: req.params.id },
-        });
+        if (await firebase_service.delete_file(course.Image)) {
+            // await db.Course.destroy({
+            //     where: { Course_ID: req.params.id },
+            // });
 
-        return res.status(200).json(api_response(false, 'Xóa khóa học thành công'));
+            return res.status(200).json(api_response(false, 'Xóa khóa học thành công'));
+        } else {
+            res.status(500).json(api_response(true, 'Xóa khóa học thất bại'));
+        }
     }),
 };
 

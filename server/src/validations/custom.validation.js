@@ -14,6 +14,10 @@ const validation = {
             return helpers.message('Mật khẩu xác nhận không khớp với Mật khẩu đã nhập');
         return value;
     },
+    log: (value, helpers) => {
+        console.log(value);
+        return value;
+    },
 
     // external(fn)
 

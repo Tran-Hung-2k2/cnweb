@@ -20,7 +20,7 @@ var Sequelize = require('sequelize');
 var info = {
     "revision": 1,
     "name": "noname",
-    "created": "2023-11-24T04:09:49.724Z",
+    "created": "2023-11-24T18:47:04.781Z",
     "comment": ""
 };
 
@@ -153,6 +153,11 @@ var migrationCommands = [{
                     "field": "Description",
                     "allowNull": false
                 },
+                "Image": {
+                    "type": Sequelize.STRING,
+                    "field": "Image",
+                    "allowNull": false
+                },
                 "Level": {
                     "type": Sequelize.STRING,
                     "field": "Level",
@@ -265,6 +270,11 @@ var migrationCommands = [{
                     "field": "Lecture_Title",
                     "allowNull": false
                 },
+                "Index": {
+                    "type": Sequelize.INTEGER,
+                    "field": "Index",
+                    "allowNull": false
+                },
                 "createdAt": {
                     "type": Sequelize.DATE,
                     "field": "createdAt",
@@ -309,6 +319,11 @@ var migrationCommands = [{
                 "Type": {
                     "type": Sequelize.STRING,
                     "field": "Type",
+                    "allowNull": false
+                },
+                "Index": {
+                    "type": Sequelize.INTEGER,
+                    "field": "Index",
                     "allowNull": false
                 },
                 "Duration": {
