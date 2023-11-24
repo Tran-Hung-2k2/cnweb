@@ -34,12 +34,12 @@ const controller = {
         if (course.User_ID != req.token.id)
             return res.status(404).json(api_response(true, 'Bạn không có quyền chỉnh sửa khóa học này'));
 
-        course.Category_ID = req.body.Category_ID;
-        course.Name = req.body.Name;
-        course.Description = req.body.Description;
-        course.Level = req.body.Level;
-        course.Need_Approval = req.body.Need_Approval;
-        course.Status = req.body.Status;
+        course.Category_ID = req.body.Category_ID || course.Category_ID;
+        course.Name = req.body.Name || course.Name;
+        course.Description = req.body.Description || course.Description;
+        course.Level = req.body.Level || course.Level;
+        course.Need_Approval = req.body.Need_Approval || course.Need_Approval;
+        course.Status = req.body.Status || course.Status;
         await course.save();
 
         return res.status(200).json(api_response(false, 'Cập nhật thông tin khóa học thành công'));

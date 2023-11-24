@@ -40,7 +40,7 @@ const validation = {
     isCategoryExists: async (value, helpers) => {
         try {
             const category = await db.Category.findByPk(value);
-            if (category) return helpers.message('"{{#label}}" không tồn tại');
+            if (!category) return helpers.message('"{{#label}}" không tồn tại');
             return value;
         } catch (error) {
             return helpers.message(error.message);
