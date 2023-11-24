@@ -1,24 +1,15 @@
 import express from 'express';
 import { validate } from 'express-validation';
-import vld from '../validations/parking_card.validation.js';
+import vld from '../validations/category.validation.js';
 import mdw from '../middlewares/auth.middleware.js';
-import ctrl from '../controllers/parking_card.controller.js';
+import ctrl from '../controllers/category.controller.js';
 
 const route = express.Router();
 
-route
-    .route('/')
-    .get(mdw.verify_admin, ctrl.get_all_parking_card)
-    .post(validate(vld.add_parking_card()), mdw.verify_admin, ctrl.add_parking_card);
-
-route
-    .route('/:id')
-    .get(mdw.verify_all_user, ctrl.get_parking_card_by_id)
-    .patch(validate(vld.update_parking_card()), mdw.verify_admin, ctrl.update_parking_card)
-    .delete(mdw.verify_admin, ctrl.delete_parking_card);
-
-route
-    .route('/user/:id')
-    .get(validate(vld.get_parking_card_by_user()), mdw.verify_admin_and_user, ctrl.get_parking_card_by_user);
+route.get('/', ctrl.get_all_categories);
+route.get('/:id', validate(vld.get_category_by_id()), ctrl.get_category_by_id);
+route.post('/', validate(vld.add_category()), mdw.verify_admin, ctrl.add_category);
+route.patch('/:id', validate(vld.update_category()), mdw.verify_admin, ctrl.update_category);
+route.delete('/:id', validate(vld.get_category_by_id()), mdw.verify_admin, ctrl.delete_category);
 
 export default route;

@@ -1,34 +1,28 @@
 import { useState } from 'react';
-import { loginFields } from '../constants/formFields';
+import fields from '../constants/loginFields';
 import FormAction from './FormAction';
 import FormExtra from './FormExtra';
 import Input from './Input';
 
-const fields = loginFields;
 let fieldsState = {};
 fields.forEach((field) => (fieldsState[field.id] = ''));
 
 export default function Login() {
-    const [loginState, setLoginState] = useState(fieldsState);
+    const [state, setState] = useState(fieldsState);
 
     const handleChange = (e) => {
-        setLoginState({ ...loginState, [e.target.id]: e.target.value });
+        setState({ ...state, [e.target.id]: e.target.value });
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        authenticateUser();
-    };
-
-    //Handle Login API Integration here
-    const authenticateUser = () => {
         const endpoint = `/api/auth/login`;
         fetch(endpoint, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(loginState),
+            body: JSON.stringify(state),
         })
             .then((response) => response.json())
             .then((data) => {
@@ -45,7 +39,7 @@ export default function Login() {
                     <Input
                         key={field.id}
                         onChange={handleChange}
-                        value={loginState[field.id]}
+                        value={state[field.id]}
                         labelText={field.labelText}
                         labelFor={field.labelFor}
                         id={field.id}

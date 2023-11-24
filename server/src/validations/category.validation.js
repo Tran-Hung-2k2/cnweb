@@ -3,12 +3,12 @@ import messages from '../utils/validation_message';
 import custom_validation from './custom.validation';
 
 const validation = {
-    // [GET] /api/parking_card/user/:id
-    get_parking_card_by_user: () => ({
+    // [GET] /api/category/:id
+    get_category_by_id: () => ({
         params: Joi.object({
             id: Joi.string()
                 .required()
-                .external(custom_validation.isUser)
+                .custom(custom_validation.uuidv4Id)
                 .messages({
                     ...messages,
                 }),
@@ -19,27 +19,63 @@ const validation = {
             }),
     }),
 
-    // [POST] api/parking_card/
-    add_parking_card: () => ({
+    // [POST] /api/category/
+    add_category: () => ({
         body: Joi.object({
-            Email: Joi.string()
-                .email()
+            Name: Joi.string()
                 .required()
+                .label('Tên danh mục')
                 .messages({
                     ...messages,
                 }),
-        }),
+        })
+            .unknown(false)
+            .messages({
+                ...messages,
+            }),
     }),
 
-    // [PATCH] api/parking_card/:id
-    update_parking_card: () => ({
+    // [PATCH] /api/category/:id
+    update_category: () => ({
+        params: Joi.object({
+            id: Joi.string()
+                .required()
+                .custom(custom_validation.uuidv4Id)
+                .messages({
+                    ...messages,
+                }),
+        })
+            .unknown(false)
+            .messages({
+                ...messages,
+            }),
         body: Joi.object({
-            Is_Lock: Joi.boolean()
+            Name: Joi.string()
                 .required()
                 .messages({
                     ...messages,
                 }),
-        }),
+        })
+            .unknown(false)
+            .messages({
+                ...messages,
+            }),
+    }),
+
+    // [DELETE] /api/category/:id
+    delete_category: () => ({
+        params: Joi.object({
+            id: Joi.string()
+                .required()
+                .custom(custom_validation.uuidv4Id)
+                .messages({
+                    ...messages,
+                }),
+        })
+            .unknown(false)
+            .messages({
+                ...messages,
+            }),
     }),
 };
 

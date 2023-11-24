@@ -4,6 +4,7 @@
         "password": null,
         "database": "cnweb",
         "host": "127.0.0.1",
+        "logging": false,
         "dialect": "mysql",
         "port": 3306
     },
