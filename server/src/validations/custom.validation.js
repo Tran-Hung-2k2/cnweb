@@ -70,6 +70,16 @@ const validation = {
             return helpers.message(error.message);
         }
     },
+
+    isWeekExists: async (value, helpers) => {
+        try {
+            const week = await db.Week.findByPk(value);
+            if (!week && value !== undefined) return helpers.message('"{{#label}}" không tồn tại');
+            return value;
+        } catch (error) {
+            return helpers.message(error.message);
+        }
+    },
 };
 
 export default validation;
