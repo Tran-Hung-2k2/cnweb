@@ -16,6 +16,14 @@ const controller = {
         return res.status(200).json(api_response(false, 'Lấy thông tin tuần học thành công', week));
     }),
 
+    // [GET] /api/week/course/:id
+    get_week_by_course_id: async_wrap(async (req, res) => {
+        const weeks = await db.Week.findAll({
+            where: { Course_ID: req.params.id },
+        });
+        return res.status(200).json(api_response(false, 'Lấy thông tin tuần học thành công', weeks));
+    }),
+
     // [POST] /api/week/
     add_week: async_wrap(async (req, res) => {
         const course = await db.Course.findByPk(req.body.Course_ID);

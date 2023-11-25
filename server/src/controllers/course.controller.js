@@ -41,7 +41,7 @@ const controller = {
         course.Name = req.body.Name || course.Name;
         course.Description = req.body.Description || course.Description;
         course.Level = req.body.Level || course.Level;
-        course.Need_Approval = req.body.Need_Approval || course.Need_Approval;
+        course.Need_Approval = req.body.Need_Approval != undefined ? req.body.Need_Approval : course.Need_Approval;
         course.Status = req.body.Status || course.Status;
         if (req.file) {
             await firebase_service.delete_file(course.Image);
@@ -59,15 +59,12 @@ const controller = {
         if (course.User_ID != req.token.id)
             return res.status(403).json(api_response(true, 'Bạn không có quyền chỉnh sửa khóa học này'));
 
-        if (await firebase_service.delete_file(course.Image)) {
-            // await db.Course.destroy({
-            //     where: { Course_ID: req.params.id },
-            // });
+        await firebase_service.delete_file(course.Image);
+        await db.Course.destroy({
+            where: { Course_ID: req.params.id },
+        });
 
-            return res.status(200).json(api_response(false, 'Xóa khóa học thành công'));
-        } else {
-            res.status(500).json(api_response(true, 'Xóa khóa học thất bại'));
-        }
+        return res.status(200).json(api_response(false, 'Xóa khóa học thành công'));
     }),
 };
 

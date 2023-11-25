@@ -19,6 +19,23 @@ const validation = {
             }),
     }),
 
+    // [GET] /api/week/course/:id
+    get_week_by_course_id: () => ({
+        params: Joi.object({
+            id: Joi.string()
+                .required()
+                .custom(custom_validation.uuidv4Id)
+                .external(custom_validation.isCourseExists)
+                .messages({
+                    ...messages,
+                }),
+        })
+            .unknown(false)
+            .messages({
+                ...messages,
+            }),
+    }),
+
     // [POST] /api/week/
     add_week: () => ({
         body: Joi.object({

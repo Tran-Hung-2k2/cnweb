@@ -44,7 +44,7 @@ const validation = {
     isCategoryExists: async (value, helpers) => {
         try {
             const category = await db.Category.findByPk(value);
-            if (!category) return helpers.message('"{{#label}}" không tồn tại');
+            if (!category && value !== undefined) return helpers.message('"{{#label}}" không tồn tại');
             return value;
         } catch (error) {
             return helpers.message(error.message);
@@ -55,6 +55,16 @@ const validation = {
         try {
             const category = await db.Category.findOne({ where: { Name: value } });
             if (category) return helpers.message('"{{#label}}" đã tồn tại');
+            return value;
+        } catch (error) {
+            return helpers.message(error.message);
+        }
+    },
+
+    isCourseExists: async (value, helpers) => {
+        try {
+            const course = await db.Course.findByPk(value);
+            if (!course && value !== undefined) return helpers.message('"{{#label}}" không tồn tại');
             return value;
         } catch (error) {
             return helpers.message(error.message);

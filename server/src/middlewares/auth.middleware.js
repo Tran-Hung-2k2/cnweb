@@ -53,6 +53,10 @@ const middleware = {
     verify_admin_and_org(req, res, next) {
         middleware.verify(req, res, next, [label.role.ADMIN, label.role.ORGANIZATION]);
     },
+
+    verify_all_user(req, res, next) {
+        middleware.verify(req, res, next, [...Object.values(label.role)]);
+    },
 };
 
 export default middleware;

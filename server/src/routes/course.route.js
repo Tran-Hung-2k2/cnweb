@@ -16,7 +16,13 @@ route.post(
     mdw.verify_admin_and_org,
     ctrl.add_course,
 );
-route.patch('/:id', validate(vld.update_course()), mdw.verify_admin_and_org, ctrl.update_course);
+route.patch(
+    '/:id',
+    multer_service.upload.single('Image'),
+    validate(vld.update_course()),
+    mdw.verify_admin_and_org,
+    ctrl.update_course,
+);
 route.delete('/:id', validate(vld.get_course_by_id()), mdw.verify_admin_and_org, ctrl.delete_course);
 
 export default route;
