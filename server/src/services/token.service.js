@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
-const token = {
+
+const service = {
     verify_token(token, key, callback) {
         jwt.verify(token, key, callback);
     },
@@ -17,4 +18,4 @@ const token = {
     },
 };
 
-export default token;
+export default service;

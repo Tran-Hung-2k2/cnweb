@@ -2,7 +2,7 @@ import ffmpeg from 'fluent-ffmpeg';
 import path from 'path';
 
 
-const ffmpeg_service = {
+const service = {
     // Hàm lấy thông tin của video sử dụng ffprobe
     get_video_info: async (inputFilePath) => {
         return new Promise((resolve, reject) => {
@@ -53,4 +53,4 @@ const ffmpeg_service = {
     },
 };
 
-export default ffmpeg_service;
+export default service;

@@ -1,11 +1,11 @@
 import bcrypt from 'bcrypt';
 import db from '../models/index.js';
-import token from '../utils/token.js';
 import api_response from '../utils/api_response.js';
 import hash_password from '../utils/hash_password.js';
-import send_email from '../utils/send_email.js';
 import generate_random_password from '../utils/generate_random_password.js';
 import async_wrap from '../utils/async_wrap.js';
+import token_service from '../services/token.service.js';
+import email_service from '../services/email.service.js';
 import label from '../constants/label.js';
 
 const BASE_URL = process.env.BASE_URL || 'http://localhost:8080';
@@ -31,10 +31,10 @@ const controller = {
         if (!user || !(await bcrypt.compare(req.body.Password, user.Password)))
             return res.status(401).json(api_response(true, 'Tài khoản hoặc mật khẩu không chính xác'));
 
-        res.cookie('access_token', token.generate_access_token(user.User_ID), {
+        res.cookie('access_token', token_service.generate_access_token(user.User_ID), {
             httpOnly: true,
         });
-        res.cookie('refresh_token', token.generate_refresh_token(user.User_ID), {
+        res.cookie('refresh_token', token_service.generate_refresh_token(user.User_ID), {
             httpOnly: true,
         });
 
@@ -58,8 +58,8 @@ const controller = {
 
     // [POST] /api/auth/forget_password/
     forget_password: async_wrap(async (req, res) => {
-        const reset_pass_token = token.generate_reset_password_token(req.body.Email);
-        await send_email(
+        const reset_pass_token = token_service.generate_reset_password_token(req.body.Email);
+        await email_service.send_email(
             req.body.Email,
             'Reset Password',
             `Click the following link to reset your password: ${BASE_URL}/api/auth/verify_forget_password?reset_pass_token=${reset_pass_token}`,
@@ -71,7 +71,7 @@ const controller = {
 
     // [GET] /api/auth/verify_forget_password/
     verify_forget_password: async_wrap(async (req, res) => {
-        token.verify_token(
+        token_service.verify_token(
             req.query.reset_pass_token,
             process.env.JWT_RESET_PASSWORD_KEY,
             async (err, token_decode) => {
@@ -81,7 +81,7 @@ const controller = {
                 user.Password = await hash_password(new_password);
                 await user.save();
 
-                await send_email(
+                await email_service.send_email(
                     token_decode.Email,
                     'Đặt lại mật khẩu thành công',
                     `Mật khẩu của bạn đã được đặt lại thành công. Mật khẩu mới của bạn là "${new_password}", vui lòng không chia sẻ mật khẩu với người khác.`,
@@ -104,11 +104,11 @@ const controller = {
         const refresh_token = req.cookies.refresh_token;
         if (!refresh_token) return res.status(401).json(api_response(true, 'Vui lòng đăng nhập để tiếp tục'));
 
-        token.verify_token(refresh_token, process.env.JWT_REFRESH_KEY, (err, token_decode) => {
+        token_service.verify_token(refresh_token, process.env.JWT_REFRESH_KEY, (err, token_decode) => {
             if (err) {
                 return res.status(403).json(api_response(true, 'Token đã hết hạn hoặc không chính xác'));
             }
-            const access_token = token.generate_access_token(token_decode.id);
+            const access_token = token_service.generate_access_token(token_decode.id);
             res.cookie('access_token', access_token, {
                 httpOnly: true,
             });

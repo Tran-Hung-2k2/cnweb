@@ -1,12 +1,12 @@
 import label from '../constants/label.js';
 import db from '../models/index.js';
-import token from '../utils/token.js';
+import token_service from '../services/token.service.js';
 
 const middleware = {
     verify_token(req, res, next) {
         const access_token = req.cookies.access_token;
         if (access_token) {
-            token.verify_token(access_token, process.env.JWT_ACCESS_KEY, (err, token_decode) => {
+            token_service.verify_token(access_token, process.env.JWT_ACCESS_KEY, (err, token_decode) => {
                 if (err) {
                     return res.status(403).json({
                         is_error: true,

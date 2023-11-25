@@ -2,19 +2,19 @@ import path from 'path';
 import fs from 'fs';
 import ffmpeg_service from './ffmpeg.service';
 const firebase = require('firebase/app');
-import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject, getMetadata } from 'firebase/storage';
+import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 import firebaseConfig from '../config/firebase.config.json';
-import { log } from 'console';
 
 firebase.initializeApp(firebaseConfig);
 const storage = getStorage();
 
-const firebase_service = {
+const service = {
     delete_temp: () => {
         // Xóa tất cả các file trong thư mục temp sau khi tải lên
         const dir = path.join(__dirname, '..', 'temp');
         fs.readdirSync(dir).forEach((f) => fs.rmSync(`${dir}/${f}`));
     },
+
     extractFileNameFromUrl: (fileUrl) => {
         // Sử dụng logic của bạn để trích xuất tên file từ URL
         // Trong trường hợp này, tôi sẽ sử dụng phương pháp đơn giản bằng cách cắt chuỗi từ URL
@@ -23,6 +23,7 @@ const firebase_service = {
         const fileName = fileNameWithToken.split('?')[0];
         return fileName;
     },
+
     // Hàm upload video lên Firebase Storage
     upload_video: async (filePath) => {
         // Lấy thông tin của video sử dụng ffmpeg_service
@@ -52,7 +53,7 @@ const firebase_service = {
 
         console.log('Tải lên thành công');
 
-        firebase_service.delete_temp();
+        service.delete_temp();
 
         // Trả về URL tải xuống của file đã tải lên
         return getDownloadURL(storageRef);
@@ -70,7 +71,7 @@ const firebase_service = {
         const fileBuffer = fs.readFileSync(filePath);
         await uploadBytes(storageRef, fileBuffer, metadata);
 
-        firebase_service.delete_temp();
+        service.delete_temp();
 
         // Lấy URL tải xuống của file đã tải lên
         const downloadURL = await getDownloadURL(storageRef);
@@ -93,7 +94,7 @@ const firebase_service = {
         }
 
         // Trích xuất tên file từ URL
-        const fileName = firebase_service.extractFileNameFromUrl(fileUrl);
+        const fileName = service.extractFileNameFromUrl(fileUrl);
 
         // Tạo tham chiếu đến file trong Firebase Storage
         const storageRef = ref(storage, fileName);
@@ -106,4 +107,4 @@ const firebase_service = {
     },
 };
 
-export default firebase_service;
+export default service;
