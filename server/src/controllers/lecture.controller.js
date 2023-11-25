@@ -35,15 +35,14 @@ const controller = {
                 attributes: ['Course_ID', 'User_ID'],
             },
         });
-        console.log(week);
 
         if (!week) return res.status(404).json(api_response(true, 'Không tìm thấy tuần học'));
-        if (week.User_ID != req.token.id)
+        if (week.Course.User_ID != req.token.id)
             return res.status(403).json(api_response(true, 'Bạn không có quyền thêm bài giảng vào khóa học này'));
 
-        // const lecture = await db.Lecture.create({
-        //     ...req.body,
-        // });
+        const lecture = await db.Lecture.create({
+            ...req.body,
+        });
         return res.status(201).json(api_response(false, 'Thêm bài giảng mới thành công', lecture));
     }),
 
@@ -51,7 +50,7 @@ const controller = {
     update_lecture: async_wrap(async (req, res) => {
         const lecture = await db.Lecture.findByPk(req.params.id);
         if (!lecture) return res.status(404).json(api_response(true, 'Không tìm thấy bài giảng'));
-        
+
         const week = await db.Week.findOne({
             where: {
                 Week_ID: lecture.Week_ID,
@@ -61,7 +60,7 @@ const controller = {
                 attributes: ['Course_ID', 'User_ID'],
             },
         });
-        if (week.User_ID != req.token.id)
+        if (week.Course.User_ID != req.token.id)
             return res.status(403).json(api_response(true, 'Bạn không có quyền thêm bài giảng vào khóa học này'));
 
         lecture.Lecture_Title = req.body.Lecture_Title || lecture.Lecture_Title;
@@ -85,14 +84,17 @@ const controller = {
                 attributes: ['Course_ID', 'User_ID'],
             },
         });
-        if (week.User_ID != req.token.id)
+        if (week.Course.User_ID != req.token.id)
             return res.status(403).json(api_response(true, 'Bạn không có quyền thêm bài giảng vào khóa học này'));
 
-        await db.Lecture.destroy({
-            where: { Week_ID: req.params.id },
+        const result = await db.Lecture.destroy({
+            where: { Lecture_ID: req.params.id },
         });
-
-        return res.status(200).json(api_response(false, 'Xóa bài giảng thành công'));
+        if (result === 1) {
+            return res.status(200).json(api_response(false, 'Xóa bài giảng thành công'));
+        } else {
+            return res.status(404).json(api_response(true, 'Không tìm thấy bài giảng để xóa'));
+        }
     }),
 };
 
