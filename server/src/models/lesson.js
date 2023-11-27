@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
             });
 
             Lesson.belongsToMany(models.User, {
-                through: 'Participating_Lesson',
+                through: 'Completed_Lesson',
                 foreignKey: 'Lesson_ID',
                 otherKey: 'User_ID',
             });
