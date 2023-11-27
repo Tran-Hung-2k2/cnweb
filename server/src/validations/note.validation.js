@@ -1,6 +1,6 @@
 import { Joi } from 'express-validation';
 import messages from '../utils/validation_message';
-import custom_validation from './custom.validation';
+import cv from './custom.validation';
 
 const validation = {
     // [POST] api/parking/
@@ -22,7 +22,7 @@ const validation = {
                 }),
         })
             .unknown(false)
-            .custom(custom_validation.confirmPassword)
+            .custom(cv.confirmPassword)
             .messages({
                 ...messages,
             }),
@@ -51,7 +51,7 @@ const validation = {
                 }),
         })
             .unknown(false)
-            .custom(custom_validation.confirmPassword)
+            .custom(cv.confirmPassword)
             .messages({
                 ...messages,
             }),

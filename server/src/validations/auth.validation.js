@@ -1,6 +1,6 @@
 import { Joi } from 'express-validation';
 import messages from '../utils/validation_message';
-import custom_validation from './custom.validation';
+import cv from './custom.validation';
 import label from '../constants/label';
 
 const validation = {
@@ -17,7 +17,7 @@ const validation = {
             Email: Joi.string()
                 .email()
                 .required()
-                .external(custom_validation.isNotRegistered)
+                .external(cv.isNotRegistered)
                 .messages({
                     ...messages,
                 }),
@@ -42,7 +42,7 @@ const validation = {
                 }),
         })
             .unknown(false)
-            .custom(custom_validation.confirmPassword)
+            .custom(cv.confirmPassword)
             .messages({
                 ...messages,
             }),
@@ -99,7 +99,7 @@ const validation = {
                 }),
         })
             .unknown(false)
-            .custom(custom_validation.confirmPassword)
+            .custom(cv.confirmPassword)
             .messages({
                 ...messages,
             }),
@@ -111,7 +111,7 @@ const validation = {
             Email: Joi.string()
                 .email()
                 .required()
-                .external(custom_validation.isRegistered)
+                .external(cv.isRegistered)
                 .messages({
                     ...messages,
                 }),

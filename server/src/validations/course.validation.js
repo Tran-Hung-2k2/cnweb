@@ -1,6 +1,6 @@
 import { Joi } from 'express-validation';
 import messages from '../utils/validation_message';
-import custom_validation from './custom.validation';
+import cv from './custom.validation';
 import label from '../constants/label';
 
 const validation = {
@@ -9,7 +9,7 @@ const validation = {
         params: Joi.object({
             id: Joi.string()
                 .required()
-                .custom(custom_validation.uuidv4Id)
+                .custom(cv.uuidv4Id)
                 .messages({
                     ...messages,
                 }),
@@ -25,8 +25,8 @@ const validation = {
         body: Joi.object({
             Category_ID: Joi.string()
                 .required()
-                .custom(custom_validation.uuidv4Id)
-                .external(custom_validation.isCategoryExists)
+                .custom(cv.uuidv4Id)
+                .external(cv.isCategoryExists)
                 .label('Danh mục khóa học')
                 .messages({
                     ...messages,
@@ -68,7 +68,7 @@ const validation = {
         params: Joi.object({
             id: Joi.string()
                 .required()
-                .custom(custom_validation.uuidv4Id)
+                .custom(cv.uuidv4Id)
                 .messages({
                     ...messages,
                 }),
@@ -79,8 +79,8 @@ const validation = {
             }),
         body: Joi.object({
             Category_ID: Joi.string()
-                .custom(custom_validation.uuidv4Id)
-                .external(custom_validation.isCategoryExists)
+                .custom(cv.uuidv4Id)
+                .external(cv.isCategoryExists)
                 .label('Danh mục khóa học')
                 .messages({
                     ...messages,
@@ -124,7 +124,7 @@ const validation = {
         params: Joi.object({
             id: Joi.string()
                 .required()
-                .custom(custom_validation.uuidv4Id)
+                .custom(cv.uuidv4Id)
                 .messages({
                     ...messages,
                 }),

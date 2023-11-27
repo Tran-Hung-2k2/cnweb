@@ -1,6 +1,6 @@
 import { Joi } from 'express-validation';
 import messages from '../utils/validation_message';
-import custom_validation from './custom.validation';
+import cv from './custom.validation';
 
 const validation = {
     // [GET] /api/week/:id
@@ -8,7 +8,7 @@ const validation = {
         params: Joi.object({
             id: Joi.string()
                 .required()
-                .custom(custom_validation.uuidv4Id)
+                .custom(cv.uuidv4Id)
                 .messages({
                     ...messages,
                 }),
@@ -24,8 +24,8 @@ const validation = {
         params: Joi.object({
             id: Joi.string()
                 .required()
-                .custom(custom_validation.uuidv4Id)
-                .external(custom_validation.isCourseExists)
+                .custom(cv.uuidv4Id)
+                .external(cv.isCourseExists)
                 .messages({
                     ...messages,
                 }),
@@ -41,7 +41,7 @@ const validation = {
         body: Joi.object({
             Course_ID: Joi.string()
                 .required()
-                .custom(custom_validation.uuidv4Id)
+                .custom(cv.uuidv4Id)
                 .label('ID Khóa học')
                 .messages({
                     ...messages,
@@ -83,7 +83,7 @@ const validation = {
         params: Joi.object({
             id: Joi.string()
                 .required()
-                .custom(custom_validation.uuidv4Id)
+                .custom(cv.uuidv4Id)
                 .messages({
                     ...messages,
                 }),
@@ -126,7 +126,7 @@ const validation = {
         params: Joi.object({
             id: Joi.string()
                 .required()
-                .custom(custom_validation.uuidv4Id)
+                .custom(cv.uuidv4Id)
                 .messages({
                     ...messages,
                 }),

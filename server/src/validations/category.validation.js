@@ -1,6 +1,6 @@
 import { Joi } from 'express-validation';
 import messages from '../utils/validation_message';
-import custom_validation from './custom.validation';
+import cv from './custom.validation';
 
 const validation = {
     // [GET] /api/category/:id
@@ -8,7 +8,7 @@ const validation = {
         params: Joi.object({
             id: Joi.string()
                 .required()
-                .custom(custom_validation.uuidv4Id)
+                .custom(cv.uuidv4Id)
                 .messages({
                     ...messages,
                 }),
@@ -24,7 +24,7 @@ const validation = {
         body: Joi.object({
             Name: Joi.string()
                 .required()
-                .external(custom_validation.isCategoryNameNotExists)
+                .external(cv.isCategoryNameNotExists)
                 .label('Tên danh mục')
                 .messages({
                     ...messages,
@@ -41,7 +41,7 @@ const validation = {
         params: Joi.object({
             id: Joi.string()
                 .required()
-                .custom(custom_validation.uuidv4Id)
+                .custom(cv.uuidv4Id)
                 .messages({
                     ...messages,
                 }),
@@ -53,7 +53,7 @@ const validation = {
         body: Joi.object({
             Name: Joi.string()
                 .required()
-                .external(custom_validation.isCategoryNameNotExists)
+                .external(cv.isCategoryNameNotExists)
                 .label('Tên danh mục')
                 .messages({
                     ...messages,
@@ -70,7 +70,7 @@ const validation = {
         params: Joi.object({
             id: Joi.string()
                 .required()
-                .custom(custom_validation.uuidv4Id)
+                .custom(cv.uuidv4Id)
                 .messages({
                     ...messages,
                 }),
