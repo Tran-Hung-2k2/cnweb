@@ -6,7 +6,7 @@ import ctrl from '../controllers/week.controller.js';
 
 const route = express.Router();
 
-route.get('/', mdw.verify_all_user, ctrl.get_all_weeks);
+route.get('/', mdw.verify_admin, ctrl.get_all_weeks);
 route.get('/:id', mdw.verify_all_user, validate(vld.get_week_by_id()), ctrl.get_week_by_id);
 route.get('/course/:id', mdw.verify_all_user, validate(vld.get_week_by_course_id()), ctrl.get_week_by_course_id);
 route.post('/', validate(vld.add_week()), mdw.verify_admin_and_org, ctrl.add_week);
