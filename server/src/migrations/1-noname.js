@@ -11,16 +11,16 @@ var Sequelize = require('sequelize');
  * createTable "Weeks", deps: [Courses]
  * createTable "Lectures", deps: [Weeks]
  * createTable "Lessons", deps: [Lectures]
+ * createTable "Completed_Lessons", deps: [Users, Lessons]
  * createTable "Participating_Courses", deps: [Users, Courses]
  * createTable "Notes", deps: [Lessons]
- * createTable "Participating_Lessons", deps: [Users, Lessons]
  *
  **/
 
 var info = {
     "revision": 1,
     "name": "noname",
-    "created": "2023-11-24T18:47:04.781Z",
+    "created": "2023-11-27T12:18:19.486Z",
     "comment": ""
 };
 
@@ -353,6 +353,51 @@ var migrationCommands = [{
     {
         fn: "createTable",
         params: [
+            "Completed_Lessons",
+            {
+                "User_ID": {
+                    "type": Sequelize.UUID,
+                    "unique": "Completed_Lessons_User_ID_Lesson_ID_unique",
+                    "onUpdate": "CASCADE",
+                    "onDelete": "CASCADE",
+                    "references": {
+                        "model": "Users",
+                        "key": "User_ID"
+                    },
+                    "primaryKey": true,
+                    "field": "User_ID",
+                    "allowNull": false
+                },
+                "Lesson_ID": {
+                    "type": Sequelize.UUID,
+                    "unique": "Completed_Lessons_User_ID_Lesson_ID_unique",
+                    "onUpdate": "CASCADE",
+                    "onDelete": "CASCADE",
+                    "references": {
+                        "model": "Lessons",
+                        "key": "Lesson_ID"
+                    },
+                    "primaryKey": true,
+                    "field": "Lesson_ID",
+                    "allowNull": false
+                },
+                "createdAt": {
+                    "type": Sequelize.DATE,
+                    "field": "createdAt",
+                    "allowNull": false
+                },
+                "updatedAt": {
+                    "type": Sequelize.DATE,
+                    "field": "updatedAt",
+                    "allowNull": false
+                }
+            },
+            {}
+        ]
+    },
+    {
+        fn: "createTable",
+        params: [
             "Participating_Courses",
             {
                 "User_ID": {
@@ -437,57 +482,6 @@ var migrationCommands = [{
                 "Note_Content": {
                     "type": Sequelize.STRING,
                     "field": "Note_Content"
-                },
-                "createdAt": {
-                    "type": Sequelize.DATE,
-                    "field": "createdAt",
-                    "allowNull": false
-                },
-                "updatedAt": {
-                    "type": Sequelize.DATE,
-                    "field": "updatedAt",
-                    "allowNull": false
-                }
-            },
-            {}
-        ]
-    },
-    {
-        fn: "createTable",
-        params: [
-            "Participating_Lessons",
-            {
-                "User_ID": {
-                    "type": Sequelize.UUID,
-                    "unique": "Participating_Lessons_User_ID_Lesson_ID_unique",
-                    "onUpdate": "CASCADE",
-                    "onDelete": "CASCADE",
-                    "references": {
-                        "model": "Users",
-                        "key": "User_ID"
-                    },
-                    "primaryKey": true,
-                    "field": "User_ID",
-                    "allowNull": false
-                },
-                "Lesson_ID": {
-                    "type": Sequelize.UUID,
-                    "unique": "Participating_Lessons_User_ID_Lesson_ID_unique",
-                    "onUpdate": "CASCADE",
-                    "onDelete": "CASCADE",
-                    "references": {
-                        "model": "Lessons",
-                        "key": "Lesson_ID"
-                    },
-                    "primaryKey": true,
-                    "field": "Lesson_ID",
-                    "allowNull": false
-                },
-                "Status": {
-                    "type": Sequelize.BOOLEAN,
-                    "field": "Status",
-                    "defaultValue": false,
-                    "allowNull": false
                 },
                 "createdAt": {
                     "type": Sequelize.DATE,

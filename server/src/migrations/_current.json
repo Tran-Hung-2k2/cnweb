@@ -31,6 +31,48 @@
             },
             "indexes": []
         },
+        "Completed_Lessons": {
+            "tableName": "Completed_Lessons",
+            "schema": {
+                "User_ID": {
+                    "allowNull": false,
+                    "field": "User_ID",
+                    "primaryKey": true,
+                    "references": {
+                        "model": "Users",
+                        "key": "User_ID"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "unique": "Completed_Lessons_User_ID_Lesson_ID_unique",
+                    "seqType": "Sequelize.UUID"
+                },
+                "Lesson_ID": {
+                    "allowNull": false,
+                    "field": "Lesson_ID",
+                    "primaryKey": true,
+                    "references": {
+                        "model": "Lessons",
+                        "key": "Lesson_ID"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "unique": "Completed_Lessons_User_ID_Lesson_ID_unique",
+                    "seqType": "Sequelize.UUID"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
         "Courses": {
             "tableName": "Courses",
             "schema": {
@@ -300,56 +342,6 @@
                     "allowNull": false,
                     "field": "Status",
                     "seqType": "Sequelize.STRING"
-                },
-                "createdAt": {
-                    "allowNull": false,
-                    "field": "createdAt",
-                    "seqType": "Sequelize.DATE"
-                },
-                "updatedAt": {
-                    "allowNull": false,
-                    "field": "updatedAt",
-                    "seqType": "Sequelize.DATE"
-                }
-            },
-            "indexes": []
-        },
-        "Participating_Lessons": {
-            "tableName": "Participating_Lessons",
-            "schema": {
-                "User_ID": {
-                    "allowNull": false,
-                    "field": "User_ID",
-                    "primaryKey": true,
-                    "references": {
-                        "model": "Users",
-                        "key": "User_ID"
-                    },
-                    "onDelete": "CASCADE",
-                    "onUpdate": "CASCADE",
-                    "unique": "Participating_Lessons_User_ID_Lesson_ID_unique",
-                    "seqType": "Sequelize.UUID"
-                },
-                "Lesson_ID": {
-                    "allowNull": false,
-                    "field": "Lesson_ID",
-                    "primaryKey": true,
-                    "references": {
-                        "model": "Lessons",
-                        "key": "Lesson_ID"
-                    },
-                    "onDelete": "CASCADE",
-                    "onUpdate": "CASCADE",
-                    "unique": "Participating_Lessons_User_ID_Lesson_ID_unique",
-                    "seqType": "Sequelize.UUID"
-                },
-                "Status": {
-                    "allowNull": false,
-                    "defaultValue": {
-                        "value": false
-                    },
-                    "field": "Status",
-                    "seqType": "Sequelize.BOOLEAN"
                 },
                 "createdAt": {
                     "allowNull": false,
