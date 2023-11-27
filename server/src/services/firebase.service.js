@@ -56,7 +56,7 @@ const service = {
         service.delete_temp();
 
         // Trả về URL tải xuống của file đã tải lên
-        return getDownloadURL(storageRef);
+        return { duration: Math.round(videoInfo.duration * 60), url: await getDownloadURL(storageRef) };
     },
 
     upload_image: async (filePath) => {
