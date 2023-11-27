@@ -28,6 +28,7 @@ const middleware = {
         middleware.verify_token(req, res, async () => {
             const user = await db.User.findByPk(req.token.id);
             if (user && roles.includes(user.Role)) {
+                req.token.role = user.Role;
                 next();
             } else {
                 return res.status(403).json({

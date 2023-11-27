@@ -6,135 +6,58 @@ const validation = {
     // [GET] /api/week/:id
     get_week_by_id: () => ({
         params: Joi.object({
-            id: Joi.string()
-                .required()
-                .custom(cv.uuidv4Id)
-                .messages({
-                    ...messages,
-                }),
+            id: Joi.string().required().custom(cv.uuidv4Id),
         })
             .unknown(false)
-            .messages({
-                ...messages,
-            }),
+            .prefs({ messages }),
     }),
 
     // [GET] /api/week/course/:id
     get_week_by_course_id: () => ({
         params: Joi.object({
-            id: Joi.string()
-                .required()
-                .custom(cv.uuidv4Id)
-                .external(cv.isCourseExists)
-                .messages({
-                    ...messages,
-                }),
+            id: Joi.string().required().custom(cv.uuidv4Id).external(cv.isCourseExists),
         })
             .unknown(false)
-            .messages({
-                ...messages,
-            }),
+            .prefs({ messages }),
     }),
 
     // [POST] /api/week/
     add_week: () => ({
         body: Joi.object({
-            Course_ID: Joi.string()
-                .required()
-                .custom(cv.uuidv4Id)
-                .label('ID Khóa học')
-                .messages({
-                    ...messages,
-                }),
-            Title: Joi.string()
-                .required()
-                .label('Tiêu đề')
-                .messages({
-                    ...messages,
-                }),
-            Index: Joi.number()
-                .positive()
-                .required()
-                .label('Thứ tự')
-                .messages({
-                    ...messages,
-                }),
-            Description: Joi.string()
-                .required()
-                .label('Miêu tả')
-                .messages({
-                    ...messages,
-                }),
-            Target: Joi.string()
-                .required()
-                .label('Mục tiêu')
-                .messages({
-                    ...messages,
-                }),
+            Course_ID: Joi.string().required().custom(cv.uuidv4Id).label('ID Khóa học'),
+            Title: Joi.string().required().label('Tiêu đề'),
+            Index: Joi.number().positive().required().label('Thứ tự'),
+            Description: Joi.string().required().label('Miêu tả'),
+            Target: Joi.string().required().label('Mục tiêu'),
         })
             .unknown(false)
-            .messages({
-                ...messages,
-            }),
+            .prefs({ messages }),
     }),
 
     // [PATCH] /api/week/:id
     update_week: () => ({
         params: Joi.object({
-            id: Joi.string()
-                .required()
-                .custom(cv.uuidv4Id)
-                .messages({
-                    ...messages,
-                }),
+            id: Joi.string().required().custom(cv.uuidv4Id),
         })
             .unknown(false)
-            .messages({
-                ...messages,
-            }),
+            .prefs({ messages }),
         body: Joi.object({
-            Title: Joi.string()
-                .label('Tiêu đề')
-                .messages({
-                    ...messages,
-                }),
-            Index: Joi.number()
-                .positive()
-                .label('Thứ tự')
-                .messages({
-                    ...messages,
-                }),
-            Description: Joi.string()
-                .label('Miêu tả')
-                .messages({
-                    ...messages,
-                }),
-            Target: Joi.string()
-                .label('Mục tiêu')
-                .messages({
-                    ...messages,
-                }),
+            Title: Joi.string().label('Tiêu đề'),
+            Index: Joi.number().positive().label('Thứ tự'),
+            Description: Joi.string().label('Miêu tả'),
+            Target: Joi.string().label('Mục tiêu'),
         })
             .unknown(false)
-            .messages({
-                ...messages,
-            }),
+            .prefs({ messages }),
     }),
 
     // [DELETE] /api/week/:id
     delete_week: () => ({
         params: Joi.object({
-            id: Joi.string()
-                .required()
-                .custom(cv.uuidv4Id)
-                .messages({
-                    ...messages,
-                }),
+            id: Joi.string().required().custom(cv.uuidv4Id),
         })
             .unknown(false)
-            .messages({
-                ...messages,
-            }),
+            .prefs({ messages }),
     }),
 };
 

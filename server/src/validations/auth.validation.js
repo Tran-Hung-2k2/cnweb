@@ -7,130 +7,59 @@ const validation = {
     // [POST] /api/auth/register/
     register: () => ({
         body: Joi.object({
-            Name: Joi.string()
-                .trim()
-                .required()
-                .label('Tên người dùng')
-                .messages({
-                    ...messages,
-                }),
-            Email: Joi.string()
-                .email()
-                .required()
-                .external(cv.isNotRegistered)
-                .messages({
-                    ...messages,
-                }),
-            Password: Joi.string()
-                .required()
-                .label('Mật khẩu')
-                .messages({
-                    ...messages,
-                }),
-            Confirm_Password: Joi.string()
-                .required()
-                .label('Mật khẩu xác nhận')
-                .messages({
-                    ...messages,
-                }),
+            Name: Joi.string().trim().required().label('Tên người dùng'),
+            Email: Joi.string().email().required().external(cv.isNotRegistered),
+            Password: Joi.string().required().label('Mật khẩu'),
+            Confirm_Password: Joi.string().required().label('Mật khẩu xác nhận'),
             Role: Joi.string()
                 .required()
                 .valid(...Object.values(label.role))
-                .label('Vai trò')
-                .messages({
-                    ...messages,
-                }),
+                .label('Vai trò'),
         })
             .unknown(false)
             .custom(cv.confirmPassword)
-            .messages({
-                ...messages,
-            }),
+            .prefs({ messages }),
     }),
 
     // [POST] /api/auth/login/
     login: () => ({
         body: Joi.object({
-            Email: Joi.string()
-                .email()
-                .required()
-                .messages({
-                    ...messages,
-                }),
-            Password: Joi.string()
-                .required()
-                .label('Mật khẩu')
-                .messages({
-                    ...messages,
-                }),
+            Email: Joi.string().email().required(),
+            Password: Joi.string().required().label('Mật khẩu'),
         })
             .unknown(false)
-            .messages({
-                ...messages,
-            }),
+            .prefs({ messages }),
     }),
 
     // [POST] /api/auth/change_password/
     change_password: () => ({
         body: Joi.object({
-            Email: Joi.string()
-                .email()
-                .required()
-                .messages({
-                    ...messages,
-                }),
-            Old_Password: Joi.string()
-                .required()
-                .label('Mật khẩu')
-                .messages({
-                    ...messages,
-                }),
-            Password: Joi.string()
-                .required()
-                .label('Mật khẩu mới')
-                .messages({
-                    ...messages,
-                }),
-            Confirm_Password: Joi.string()
-                .required()
-                .label('Mật khẩu xác nhận')
-                .messages({
-                    ...messages,
-                }),
+            Email: Joi.string().email().required(),
+            Old_Password: Joi.string().required().label('Mật khẩu'),
+            Password: Joi.string().required().label('Mật khẩu mới'),
+            Confirm_Password: Joi.string().required().label('Mật khẩu xác nhận'),
         })
             .unknown(false)
             .custom(cv.confirmPassword)
-            .messages({
-                ...messages,
-            }),
+            .prefs({ messages }),
     }),
 
     // [POST] /api/auth/forget_password/
     forget_password: () => ({
         body: Joi.object({
-            Email: Joi.string()
-                .email()
-                .required()
-                .external(cv.isRegistered)
-                .messages({
-                    ...messages,
-                }),
+            Email: Joi.string().email().required().external(cv.isRegistered),
         })
             .unknown(false)
-            .messages({
-                ...messages,
-            }),
+            .prefs({ messages }),
     }),
 
     // [POST] /api/auth/refresh_token/
     refresh_token: () => ({
         cookies: Joi.object({
-            refresh_token: Joi.string()
-                .required()
-                .messages({
-                    ...messages,
-                }),
-        }).unknown(true),
+            refresh_token: Joi.string().required(),
+        })
+            .unknown(true)
+            .prefs({ messages }),
     }),
 };
 

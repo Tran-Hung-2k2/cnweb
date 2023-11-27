@@ -6,79 +6,42 @@ const validation = {
     // [GET] /api/category/:id
     get_category_by_id: () => ({
         params: Joi.object({
-            id: Joi.string()
-                .required()
-                .custom(cv.uuidv4Id)
-                .messages({
-                    ...messages,
-                }),
+            id: Joi.string().required().custom(cv.uuidv4Id),
         })
             .unknown(false)
-            .messages({
-                ...messages,
-            }),
+            .prefs({ messages }),
     }),
 
     // [POST] /api/category/
     add_category: () => ({
         body: Joi.object({
-            Name: Joi.string()
-                .required()
-                .external(cv.isCategoryNameNotExists)
-                .label('Tên danh mục')
-                .messages({
-                    ...messages,
-                }),
+            Name: Joi.string().required().external(cv.isCategoryNameNotExists).label('Tên danh mục'),
         })
             .unknown(false)
-            .messages({
-                ...messages,
-            }),
+            .prefs({ messages }),
     }),
 
     // [PATCH] /api/category/:id
     update_category: () => ({
         params: Joi.object({
-            id: Joi.string()
-                .required()
-                .custom(cv.uuidv4Id)
-                .messages({
-                    ...messages,
-                }),
+            id: Joi.string().required().custom(cv.uuidv4Id),
         })
             .unknown(false)
-            .messages({
-                ...messages,
-            }),
+            .prefs({ messages }),
         body: Joi.object({
-            Name: Joi.string()
-                .required()
-                .external(cv.isCategoryNameNotExists)
-                .label('Tên danh mục')
-                .messages({
-                    ...messages,
-                }),
+            Name: Joi.string().required().external(cv.isCategoryNameNotExists).label('Tên danh mục'),
         })
             .unknown(false)
-            .messages({
-                ...messages,
-            }),
+            .prefs({ messages }),
     }),
 
     // [DELETE] /api/category/:id
     delete_category: () => ({
         params: Joi.object({
-            id: Joi.string()
-                .required()
-                .custom(cv.uuidv4Id)
-                .messages({
-                    ...messages,
-                }),
+            id: Joi.string().required().custom(cv.uuidv4Id),
         })
             .unknown(false)
-            .messages({
-                ...messages,
-            }),
+            .prefs({ messages }),
     }),
 };
 
