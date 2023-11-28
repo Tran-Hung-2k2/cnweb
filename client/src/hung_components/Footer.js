@@ -9,26 +9,61 @@ export default function Footer() {
                 <a className="link link-hover">AI For Everyone Course (DLAI)</a>
                 <a className="link link-hover">AI Product Management Specialization (Duke)</a>
                 <a className="link link-hover">Deep Learning Specialization (DLAI)</a>
+                <a className="link link-hover">Generative AI for Everyone Course (DLAI) (Penn)</a>
+                <a className="link link-hover">Generative AI Fundamentals Specialization (IBM)</a>
+                <a className="link link-hover">IBM Applied AI Professional Certificate(Duke)</a>
+                <a className="link link-hover">Machine Learning Specialization (Stanford)</a>
+                <a className="link link-hover">NLP Specialization (DLAI)</a>
+                <a className="link link-hover">Prompt Engineering for ChatGPT Course (Vanderbilt)</a>
+                <a className="link link-hover">Supervised Machine Learning Course (DLAI)</a>
+                <a className="link link-hover">See All AI Courses</a>
+                
+
             </nav>
             <nav>
                 <header className="footer-title">Popular Programs</header>
-                <a className="link link-hover">About us</a>
-                <a className="link link-hover">Contact</a>
-                <a className="link link-hover">Jobs</a>
-                <a className="link link-hover">Press kit</a>
+                <a className="link link-hover">Google Cybersecurity Professional Certificate</a>
+                <a className="link link-hover">Google Data Analytics Professional Certificate</a>
+                <a className="link link-hover">Google Digital Marketing & E-commerce Professional Certificate</a>
+                <a className="link link-hover">Google IT Automation with Python Professional Certificate</a>
+                <a className="link link-hover">Google Cybersecurity Professional Certificate</a>
+                <a className="link link-hover">Google IT Support Professional Certificate</a>
+                <a className="link link-hover">Google Project Management Professional Certificate</a>
+                <a className="link link-hover">Google SEO Fundamentals</a>
+                <a className="link link-hover">Google UX Design Professional Certificate</a>
+                <a className="link link-hover">Intuit Academy Bookkeeping Professional Certificate</a>
+                <a className="link link-hover">Python for Everybody Specialization</a>
+                <a className="link link-hover">UI / UX Design Specialization</a>
             </nav>
             <nav>
                 <header className="footer-title">Popular Skills</header>
-                <a className="link link-hover">Terms of use</a>
-                <a className="link link-hover">Privacy policy</a>
-                <a className="link link-hover">Cookie policy</a>
+                <a className="link link-hover">Cybersecurity Courses</a>
+                <a className="link link-hover">Data Analysis Courses</a>
+                <a className="link link-hover">Data Science Courses</a>
+                <a className="link link-hover">Digital Marketing Courses</a>
+                <a className="link link-hover">Excel Courses</a>
+                <a className="link link-hover">Google Courses</a>
+                <a className="link link-hover">Power BI Courses</a>
+                <a className="link link-hover">Product Management Courses</a>
+                <a className="link link-hover">Project Management Courses</a>
+                <a className="link link-hover">Python Courses</a>
+                <a className="link link-hover">SQL Courses</a>
+                <a className="link link-hover">See All Courses</a>
             </nav>
             <nav>
                 <header className="footer-title">Popular Career Resources</header>
-                <a className="link link-hover">Twitter</a>
-                <a className="link link-hover">Instagram</a>
-                <a className="link link-hover">Facebook</a>
-                <a className="link link-hover">Github</a>
+                <a className="link link-hover">Become a Data Analyst</a>
+                <a className="link link-hover">CAPM Certification Requirements</a>
+                <a className="link link-hover">Cybersecurity Career Paths</a>
+                <a className="link link-hover">Data Analyst Career Guide</a>
+                <a className="link link-hover">Essential IT Certifications</a>
+                <a className="link link-hover">High-Income Skills Worth Learning</a>
+                <a className="link link-hover">How to Get a PMP Certification</a>
+                <a className="link link-hover">Popular Cybersecurity Certifications</a>
+                <a className="link link-hover">Popular Data Analytics Certifications</a>
+                <a className="link link-hover">Popular PMI Certifications</a>
+                <a className="link link-hover">Popular SQL Certifications</a>
+                <a className="link link-hover">See All Career Resources</a>
             </nav>
             <nav>
                 <header className="footer-title">Coursera</header>
