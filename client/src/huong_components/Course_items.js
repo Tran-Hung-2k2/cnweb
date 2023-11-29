@@ -1,19 +1,21 @@
-export default function Home() {
+import { text } from "body-parser";
+
+export default function Course_items(courses) {
+
     return (
-        <div className="card w-96 bg-base-100 shadow-xl">
-            <figure><img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" /></figure>
-            <div className="card-body">
-                <h2 className="card-title">
-                    Shoes!
-                    <div className="badge badge-secondary">NEW</div>
-                </h2>
-                <p>If a dog chews shoes whose shoes does he choose?</p>
-                <div className="card-actions justify-end">
-                    <div className="badge badge-outline">Fashion</div>
-                    <div className="badge badge-outline">Products</div>
+        <>
+            <div className="course">
+                <figure><img src={courses.image_course} alt="Course" /></figure>
+                <div className="course_body">
+                    <h2 className="university">
+                        {courses.university}
+                        <div className="type_course">FREE</div>
+                    </h2>
+                    <p style="font-size:120%;">{courses.details}</p>
+                    <p>Course</p>
                 </div>
             </div>
-        </div>
+        </>
 
     );
 }
