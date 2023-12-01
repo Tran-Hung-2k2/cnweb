@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 
-const notify = (text, type, duration = 3000, position = 'bottom-right') => {
+const notify = (text, type, duration = 1500, position = 'top-right') => {
     toast[type](text, {
         position: position,
         autoClose: duration,
