@@ -14,7 +14,8 @@ function App() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        setTimeout(() => setLoading(false), 1000);
+        setLoading(false);
+        // setTimeout(() => setLoading(false), 3000);
     }, []);
 
     return loading ? (
@@ -23,28 +24,28 @@ function App() {
         <>
             <Toaster position="top-right" reverseOrder={false} containerClassName="overflow-auto" />
             <Routes>
-                <Route path="/auth/signin" element={<SignIn />} />
-                <Route path="/auth/signup" element={<SignUp />} />
-                <Route element={<RequireAuth />}>
-                    <Route element={<DefaultLayout />}>
-                        <Route path="/" element={<ECommerce />} />
-                        <Route path="/dashboard/ecommerce" element={<ECommerce />} />
-                        {routes.map((routes, index) => {
-                            const { path, component: Component } = routes;
-                            return (
-                                <Route
-                                    key={index}
-                                    path={path}
-                                    element={
-                                        <Suspense fallback={<Loader />}>
-                                            <Component />
-                                        </Suspense>
-                                    }
-                                />
-                            );
-                        })}
-                    </Route>
+                <Route path="/signin" element={<SignIn />} />
+                <Route path="/signup" element={<SignUp />} />
+                {/* <Route element={<RequireAuth />}> */}
+                <Route element={<DefaultLayout />}>
+                    <Route path="/" element={<ECommerce />} />
+                    <Route path="/dashboard/ecommerce" element={<ECommerce />} />
+                    {routes.map((routes, index) => {
+                        const { path, component: Component } = routes;
+                        return (
+                            <Route
+                                key={index}
+                                path={path}
+                                element={
+                                    <Suspense fallback={<Loader />}>
+                                        <Component />
+                                    </Suspense>
+                                }
+                            />
+                        );
+                    })}
                 </Route>
+                {/* </Route> */}
             </Routes>
         </>
     );
