@@ -1,10 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { IoMdArrowBack } from 'react-icons/io';
 import { GrUserManager } from 'react-icons/gr';
 import { SiCoursera } from 'react-icons/si';
 import { BiCategory } from 'react-icons/bi';
-import { NavLink, useLocation } from 'react-router-dom';
-import Logo from '../images/favicon.ico';
+import { NavLink } from 'react-router-dom';
 
 const menuItem = [
     { label: 'MENU' },
@@ -26,15 +23,15 @@ const menuItem = [
         title: 'Khóa học',
         child: [
             {
-                path: '/forms/form-elements',
+                path: '/approval_student',
                 title: 'Xét duyệt học viên',
             },
             {
-                path: '/forms/form-elements',
+                path: '/course_manager',
                 title: 'Quản lý khóa học',
             },
             {
-                path: '/forms/form-layout',
+                path: '/add_course',
                 title: 'Thêm khóa học',
             },
         ],
