@@ -103,9 +103,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
             }`}
         >
             {/* <!-- SIDEBAR HEADER --> */}
-            <div className="flex items-center justify-between gap-2 px-6 pt-5.5 border-b-2">
+            <div className="flex items-center justify-between gap-2 px-6 pt-5.5">
                 <NavLink to="/" className="w-full">
-                    <img src={Logo} className="h-20 w-full object-cover" alt="Logo" />
+                    <img src={Logo} className="h-12 w-50 ml-2 object-cover" alt="Logo" />
                 </NavLink>
 
                 <button ref={trigger} onClick={() => setSidebarOpen(!sidebarOpen)} className="block lg:hidden">

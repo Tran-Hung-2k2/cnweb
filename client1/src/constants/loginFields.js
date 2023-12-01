@@ -11,9 +11,9 @@ const fields = [
     },
     {
         labelText: 'Password',
-        labelFor: 'Password',
-        id: 'Password',
-        name: 'Password',
+        labelFor: 'User_Password',
+        id: 'User_Password',
+        name: 'User_Password',
         type: 'password',
         autoComplete: 'current-password',
         isRequired: true,

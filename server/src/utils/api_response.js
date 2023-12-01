@@ -9,6 +9,7 @@ const api_response = (is_error = false, message = 'Thành công', data, ...rest_
 
     return {
         is_error,
+        error: 'Unauthorized',
         message,
         data,
         details: {

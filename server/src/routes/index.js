@@ -19,5 +19,5 @@ export default (app) => {
     app.use('/api/note', note_route);
     app.use('/api/participating_course', participating_course_route);
     app.use('/api/completed_lesson', completed_lesson_route);
-    app.use('/api/user', user_route);
+    // app.use('/api/user', user_route);
 };

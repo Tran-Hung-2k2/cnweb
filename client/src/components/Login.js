@@ -29,7 +29,7 @@ export default function Login() {
                 console.log(data);
                 alert(data.details.body[0].message);
             })
-            .catch((error) => console.log(error));
+            .catch((error) => console.error('Error:', error.message));
     };
 
     return (
