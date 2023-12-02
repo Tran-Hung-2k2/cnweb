@@ -9,11 +9,11 @@ const menuItem = [
         title: 'Người dùng',
         child: [
             {
-                path: '/profile',
+                path: '/user_manager',
                 title: 'Quản lý người dùng',
             },
             {
-                path: '/forms/form-layout',
+                path: '/approval_org',
                 title: 'Xét duyệt tổ chức',
             },
         ],
@@ -25,6 +25,10 @@ const menuItem = [
             {
                 path: '/approval_student',
                 title: 'Xét duyệt học viên',
+            },
+            {
+                path: '/approval_course',
+                title: 'Xét duyệt khóa học',
             },
             {
                 path: '/course_manager',
