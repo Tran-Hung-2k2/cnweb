@@ -2,17 +2,30 @@ import { lazy } from 'react';
 
 const Profile = lazy(() => import('../pages/Profile'));
 const CourseManager = lazy(() => import('../pages/CourseManager'));
+const CourseInfo = lazy(() => import('../pages/CourseInfo'));
+const UserManager = lazy(() => import('../pages/UserManager'));
+const Lesson = lazy(() => import('../pages/Lesson'));
 
 const coreRoutes = [
     {
         path: '/profile',
-        title: 'Thông tin người dùng',
         component: Profile,
     },
     {
         path: '/course_manager',
-        title: 'Quản lý khóa học',
         component: CourseManager,
+    },
+    {
+        path: '/user_manager',
+        component: UserManager,
+    },
+    {
+        path: '/course/:id',
+        component: CourseInfo,
+    },
+    {
+        path: '/lesson/:id',
+        component: Lesson,
     },
 ];
 
