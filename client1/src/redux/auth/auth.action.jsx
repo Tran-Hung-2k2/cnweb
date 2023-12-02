@@ -3,25 +3,29 @@ import authService from '../../services/auth.service';
 import notify from '../../utils/notify';
 
 const action = {
-    login: (data, callback) => {
-        return async (dispatch) => {
-            try {
-                const response = await authService.login(data);
-                dispatch({
-                    type: type.LOGIN,
-                    payload: response.data.data,
-                });
-                callback();
-            } catch (error) {
-                notify(error.response.data.details.body[0].message, 'error');
-            }
-        };
+    login: (data, callback) => async (dispatch) => {
+        try {
+            const response = await authService.login(data);
+            dispatch({
+                type: type.LOGIN,
+                payload: response.data,
+            });
+            callback();
+        } catch (error) {
+            notify(error.response.data.details.body[0].message, 'error');
+        }
     },
 
-    logout: () => {
-        return {
-            type: type.LOGOUT,
-        };
+    logout: () => async (dispatch) => {
+        try {
+            const res = await authService.logout();
+            console.log(res);
+            dispatch({
+                type: type.LOGOUT,
+            });
+        } catch (error) {
+            notify(error.response.data.details.body[0].message, 'error');
+        }
     },
 };
 export default action;

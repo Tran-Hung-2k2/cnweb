@@ -44,9 +44,9 @@ function App() {
                                 />
                             );
                         })}
-                        <Route path="*" element={<NotFound />} />
                     </Route>
                 </Route>
+                <Route path="*" element={<NotFound />} />
             </Routes>
         </>
     );
