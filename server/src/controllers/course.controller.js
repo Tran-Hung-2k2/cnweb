@@ -7,15 +7,57 @@ import async_wrap from '../utils/async_wrap.js';
 const controller = {
     // [GET] /api/course/
     get_all_courses: async_wrap(async (req, res) => {
-        const courses = await db.Course.findAll();
+        const queryParams = ['Course_ID', 'Category_ID', 'User_ID'];
+        const whereClause = {};
+
+        queryParams.forEach((param) => {
+            if (req.query[param]) {
+                whereClause[param] = req.query[param];
+            }
+        });
+
+        const courses = await db.Course.findAll({
+            where: whereClause,
+            include: {
+                model: db.User,
+                attributes: ['User_ID', 'Name', 'Avatar'],
+            },
+        });
         return res.status(200).json(api_response(false, 'Lấy danh sách khóa học thành công', courses));
     }),
 
-    // [GET] /api/course/:id
-    get_course_by_id: async_wrap(async (req, res) => {
-        const course = await db.Course.findByPk(req.params.id);
-        if (!course) return res.status(404).json(api_response(true, 'Không tìm thấy khóa học'));
-        return res.status(200).json(api_response(false, 'Lấy thông tin khóa học thành công', course));
+    // [GET] /api/course/detail
+    get_course_detail: async_wrap(async (req, res) => {
+        const queryParams = ['Course_ID'];
+        const whereClause = {};
+
+        queryParams.forEach((param) => {
+            if (req.query[param]) {
+                whereClause[param] = req.query[param];
+            }
+        });
+
+        const courses = await db.Course.findOne({
+            where: whereClause,
+            include: [
+                {
+                    model: db.User,
+                    attributes: ['User_ID', 'Name', 'Avatar'],
+                },
+                {
+                    model: db.Week,
+                    include: {
+                        model: db.Lecture,
+                        include: {
+                            model: db.Lesson,
+                            attributes: ['Lesson_ID', 'Lecture_ID', 'Title', 'Type', 'Index', 'Duration'],
+                        },
+                    },
+                },
+            ],
+        });
+
+        return res.status(200).json(api_response(false, 'Lấy danh sách khóa học thành công', courses));
     }),
 
     // [POST] /api/course/

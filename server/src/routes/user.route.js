@@ -1,15 +1,14 @@
 import express from 'express';
-// import { validate } from 'express-validation';
-// import vld from '../validations/user.validation.js';
-// import ctrl from '../controllers/user.controller.js';
-// import ms from '../services/multer.service.js';
-// import mdw from '../middlewares/auth.middleware.js';
+import { validate } from 'express-validation';
+import vld from '../validations/user.validation.js';
+import ctrl from '../controllers/user.controller.js';
+import ms from '../services/multer.service.js';
+import mdw from '../middlewares/auth.middleware.js';
 
 const route = express.Router();
 
-// route.get('/', ctrl.get_all_user);
-// route.get('/:id', ctrl.get_user_by_id);
-// route.patch('/:id', ms.upload.single('Image'), mdw.verify_admin_and_org, ctrl.update_user);
-// route.delete('/:id', validate(vld.get_course_by_id()), mdw.verify_admin_and_org, ctrl.delete_course);
+route.get('/', mdw.verify_admin, ctrl.get_all_user);
+route.get('/info', mdw.verify_all_user, ctrl.get_user_info);
+route.patch('/', ms.upload.single('Avatar'), mdw.verify_all_user, ctrl.update_user);
 
 export default route;

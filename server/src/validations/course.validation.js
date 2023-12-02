@@ -4,10 +4,20 @@ import cv from './custom.validation';
 import label from '../constants/label';
 
 const validation = {
-    // [GET] /api/course/:id
-    get_course_by_id: () => ({
-        params: Joi.object({
-            id: Joi.string().required().custom(cv.uuidv4Id),
+    // [GET] /api/course/
+    get_all_courses: () => ({
+        query: Joi.object({
+            Course_ID: Joi.string().custom(cv.uuidv4Id),
+            Category_ID: Joi.string().custom(cv.uuidv4Id),
+            User_ID: Joi.string().custom(cv.uuidv4Id),
+        })
+            .unknown(false)
+            .prefs({ messages }),
+    }),
+    // [GET] /api/course/detail
+    get_course_detail: () => ({
+        query: Joi.object({
+            Course_ID: Joi.string().required().custom(cv.uuidv4Id),
         })
             .unknown(false)
             .prefs({ messages }),
