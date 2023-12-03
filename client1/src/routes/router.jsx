@@ -1,4 +1,5 @@
 import { lazy } from 'react';
+import AddWeek from '../pages/AddWeek';
 
 const Profile = lazy(() => import('../pages/Profile'));
 const CourseManager = lazy(() => import('../pages/CourseManager'));
@@ -26,6 +27,18 @@ const coreRoutes = [
     {
         path: '/lesson/:id',
         component: Lesson,
+    },
+    {
+        path: '/add_week',
+        component: AddWeek,
+    },
+    {
+        path: '/add_lecture',
+        component: AddWeek,
+    },
+    {
+        path: '/add_lesson',
+        component: AddWeek,
     },
 ];
 
