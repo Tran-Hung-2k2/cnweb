@@ -3,7 +3,7 @@ const fields = [
         label: 'Email',
         id: 'Email',
         type: 'email',
-        required: false,
+        required: true,
         placeholder: 'Địa chỉ Email',
     },
     {
