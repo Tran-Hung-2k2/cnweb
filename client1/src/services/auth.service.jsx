@@ -1,6 +1,6 @@
 import axios from './axios.service';
 
-const userService = {
+const service = {
     login: async (data) =>
         (
             await axios.post('/api/auth/login', JSON.stringify(data), {
@@ -14,4 +14,4 @@ const userService = {
     logout: async () => (await axios.post('/api/auth/logout')).data,
 };
 
-export default userService;
+export default service;

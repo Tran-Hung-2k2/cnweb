@@ -1,6 +1,6 @@
 import axios from './axios.service';
 
-const userService = {
+const service = {
     getCourses: async (params) => {
         const queryParams = ['Course_ID', 'Category_ID', 'User_ID'];
         const paramsObject = {};
@@ -51,10 +51,18 @@ const userService = {
             });
         }
         const response = await axios.get('/api/lesson', { withCredentials: true, params: paramsObject });
-        console.log(response);
+
+        return response.data;
+    },
+
+    addWeek: async (data) => {
+        const response = await axios.post('/api/week', JSON.stringify(data), {
+            headers: { 'Content-Type': 'application/json' },
+            withCredentials: true,
+        });
 
         return response.data;
     },
 };
 
-export default userService;
+export default service;

@@ -17,10 +17,6 @@ module.exports = {
                     accent: '#ffffff',
                     neutral: '#ffffff',
                     'base-100': '#ffffff',
-                    info: '#ffffff',
-                    success: '#00ffff',
-                    warning: '#ffffff',
-                    error: '#ffffff',
                 },
             },
         ], // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]
