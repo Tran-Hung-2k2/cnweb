@@ -11,18 +11,18 @@ const Header = () => {
     const dispatch = useDispatch();
 
     return (
-        <div className="my-1 gap-60 justify-evenly navbar bg-base-100">
+        <div className="my-1 xl:gap-60 lg:gap-40 md:gap-30 sm:gap-20 justify-evenly navbar bg-base-100">
             <div className="flex-1 ml-6 join">
                 <div className="flex flex-1">
                     <input className="flex-1 input input-bordered join-item" placeholder="Nhập để tìm kiếm khóa học" />
                 </div>
                 <select className="select select-bordered join-item">
-                    <option disabled selected>
+                    <option value={'option1'} disabled>
                         Danh mục
                     </option>
-                    <option>Sci-fi</option>
-                    <option>Drama</option>
-                    <option>Action</option>
+                    <option value={'option2'}>Information Technology</option>
+                    <option value={'option3'}>Computer Science</option>
+                    <option value={'option4'}>Math and Logic</option>
                 </select>
                 <div className="indicator">
                     <span className="indicator-item badge badge-secondary">new</span>
