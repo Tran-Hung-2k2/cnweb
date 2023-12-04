@@ -1,4 +1,5 @@
-export default function Home() {
+import Course_items from "./Course_items";
+export default function Course() {
     return (
         <div className="card w-96 bg-base-100 shadow-xl">
             <figure><img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" /></figure>
