@@ -28,6 +28,9 @@ export default function DegreesPage() {
                 <Degrees>
 
                 </Degrees>
+                <Degrees>
+                    
+                </Degrees>
             </>
 
             );
