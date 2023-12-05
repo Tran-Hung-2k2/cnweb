@@ -12,8 +12,19 @@ const PORT = process.env.PORT || 8080;
 
 const app = express();
 
-app.use(cors());
-app.options('*', cors());
+app.use(
+    cors({
+        origin: 'http://localhost:5173',
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+        credentials: true,
+        allowedHeaders: [
+            'set-cookie',
+            'Content-Type',
+            'Access-Control-Allow-Origin',
+            'Access-Control-Allow-Credentials',
+        ],
+    }),
+);
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

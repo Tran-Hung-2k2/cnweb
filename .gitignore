@@ -54,3 +54,25 @@ npm-debug.log
 /client/npm-debug.log*
 /client/yarn-debug.log*
 /client/yarn-error.log*
+
+# dependencies
+/client1/node_modules
+/client1/.pnp
+/client1/.pnp.js
+
+# testing
+/client1/coverage
+
+# production
+/client1/build
+
+# misc
+/client1/.DS_Store
+/client1/.env.local
+/client1/.env.development.local
+/client1/.env.test.local
+/client1/.env.production.local
+
+/client1/npm-debug.log*
+/client1/yarn-debug.log*
+/client1/yarn-error.log*

@@ -20,9 +20,9 @@ const controller = {
             return res.status(403).json(api_response(true, 'Bạn không có quyền truy cập tài nguyên này'));
 
         const lessons = await db.Lesson.findAll({ where: whereClause });
-        if (lessons == [])
+        if (lessons.length > 0)
             return res.status(200).json(api_response(false, 'Lấy danh sách bài học thành công', lessons));
-        else return res.status(200).json(api_response(false, 'Không tìm thấy bài học nào'));
+        else return res.status(200).json(api_response(false, 'Không tìm thấy bài học nào', lessons));
     }),
 
     // [POST] /api/lesson/
