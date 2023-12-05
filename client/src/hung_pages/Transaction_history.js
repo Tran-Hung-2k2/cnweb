@@ -8,9 +8,9 @@ const TransactionHistory = () => {
   const fetchTransactionHistory = async () => {
     try {
       // Gọi API để lấy dữ liệu lịch sử giao dịch
-      const response = await fetch('/api/transaction-history');
+      const response = await fetch('http://localhost:3001/api/transaction-history');
       const data = await response.json();
-
+  
       // Cập nhật state với dữ liệu mới
       setTransactions(data);
     } catch (error) {
