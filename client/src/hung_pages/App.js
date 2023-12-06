@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import NoteList from './NoteList';
+import Help from './Help';
 import './styles.css'; // Import your CSS file
 
 const App = () => {
@@ -15,10 +16,13 @@ const App = () => {
   };
 
   return (
-    <div className="app">
-      <h1>Notes App</h1>
-      <NoteList notes={notes} onNoteClick={handleNoteClick} />
-    </div>
+    
+     <div className="App">
+     <header className="App-header">
+         <h1>Ứng Dụng React Help</h1>
+     </header>
+     <Help />
+ </div>
   );
 };
 
