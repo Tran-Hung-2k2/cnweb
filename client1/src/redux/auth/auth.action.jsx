@@ -1,31 +1,22 @@
 import type from './auth.type';
-import authService from '../../services/auth.service';
-import notify from '../../utils/notify';
+import service from '../../services/auth.service';
 
 const action = {
     login: (data, callback) => async (dispatch) => {
-        try {
-            const response = await authService.login(data);
-            dispatch({
-                type: type.LOGIN,
-                payload: response.data,
-            });
-            callback();
-        } catch (error) {
-            notify(error.response.data.details.body[0].message, 'error');
-        }
+        const response = await service.login(data);
+        dispatch({
+            type: type.LOGIN,
+            payload: response.data,
+        });
+        callback();
     },
 
     logout: () => async (dispatch) => {
-        try {
-            const res = await authService.logout();
-            console.log(res);
-            dispatch({
-                type: type.LOGOUT,
-            });
-        } catch (error) {
-            notify(error.response.data.details.body[0].message, 'error');
-        }
+        await service.logout();
+
+        dispatch({
+            type: type.LOGOUT,
+        });
     },
 };
 

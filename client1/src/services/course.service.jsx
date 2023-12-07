@@ -54,15 +54,6 @@ const service = {
 
         return response.data;
     },
-
-    addWeek: async (data) => {
-        const response = await axios.post('/api/week', JSON.stringify(data), {
-            headers: { 'Content-Type': 'application/json' },
-            withCredentials: true,
-        });
-
-        return response.data;
-    },
 };
 
 export default service;

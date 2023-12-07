@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import courseService from '../services/course.service';
-import notify from '../utils/notify';
+import service from '../services/lesson.service';
 import Loader from '../components/Loader';
 import label from '../constants/label';
+import BackButton from '../components/BackButton';
 
 const Lesson = () => {
     const [lesson, setLesson] = useState();
@@ -14,7 +14,7 @@ const Lesson = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await courseService.getLesson({ Lesson_ID: id });
+                const res = await service.getLesson({ Lesson_ID: id });
                 setLesson(res.data[0]);
                 setLoading(false);
             } catch (error) {
@@ -26,6 +26,7 @@ const Lesson = () => {
 
     return (
         <>
+            <BackButton className='ml-6' />
             {loading ? (
                 <Loader />
             ) : (

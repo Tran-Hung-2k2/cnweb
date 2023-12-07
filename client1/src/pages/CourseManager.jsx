@@ -29,8 +29,8 @@ const CourseManager = () => {
                 <div className="grid grid-cols-1 gap-4 m-8 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
                     {courses.map((course) => (
                         <div key={course.Course_ID} className="border shadow-xl card bg-base-100">
-                            <Link to={`/course/${course.Course_ID}`} className="m-3 border rounded-lg">
-                                <img className="object-fill h-48 max-w-full" src={course.Image} alt={course.Name} />
+                            <Link to={`/course/${course.Course_ID}`} className="w-full p-3 border rounded-lg">
+                                <img className="object-contain w-full h-48" src={course.Image} alt={course.Name} />
                             </Link>
                             <div className="mx-4">
                                 <img
