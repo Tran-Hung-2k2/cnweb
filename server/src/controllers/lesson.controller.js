@@ -3,6 +3,7 @@ import api_response from '../utils/api_response.js';
 import async_wrap from '../utils/async_wrap.js';
 import firebase_service from '../services/firebase.service.js';
 import label from '../constants/label.js';
+import APIError from '../utils/api_error.js';
 
 const controller = {
     // [GET] /api/lesson/
@@ -17,7 +18,7 @@ const controller = {
         });
 
         if (Object.keys(whereClause).length === 0 && req.token.role != 'admin')
-            return res.status(403).json(api_response(true, 'Bạn không có quyền truy cập tài nguyên này'));
+            throw new APIError(403, 'Bạn không có quyền truy cập tài nguyên này');
 
         const lessons = await db.Lesson.findAll({ where: whereClause });
         if (lessons.length > 0)
@@ -46,12 +47,13 @@ const controller = {
             ],
         });
 
-        if (!lecture) return res.status(404).json(api_response(true, 'Không tìm thấy bài giảng'));
-        if (lecture.Week.Course.User_ID != req.token.id)
-            return res.status(403).json(api_response(true, 'Bạn không có quyền thêm bài học vào khóa học này'));
+        if (!lecture) throw new APIError(404, 'Không tìm thấy bài giảng');
 
-        if (req.body.Type == label.lesson_type.VIDEO) {
-            if (!req.file) return res.status(400).json(api_response(true, 'Video nội dung bài học là bắt buộc'));
+        if (lecture.Week.Course.User_ID != req.token.id)
+            throw new APIError(403, 'Bạn không có quyền thêm bài học vào khóa học này');
+
+        if (req.body.Type === label.lesson_type.VIDEO) {
+            if (!req.file) throw new APIError(400, 'Video nội dung bài học là bắt buộc');
             const video_info = await firebase_service.upload_video(req.file.path);
             req.body.Content = video_info.url;
             req.body.Duration = video_info.duration;
@@ -66,7 +68,7 @@ const controller = {
     // [PATCH] /api/lesson/:id
     update_lesson: async_wrap(async (req, res) => {
         const lesson = await db.Lesson.findByPk(req.params.id);
-        if (!lesson) return res.status(404).json(api_response(true, 'Không tìm thấy bài học'));
+        if (!lesson) throw new APIError(404, 'Không tìm thấy bài học');
 
         const lecture = await db.Lecture.findOne({
             where: {
@@ -86,16 +88,16 @@ const controller = {
             ],
         });
 
-        if (!lecture) return res.status(404).json(api_response(true, 'Không tìm thấy bài giảng'));
+        if (!lecture) throw new APIError(404, 'Không tìm thấy bài giảng');
         if (lecture.Week.Course.User_ID != req.token.id)
-            return res.status(403).json(api_response(true, 'Bạn không có quyền thêm bài học vào khóa học này'));
+            throw new APIError(403, 'Bạn không có quyền thêm bài học vào khóa học này');
 
         lesson.Lecture_ID = req.body.Lecture_ID || lesson.Lecture_ID;
         lesson.Title = req.body.Title || lesson.Title;
         lesson.Index = req.body.Index || lesson.Index;
-        lesson.Duration = lesson.Type == label.lesson_type.READING ? req.body.Duration : lesson.Duration;
-        lesson.Content = lesson.Type == label.lesson_type.READING ? req.body.Content : lesson.Content;
-        if (lesson.Type == label.lesson_type.VIDEO && req.file) {
+        lesson.Duration = lesson.Type === label.lesson_type.READING ? req.body.Duration : lesson.Duration;
+        lesson.Content = lesson.Type === label.lesson_type.READING ? req.body.Content : lesson.Content;
+        if (lesson.Type === label.lesson_type.VIDEO && req.file) {
             await firebase_service.delete_file(lesson.Content);
             const video_info = await firebase_service.upload_video(req.file.path);
             lesson.Content = video_info.url;
@@ -109,7 +111,7 @@ const controller = {
     // [DELETE] /api/lesson/:id
     delete_lesson: async_wrap(async (req, res) => {
         const lesson = await db.Lesson.findByPk(req.params.id);
-        if (!lesson) return res.status(404).json(api_response(true, 'Không tìm thấy bài học'));
+        if (!lesson) throw new APIError(404, 'Không tìm thấy bài học');
 
         const lecture = await db.Lecture.findOne({
             where: {
@@ -129,11 +131,11 @@ const controller = {
             ],
         });
 
-        if (!lecture) return res.status(404).json(api_response(true, 'Không tìm thấy bài giảng'));
+        if (!lecture) throw new APIError(404, 'Không tìm thấy bài giảng');
         if (lecture.Week.Course.User_ID != req.token.id)
-            return res.status(403).json(api_response(true, 'Bạn không có quyền thêm bài học vào khóa học này'));
+            throw new APIError(403, 'Bạn không có quyền thêm bài học vào khóa học này');
 
-        if (lesson.Type == label.lesson_type.VIDEO) await firebase_service.delete_file(lesson.Content);
+        if (lesson.Type === label.lesson_type.VIDEO) await firebase_service.delete_file(lesson.Content);
 
         const result = await db.Lesson.destroy({
             where: { Lesson_ID: req.params.id },
@@ -141,7 +143,7 @@ const controller = {
         if (result === 1) {
             return res.status(200).json(api_response(false, 'Xóa bài học thành công'));
         } else {
-            return res.status(404).json(api_response(true, 'Không tìm thấy bài học để xóa'));
+            throw new APIError(404, 'Không tìm thấy bài học để xóa');
         }
     }),
 };

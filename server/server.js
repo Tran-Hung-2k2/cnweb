@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import { ValidationError } from 'express-validation';
 import route from './src/routes/index.js';
 import api_response from './src/utils/api_response.js';
+import APIError from './src/utils/api_error.js';
 
 dotenv.config();
 const PORT = process.env.PORT || 8080;
@@ -33,7 +34,9 @@ route(app);
 
 app.use(function (err, req, res, next) {
     if (err instanceof ValidationError) {
-        return res.status(err.statusCode).json(err);
+        return res.status(err.statusCode).json(api_response(true, 'Dữ liệu không hợp lệ', err.details.body));
+    } else if (err instanceof APIError) {
+        return res.status(err.statusCode).json(api_response(true, err.message));
     }
     console.log(err);
     return res.status(500).json(api_response(true, 'Có lỗi xảy ra. Vui lòng thử lại sau'));

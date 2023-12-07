@@ -1,6 +1,7 @@
 import db from '../models/index.js';
 import api_response from '../utils/api_response.js';
 import async_wrap from '../utils/async_wrap.js';
+import APIError from '../utils/api_error.js';
 
 const controller = {
     // [GET] /api/category/
@@ -12,7 +13,9 @@ const controller = {
     // [GET] /api/category/:id
     get_category_by_id: async_wrap(async (req, res) => {
         const category = await db.Category.findByPk(req.params.id);
-        if (!category) return res.status(404).json(api_response(true, 'Không tìm thấy danh mục khóa học'));
+
+        if (!category) throw new APIError(404, 'Không tìm thấy danh mục khóa học');
+
         return res.status(200).json(api_response(false, 'Lấy thông tin danh mục khóa học thành công', category));
     }),
 
@@ -27,7 +30,7 @@ const controller = {
     // [PATCH] /api/category/:id
     update_category: async_wrap(async (req, res) => {
         const category = await db.Category.findByPk(req.params.id);
-        if (!category) return res.status(404).json(api_response(true, 'Không tìm thấy danh mục khóa học'));
+        if (!category) throw new APIError(404, 'Không tìm thấy danh mục khóa học');
 
         category.Name = req.body.Name;
         await category.save();
@@ -42,7 +45,7 @@ const controller = {
         });
 
         if (result === 1) return res.status(200).json(api_response(false, 'Xóa danh mục khóa học thành công'));
-        else return res.status(404).json(api_response(true, 'Không tìm thấy danh mục khóa học'));
+        else  throw new APIError(404, 'Không tìm thấy danh mục khóa học');
     }),
 };
 

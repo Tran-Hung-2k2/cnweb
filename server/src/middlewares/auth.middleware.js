@@ -1,7 +1,7 @@
 import label from '../constants/label.js';
 import db from '../models/index.js';
 import token_service from '../services/token.service.js';
-import api_response from '../utils/api_response.js';
+import APIError from '../utils/api_error.js';
 
 const middleware = {
     verify_token(req, res, next) {
@@ -9,13 +9,13 @@ const middleware = {
         if (access_token) {
             token_service.verify_token(access_token, process.env.JWT_ACCESS_KEY, (err, token_decode) => {
                 if (err) {
-                    return res.status(403).json(api_response(true, 'Bạn không có quyền truy cập tài nguyên này'));
+                    throw new APIError(403, 'Bạn không có quyền truy cập tài nguyên này');
                 }
                 req.token = token_decode;
                 next();
             });
         } else {
-            return res.status(403).json(api_response(true, 'Vui lòng đăng nhập để tiếp tục'));
+            throw new APIError(401, 'Vui lòng đăng nhập để tiếp tục');
         }
     },
 
@@ -26,7 +26,7 @@ const middleware = {
                 req.token.role = user.Role;
                 next();
             } else {
-                return res.status(403).json(api_response(true, 'Bạn không có quyền truy cập tài nguyên này'));
+                throw new APIError(403, 'Bạn không có quyền truy cập tài nguyên này');
             }
         });
     },

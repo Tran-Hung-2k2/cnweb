@@ -1,6 +1,7 @@
 import label from '../constants/label.js';
 import db from '../models/index.js';
 import firebase_service from '../services/firebase.service.js';
+import APIError from '../utils/api_error.js';
 import api_response from '../utils/api_response.js';
 import async_wrap from '../utils/async_wrap.js';
 
@@ -64,7 +65,9 @@ const controller = {
     add_course: async_wrap(async (req, res) => {
         req.body.User_ID = req.token.id;
         req.body.Status = label.course.PENDING_APPROVAL;
-        if (!req.file) return res.status(400).json(api_response(true, 'Ảnh khóa học là bắt buộc'));
+
+        if (!req.file) throw new APIError(400, 'Ảnh khóa học là bắt buộc');
+
         req.body.Image = await firebase_service.upload_image(req.file.path);
         const course = await db.Course.create({
             ...req.body,
@@ -75,9 +78,8 @@ const controller = {
     // [PATCH] /api/course/:id
     update_course: async_wrap(async (req, res) => {
         const course = await db.Course.findByPk(req.params.id);
-        if (!course) return res.status(404).json(api_response(true, 'Không tìm thấy khóa học'));
-        if (course.User_ID != req.token.id)
-            return res.status(403).json(api_response(true, 'Bạn không có quyền chỉnh sửa khóa học này'));
+        if (!course) throw new APIError(404, 'Không tìm thấy khóa học');
+        if (course.User_ID != req.token.id) throw new APIError(403, 'Bạn không có quyền chỉnh sửa khóa học này');
 
         course.Category_ID = req.body.Category_ID || course.Category_ID;
         course.Name = req.body.Name || course.Name;
@@ -97,9 +99,8 @@ const controller = {
     // [DELETE] /api/course/:id
     delete_course: async_wrap(async (req, res) => {
         const course = await db.Course.findByPk(req.params.id);
-        if (!course) return res.status(404).json(api_response(true, 'Không tìm thấy khóa học'));
-        if (course.User_ID != req.token.id)
-            return res.status(403).json(api_response(true, 'Bạn không có quyền chỉnh sửa khóa học này'));
+        if (!course) throw new APIError(404, 'Không tìm thấy khóa học');
+        if (course.User_ID != req.token.id) throw new APIError(403, 'Bạn không có quyền chỉnh sửa khóa học này');
 
         await firebase_service.delete_file(course.Image);
         await db.Course.destroy({

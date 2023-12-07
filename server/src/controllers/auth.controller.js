@@ -7,6 +7,7 @@ import async_wrap from '../utils/async_wrap.js';
 import token_service from '../services/token.service.js';
 import email_service from '../services/email.service.js';
 import label from '../constants/label.js';
+import APIError from '../utils/api_error.js';
 
 const BASE_URL = process.env.BASE_URL || 'http://localhost:8080';
 
@@ -29,7 +30,7 @@ const controller = {
         });
 
         if (!user || !(await bcrypt.compare(req.body.Password, user.Password)))
-            return res.status(401).json(api_response(true, 'Tài khoản hoặc mật khẩu không chính xác'));
+            throw new APIError(401, 'Tài khoản hoặc mật khẩu không chính xác');
 
         res.cookie('access_token', token_service.generate_access_token(user.User_ID), {
             httpOnly: true,
@@ -48,12 +49,12 @@ const controller = {
         });
 
         if (!user || !(await bcrypt.compare(req.body.Old_Password, user.Password)))
-            return res.status(401).json(api_response(true, 'Tài khoản hoặc mật khẩu không chính xác'));
+            throw new APIError(401, 'Tài khoản hoặc mật khẩu không chính xác');
 
         user.Password = await hash_password(req.body.Password);
         await user.save();
 
-        return res.status(401).json(api_response(true, 'Đổi mật khẩu thành công'));
+        return res.status(200).json(api_response(true, 'Đổi mật khẩu thành công'));
     }),
 
     // [POST] /api/auth/forget_password/
@@ -102,11 +103,12 @@ const controller = {
     // [POST] /api/auth/refresh_token/
     refresh_token: async_wrap(async (req, res) => {
         const refresh_token = req.cookies.refresh_token;
-        if (!refresh_token) return res.status(401).json(api_response(true, 'Vui lòng đăng nhập để tiếp tục'));
+
+        if (!refresh_token) throw new APIError(401, 'Vui lòng đăng nhập để tiếp tục');
 
         token_service.verify_token(refresh_token, process.env.JWT_REFRESH_KEY, (err, token_decode) => {
             if (err) {
-                return res.status(403).json(api_response(true, 'Token đã hết hạn hoặc không chính xác'));
+                throw new APIError(403, 'Token đã hết hạn hoặc không chính xác');
             }
             const access_token = token_service.generate_access_token(token_decode.id);
             res.cookie('access_token', access_token, {
