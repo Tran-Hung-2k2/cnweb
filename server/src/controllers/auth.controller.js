@@ -30,7 +30,7 @@ const controller = {
         });
 
         if (!user || !(await bcrypt.compare(req.body.Password, user.Password)))
-            throw new APIError(401, 'Tài khoản hoặc mật khẩu không chính xác');
+            throw new APIError(400, 'Tài khoản hoặc mật khẩu không chính xác');
 
         res.cookie('access_token', token_service.generate_access_token(user.User_ID), {
             httpOnly: true,
