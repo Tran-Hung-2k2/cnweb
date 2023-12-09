@@ -46,6 +46,9 @@ const controller = {
                     attributes: ['User_ID', 'Name', 'Avatar'],
                 },
                 {
+                    model: db.Category,
+                },
+                {
                     model: db.Week,
                     include: {
                         model: db.Lecture,
@@ -87,6 +90,7 @@ const controller = {
         course.Level = req.body.Level || course.Level;
         course.Need_Approval = req.body.Need_Approval != undefined ? req.body.Need_Approval : course.Need_Approval;
         course.Status = req.body.Status || course.Status;
+
         if (req.file) {
             await firebase_service.delete_file(course.Image);
             course.Image = await firebase_service.upload_image(req.file.path);

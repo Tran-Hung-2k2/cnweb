@@ -3,19 +3,11 @@ import messages from '../utils/validation_message';
 import cv from './custom.validation';
 
 const validation = {
-    // [GET] /api/lecture/:id
-    get_lecture_by_id: () => ({
-        params: Joi.object({
-            id: Joi.string().required().custom(cv.uuidv4Id),
-        })
-            .unknown(false)
-            .prefs({ messages }),
-    }),
-
-    // [GET] /api/lecture/week/:id
-    get_lecture_by_week_id: () => ({
-        params: Joi.object({
-            id: Joi.string().required().custom(cv.uuidv4Id).external(cv.isWeekExists).label('Tuần học'),
+    // [GET] /api/lecture/
+    get_all_lectures: () => ({
+        query: Joi.object({
+            Lecture_ID: Joi.string().custom(cv.uuidv4Id),
+            Week_ID: Joi.string().custom(cv.uuidv4Id),
         })
             .unknown(false)
             .prefs({ messages }),
@@ -41,6 +33,7 @@ const validation = {
             .prefs({ messages }),
 
         body: Joi.object({
+            Week_ID: Joi.string().custom(cv.uuidv4Id).label('ID tuần học'),
             Lecture_Title: Joi.string().label('Tiêu đề'),
             Index: Joi.number().positive().label('Thứ tự'),
         })

@@ -34,9 +34,13 @@ const controller = {
 
         res.cookie('access_token', token_service.generate_access_token(user.User_ID), {
             httpOnly: true,
+            secure: true, // Chỉ gửi cookie qua HTTPS
+            sameSite: 'None', // Cho phép gửi từ mọi nguồn
         });
         res.cookie('refresh_token', token_service.generate_refresh_token(user.User_ID), {
             httpOnly: true,
+            secure: true, // Chỉ gửi cookie qua HTTPS
+            sameSite: 'None', // Cho phép gửi từ mọi nguồn
         });
 
         return res.status(200).json(api_response(false, 'Đăng nhập thành công', user));
@@ -113,6 +117,8 @@ const controller = {
             const access_token = token_service.generate_access_token(token_decode.id);
             res.cookie('access_token', access_token, {
                 httpOnly: true,
+                secure: true, // Chỉ gửi cookie qua HTTPS
+                sameSite: 'None', // Cho phép gửi từ mọi nguồn
             });
             return res.status(200).json(api_response(false, 'Làm mới access token thành công'));
         });

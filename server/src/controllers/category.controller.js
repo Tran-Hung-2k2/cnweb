@@ -6,17 +6,20 @@ import APIError from '../utils/api_error.js';
 const controller = {
     // [GET] /api/category/
     get_all_categories: async_wrap(async (req, res) => {
-        const categories = await db.Category.findAll();
-        return res.status(200).json(api_response(false, 'Lấy danh sách danh mục khóa học thành công', categories));
-    }),
+        const queryParams = ['Category_ID'];
+        const whereClause = {};
 
-    // [GET] /api/category/:id
-    get_category_by_id: async_wrap(async (req, res) => {
-        const category = await db.Category.findByPk(req.params.id);
+        queryParams.forEach((param) => {
+            if (req.query[param]) {
+                whereClause[param] = req.query[param];
+            }
+        });
 
-        if (!category) throw new APIError(404, 'Không tìm thấy danh mục khóa học');
+        const categories = await db.Category.findAll({ where: whereClause });
 
-        return res.status(200).json(api_response(false, 'Lấy thông tin danh mục khóa học thành công', category));
+        if (categories.length > 0)
+            return res.status(200).json(api_response(false, 'Lấy danh sách danh mục khóa học thành công', categories));
+        else return res.status(200).json(api_response(false, 'Không tìm thấy danh mục khóa học nào', categories));
     }),
 
     // [POST] /api/category/
@@ -33,9 +36,9 @@ const controller = {
         if (!category) throw new APIError(404, 'Không tìm thấy danh mục khóa học');
 
         category.Name = req.body.Name;
-        await category.save();
+        const result = await category.save();
 
-        return res.status(200).json(api_response(false, 'Cập nhật thông tin danh mục khóa học thành công'));
+        return res.status(200).json(api_response(false, 'Cập nhật thông tin danh mục khóa học thành công', result));
     }),
 
     // [DELETE] /api/category/:id
@@ -45,7 +48,7 @@ const controller = {
         });
 
         if (result === 1) return res.status(200).json(api_response(false, 'Xóa danh mục khóa học thành công'));
-        else  throw new APIError(404, 'Không tìm thấy danh mục khóa học');
+        else throw new APIError(404, 'Không tìm thấy danh mục khóa học');
     }),
 };
 

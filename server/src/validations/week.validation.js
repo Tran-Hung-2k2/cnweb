@@ -3,23 +3,16 @@ import messages from '../utils/validation_message';
 import cv from './custom.validation';
 
 const validation = {
-    // [GET] /api/week/:id
-    get_week_by_id: () => ({
-        params: Joi.object({
-            id: Joi.string().required().custom(cv.uuidv4Id),
+    // [GET] /api/week/
+    get_all_weeks: () => ({
+        query: Joi.object({
+            Week_ID: Joi.string().custom(cv.uuidv4Id),
+            Course_ID: Joi.string().custom(cv.uuidv4Id),
         })
             .unknown(false)
             .prefs({ messages }),
     }),
 
-    // [GET] /api/week/course/:id
-    get_week_by_course_id: () => ({
-        params: Joi.object({
-            id: Joi.string().required().custom(cv.uuidv4Id).external(cv.isCourseExists),
-        })
-            .unknown(false)
-            .prefs({ messages }),
-    }),
 
     // [POST] /api/week/
     add_week: () => ({

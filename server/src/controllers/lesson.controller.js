@@ -6,6 +6,15 @@ import label from '../constants/label.js';
 import APIError from '../utils/api_error.js';
 
 const controller = {
+    updateCourse: async (id) => {
+        const course = await db.Course.findByPk(id);
+        const level = course.Level;
+        course.Level = '';
+        await course.save();
+        course.Level = level;
+        await course.save();
+    },
+
     // [GET] /api/lesson/
     get_all_lessons: async_wrap(async (req, res) => {
         const queryParams = ['Lesson_ID', 'Lecture_ID'];
@@ -62,6 +71,8 @@ const controller = {
         const lesson = await db.Lesson.create({
             ...req.body,
         });
+
+        await controller.updateCourse(lecture.Week.Course.Course_ID);
         return res.status(201).json(api_response(false, 'Thêm bài học mới thành công', lesson));
     }),
 
@@ -105,6 +116,8 @@ const controller = {
         }
         const result = await lesson.save();
 
+        await controller.updateCourse(lecture.Week.Course.Course_ID);
+
         return res.status(200).json(api_response(false, 'Cập nhật thông tin bài học thành công', result));
     }),
 
@@ -141,6 +154,7 @@ const controller = {
             where: { Lesson_ID: req.params.id },
         });
         if (result === 1) {
+            await controller.updateCourse(lecture.Week.Course.Course_ID);
             return res.status(200).json(api_response(false, 'Xóa bài học thành công'));
         } else {
             throw new APIError(404, 'Không tìm thấy bài học để xóa');

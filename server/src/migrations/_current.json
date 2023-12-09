@@ -92,7 +92,7 @@
                         "model": "Users",
                         "key": "User_ID"
                     },
-                    "onDelete": "NO ACTION",
+                    "onDelete": "CASCADE",
                     "onUpdate": "CASCADE",
                     "seqType": "Sequelize.UUID"
                 },
@@ -115,12 +115,12 @@
                 "Description": {
                     "allowNull": false,
                     "field": "Description",
-                    "seqType": "Sequelize.STRING"
+                    "seqType": "Sequelize.TEXT"
                 },
                 "Image": {
                     "allowNull": false,
                     "field": "Image",
-                    "seqType": "Sequelize.STRING"
+                    "seqType": "Sequelize.TEXT"
                 },
                 "Level": {
                     "allowNull": false,
@@ -169,7 +169,7 @@
                         "model": "Weeks",
                         "key": "Week_ID"
                     },
-                    "onDelete": "NO ACTION",
+                    "onDelete": "CASCADE",
                     "onUpdate": "CASCADE",
                     "seqType": "Sequelize.UUID"
                 },
@@ -242,7 +242,7 @@
                 "Content": {
                     "allowNull": false,
                     "field": "Content",
-                    "seqType": "Sequelize.STRING"
+                    "seqType": "Sequelize.TEXT(long)"
                 },
                 "createdAt": {
                     "allowNull": false,
@@ -282,7 +282,7 @@
                 },
                 "Note_Content": {
                     "field": "Note_Content",
-                    "seqType": "Sequelize.STRING"
+                    "seqType": "Sequelize.TEXT"
                 },
                 "createdAt": {
                     "allowNull": false,
@@ -328,7 +328,7 @@
                 },
                 "Review_Content": {
                     "field": "Review_Content",
-                    "seqType": "Sequelize.STRING"
+                    "seqType": "Sequelize.TEXT"
                 },
                 "Review_Star": {
                     "field": "Review_Star",
@@ -386,7 +386,7 @@
                 },
                 "Avatar": {
                     "field": "Avatar",
-                    "seqType": "Sequelize.STRING"
+                    "seqType": "Sequelize.TEXT"
                 },
                 "Status": {
                     "allowNull": false,
@@ -447,12 +447,12 @@
                 "Description": {
                     "allowNull": false,
                     "field": "Description",
-                    "seqType": "Sequelize.STRING"
+                    "seqType": "Sequelize.TEXT"
                 },
                 "Target": {
                     "allowNull": false,
                     "field": "Target",
-                    "seqType": "Sequelize.STRING"
+                    "seqType": "Sequelize.TEXT"
                 },
                 "createdAt": {
                     "allowNull": false,

@@ -5,6 +5,7 @@
         "database": "cnweb",
         "host": "127.0.0.1",
         "logging": false,
+        "timezone": "+07:00",
         "dialect": "mysql",
         "port": 3306
     },

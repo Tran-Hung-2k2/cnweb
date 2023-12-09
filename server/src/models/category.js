@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
             Category.hasMany(models.Course, {
                 foreignKey: 'Category_ID',
+                onDelete: 'CASCADE',
             });
         }
     }

@@ -6,9 +6,7 @@ import ctrl from '../controllers/lecture.controller.js';
 
 const route = express.Router();
 
-route.get('/', mdw.verify_admin, ctrl.get_all_lectures);
-route.get('/:id', validate(vld.get_lecture_by_id()), ctrl.get_lecture_by_id);
-route.get('/week/:id', validate(vld.get_lecture_by_week_id()), ctrl.get_lecture_by_week_id);
+route.get('/', validate(vld.get_all_lectures()), mdw.verify_admin, ctrl.get_all_lectures);
 route.post('/', validate(vld.add_lecture()), mdw.verify_admin_and_org, ctrl.add_lecture);
 route.patch('/:id', validate(vld.update_lecture()), mdw.verify_admin_and_org, ctrl.update_lecture);
 route.delete('/:id', validate(vld.delete_lecture()), mdw.verify_admin_and_org, ctrl.delete_lecture);

@@ -11,10 +11,12 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
             Lecture.belongsTo(models.Week, {
                 foreignKey: 'Week_ID',
+                onDelete: 'CASCADE',
             });
 
             Lecture.hasMany(models.Lesson, {
                 foreignKey: 'Lecture_ID',
+                onDelete: 'CASCADE',
             });
         }
     }

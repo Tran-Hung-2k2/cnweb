@@ -4,25 +4,31 @@ import async_wrap from '../utils/async_wrap.js';
 import APIError from '../utils/api_error.js';
 
 const controller = {
+    updateCourse: async (id) => {
+        const course = await db.Course.findByPk(id);
+        const level = course.Level;
+        course.Level = '';
+        await course.save();
+        course.Level = level;
+        await course.save();
+    },
+
     // [GET] /api/week/
     get_all_weeks: async_wrap(async (req, res) => {
-        const weeks = await db.Week.findAll();
-        return res.status(200).json(api_response(false, 'Lấy danh sách tuần học thành công', weeks));
-    }),
+        const queryParams = ['Week_ID', 'Course_ID'];
+        const whereClause = {};
 
-    // [GET] /api/week/:id
-    get_week_by_id: async_wrap(async (req, res) => {
-        const week = await db.Week.findByPk(req.params.id);
-        if (!week) throw new APIError(404, 'Không tìm thấy tuần học');
-        return res.status(200).json(api_response(false, 'Lấy thông tin tuần học thành công', week));
-    }),
-
-    // [GET] /api/week/course/:id
-    get_week_by_course_id: async_wrap(async (req, res) => {
-        const weeks = await db.Week.findAll({
-            where: { Course_ID: req.params.id },
+        queryParams.forEach((param) => {
+            if (req.query[param]) {
+                whereClause[param] = req.query[param];
+            }
         });
-        return res.status(200).json(api_response(false, 'Lấy thông tin tuần học thành công', weeks));
+
+        const weeks = await db.Week.findAll({ where: whereClause });
+
+        if (weeks.length > 0)
+            return res.status(200).json(api_response(false, 'Lấy danh sách tuần học thành công', weeks));
+        else return res.status(200).json(api_response(false, 'Không tìm thấy bài học nào', weeks));
     }),
 
     // [POST] /api/week/
@@ -35,6 +41,7 @@ const controller = {
         const week = await db.Week.create({
             ...req.body,
         });
+        await controller.updateCourse(week.Course_ID);
         return res.status(201).json(api_response(false, 'Thêm tuần học mới thành công', week));
     }),
 
@@ -50,9 +57,11 @@ const controller = {
         week.Index = req.body.Index || week.Index;
         week.Description = req.body.Description || week.Description;
         week.Target = req.body.Target || week.Target;
-        await week.save();
 
-        return res.status(200).json(api_response(false, 'Cập nhật thông tin tuần học thành công'));
+        const data = await week.save();
+
+        await controller.updateCourse(week.Course_ID);
+        return res.status(200).json(api_response(false, 'Cập nhật thông tin tuần học thành công', data));
     }),
 
     // [DELETE] /api/week/:id
@@ -67,6 +76,7 @@ const controller = {
             where: { Week_ID: req.params.id },
         });
 
+        await controller.updateCourse(week.Course_ID);
         return res.status(200).json(api_response(false, 'Xóa tuần học thành công'));
     }),
 };

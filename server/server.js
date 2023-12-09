@@ -1,8 +1,10 @@
 import express from 'express';
 import cors from 'cors';
+import fs from 'fs';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import https from 'https';
 import { ValidationError } from 'express-validation';
 import route from './src/routes/index.js';
 import api_response from './src/utils/api_response.js';
@@ -15,7 +17,7 @@ const app = express();
 
 app.use(
     cors({
-        origin: 'http://localhost:5173',
+        origin: ['https://localhost:5173', 'http://localhost:5173'],
         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
         credentials: true,
         allowedHeaders: [

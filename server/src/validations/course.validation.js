@@ -32,6 +32,7 @@ const validation = {
                 .external(cv.isCategoryExists)
                 .label('Danh mục khóa học'),
             Name: Joi.string().required().label('Tên khóa học'),
+            Image: Joi.any().label('Ảnh khóa học'),
             Description: Joi.string().required().label('Mô tả'),
             Level: Joi.string()
                 .required()
@@ -58,6 +59,7 @@ const validation = {
                 .valid(...Object.values(label.course_level))
                 .label('Cấp độ'),
             Need_Approval: Joi.boolean().label('Cần xét duyệt'),
+            Image: Joi.any().label('Ảnh khóa học'),
             Status: Joi.string()
                 .valid(...Object.values(label.course))
                 .label('Trạng thái khóa học'),

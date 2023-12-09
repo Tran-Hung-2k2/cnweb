@@ -13,16 +13,19 @@ module.exports = (sequelize, DataTypes) => {
                 through: 'Participating_Course',
                 foreignKey: 'User_ID',
                 otherKey: 'Course_ID',
+                onDelete: 'CASCADE',
             });
 
             User.belongsToMany(models.Lesson, {
                 through: 'Completed_Lesson',
                 foreignKey: 'User_ID',
                 otherKey: 'Lesson_ID',
+                onDelete: 'CASCADE',
             });
 
             User.hasMany(models.Course, {
                 foreignKey: 'User_ID',
+                onDelete: 'CASCADE',
             });
         }
     }
@@ -47,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            Avatar: DataTypes.STRING,
+            Avatar: DataTypes.TEXT,
             Status: {
                 type: DataTypes.STRING,
                 allowNull: false,

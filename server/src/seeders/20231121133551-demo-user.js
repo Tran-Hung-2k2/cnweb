@@ -33,7 +33,7 @@ module.exports = {
             },
             {
                 User_ID: '06dab5f6-46bc-46df-9f76-4ed1f019017d',
-                Name: 'Admin',
+                Name: 'Trần Hùng',
                 Email: 'tranviethung912002@gmail.com',
                 Password: hashed_admin_password,
                 Avatar: 'https://cdn2.iconfinder.com/data/icons/shopping-colorline/64/admin-512.png',

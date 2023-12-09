@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
             Note.belongsTo(models.Lesson, {
                 foreignKey: 'Lesson_ID',
+                onDelete: 'CASCADE',
             });
         }
     }
@@ -26,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.UUID,
                 allowNull: false,
             },
-            Note_Content: DataTypes.STRING,
+            Note_Content: DataTypes.TEXT,
         },
         {
             sequelize,

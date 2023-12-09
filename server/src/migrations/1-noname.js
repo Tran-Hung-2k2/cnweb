@@ -20,7 +20,7 @@ var Sequelize = require('sequelize');
 var info = {
     "revision": 1,
     "name": "noname",
-    "created": "2023-11-27T12:18:19.486Z",
+    "created": "2023-12-09T15:36:12.748Z",
     "comment": ""
 };
 
@@ -83,7 +83,7 @@ var migrationCommands = [{
                     "allowNull": false
                 },
                 "Avatar": {
-                    "type": Sequelize.STRING,
+                    "type": Sequelize.TEXT,
                     "field": "Avatar"
                 },
                 "Status": {
@@ -124,7 +124,7 @@ var migrationCommands = [{
                 "User_ID": {
                     "type": Sequelize.UUID,
                     "onUpdate": "CASCADE",
-                    "onDelete": "NO ACTION",
+                    "onDelete": "CASCADE",
                     "references": {
                         "model": "Users",
                         "key": "User_ID"
@@ -149,12 +149,12 @@ var migrationCommands = [{
                     "allowNull": false
                 },
                 "Description": {
-                    "type": Sequelize.STRING,
+                    "type": Sequelize.TEXT,
                     "field": "Description",
                     "allowNull": false
                 },
                 "Image": {
-                    "type": Sequelize.STRING,
+                    "type": Sequelize.TEXT,
                     "field": "Image",
                     "allowNull": false
                 },
@@ -220,12 +220,12 @@ var migrationCommands = [{
                     "allowNull": false
                 },
                 "Description": {
-                    "type": Sequelize.STRING,
+                    "type": Sequelize.TEXT,
                     "field": "Description",
                     "allowNull": false
                 },
                 "Target": {
-                    "type": Sequelize.STRING,
+                    "type": Sequelize.TEXT,
                     "field": "Target",
                     "allowNull": false
                 },
@@ -257,7 +257,7 @@ var migrationCommands = [{
                 "Week_ID": {
                     "type": Sequelize.UUID,
                     "onUpdate": "CASCADE",
-                    "onDelete": "NO ACTION",
+                    "onDelete": "CASCADE",
                     "references": {
                         "model": "Weeks",
                         "key": "Week_ID"
@@ -332,7 +332,7 @@ var migrationCommands = [{
                     "allowNull": false
                 },
                 "Content": {
-                    "type": Sequelize.STRING,
+                    "type": Sequelize.TEXT('long'),
                     "field": "Content",
                     "allowNull": false
                 },
@@ -427,7 +427,7 @@ var migrationCommands = [{
                     "allowNull": false
                 },
                 "Review_Content": {
-                    "type": Sequelize.STRING,
+                    "type": Sequelize.TEXT,
                     "field": "Review_Content"
                 },
                 "Review_Star": {
@@ -480,7 +480,7 @@ var migrationCommands = [{
                     "allowNull": false
                 },
                 "Note_Content": {
-                    "type": Sequelize.STRING,
+                    "type": Sequelize.TEXT,
                     "field": "Note_Content"
                 },
                 "createdAt": {

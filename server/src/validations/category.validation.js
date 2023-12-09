@@ -3,10 +3,10 @@ import messages from '../utils/validation_message';
 import cv from './custom.validation';
 
 const validation = {
-    // [GET] /api/category/:id
-    get_category_by_id: () => ({
-        params: Joi.object({
-            id: Joi.string().required().custom(cv.uuidv4Id),
+    // [GET] /api/category/
+    get_all_categories: () => ({
+        query: Joi.object({
+            Category_ID: Joi.string().custom(cv.uuidv4Id),
         })
             .unknown(false)
             .prefs({ messages }),

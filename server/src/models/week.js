@@ -11,10 +11,12 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
             Week.belongsTo(models.Course, {
                 foreignKey: 'Course_ID',
+                onDelete: 'CASCADE',
             });
 
             Week.hasMany(models.Lecture, {
                 foreignKey: 'Week_ID',
+                onDelete: 'CASCADE',
             });
         }
     }
@@ -39,11 +41,11 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false,
             },
             Description: {
-                type: DataTypes.STRING,
+                type: DataTypes.TEXT,
                 allowNull: false,
             },
             Target: {
-                type: DataTypes.STRING,
+                type: DataTypes.TEXT,
                 allowNull: false,
             },
         },
