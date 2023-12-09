@@ -9,11 +9,11 @@ const menuItem = [
         title: 'Người dùng',
         child: [
             {
-                path: '/user_manager',
+                path: '/user/manager',
                 title: 'Quản lý người dùng',
             },
             {
-                path: '/approval_org',
+                path: '/organization/approval',
                 title: 'Xét duyệt tổ chức',
             },
         ],
@@ -23,20 +23,20 @@ const menuItem = [
         title: 'Khóa học',
         child: [
             {
-                path: '/approval_student',
-                title: 'Xét duyệt học viên',
-            },
-            {
-                path: '/approval_course',
-                title: 'Xét duyệt khóa học',
-            },
-            {
-                path: '/course_manager',
+                path: '/course/manager',
                 title: 'Quản lý khóa học',
             },
             {
-                path: '/add_course',
+                path: '/course/add',
                 title: 'Thêm khóa học',
+            },
+            {
+                path: '/student/approval',
+                title: 'Xét duyệt học viên',
+            },
+            {
+                path: '/course/approval',
+                title: 'Xét duyệt khóa học',
             },
         ],
         icon: <SiCoursera />,
@@ -45,11 +45,11 @@ const menuItem = [
         title: 'Danh mục khóa học',
         child: [
             {
-                path: '/forms/form-elements',
+                path: '/category/manager',
                 title: 'Quản lý danh mục',
             },
             {
-                path: '/forms/form-elements',
+                path: '/category/add',
                 title: 'Thêm danh mục',
             },
         ],
@@ -59,7 +59,7 @@ const menuItem = [
         label: 'OTHER',
     },
     {
-        path: '/ui/alerts',
+        path: '/signin',
         title: 'Đăng xuất',
     },
 ];
@@ -72,8 +72,8 @@ const Sidebar = () => {
                 {/* Sidebar content here */}
                 {/* <!-- SIDEBAR HEADER --> */}
                 <div className="flex items-center justify-between gap-2 px-6 pt-5.5">
-                    <NavLink to="/" className="w-full">
-                        <p className="px-0 py-3 text-4xl btn btn-ghost text-primary">Coursera</p>
+                    <NavLink to="/" className="flex items-center justify-center w-full">
+                        <p className="px-0 py-3 text-4xl font-bold text-primary">Coursera</p>
                     </NavLink>
                 </div>
                 {/* <!-- SIDEBAR HEADER --> */}

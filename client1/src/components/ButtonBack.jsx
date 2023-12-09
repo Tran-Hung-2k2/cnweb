@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-function BackButton({ className, ...otherProps }) {
+
+function ButtonBack({ className, ...otherProps }) {
     const navigate = useNavigate();
 
     return (
@@ -9,4 +10,4 @@ function BackButton({ className, ...otherProps }) {
     );
 }
 
-export default BackButton;
+export default ButtonBack;

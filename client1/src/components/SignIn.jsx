@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import fields from '../constants/signinFields';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+
+import fields from '../constants/signinFields';
 import action from '../redux/auth/auth.action';
 
 const fieldsState = fields.reduce((acc, field) => ({ ...acc, [field.id]: '' }), {});

@@ -4,15 +4,15 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 import label from '../constants/label';
 
-function RequireOrg() {
+function RequireStudent() {
     const { user } = useSelector((state) => state.auth);
     const location = useLocation();
 
-    return user && [label.role.ADMIN, label.role.ORGANIZATION].includes(user.Role) ? (
+    return user && [label.role.STUDENT].includes(user.Role) ? (
         <Outlet />
     ) : (
         <Navigate to="/signin" state={{ from: location }} replace />
     );
 }
 
-export default RequireOrg;
+export default RequireStudent;

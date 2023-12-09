@@ -3,11 +3,14 @@ import { IoSettingsOutline } from 'react-icons/io5';
 import { HiOutlineLogout } from 'react-icons/hi';
 import { PiPassword } from 'react-icons/pi';
 import { useDispatch, useSelector } from 'react-redux';
+
 import action from '../redux/auth/auth.action';
 import avatar from '../assets/images/avatar.jpg';
 
 const Header = () => {
     const { user } = useSelector((state) => state.auth);
+    const { categories } = useSelector((state) => state.category);
+
     const dispatch = useDispatch();
 
     return (
@@ -17,16 +20,15 @@ const Header = () => {
                     <input className="flex-1 input input-bordered join-item" placeholder="Nhập để tìm kiếm khóa học" />
                 </div>
                 <select className="select select-bordered join-item">
-                    <option value={'option1'} disabled>
-                        Danh mục
-                    </option>
-                    <option value={'option2'}>Information Technology</option>
-                    <option value={'option3'}>Computer Science</option>
-                    <option value={'option4'}>Math and Logic</option>
+                    {categories.map((category, index) => (
+                        <option key={index} value={category.Category_ID}>
+                            {category.Name}
+                        </option>
+                    ))}
                 </select>
                 <div className="indicator">
                     <span className="indicator-item badge badge-secondary">new</span>
-                    <button className="btn join-item">Search</button>
+                    <button className="btn btn-primary join-item">Search</button>
                 </div>
             </div>
             <div className="flex-none mr-20">
