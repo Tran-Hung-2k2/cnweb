@@ -1,12 +1,12 @@
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
-import HTMLText from '../components/HTMLText';
-import LectureInfo from './LectureInfo';
+import { useDispatch } from 'react-redux';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import { FaRegEdit } from 'react-icons/fa';
-import notify from '../utils/notify';
+
+import LectureInfo from './LectureInfo';
+import HTMLText from '../components/TextHTML';
 import confirm from '../utils/confirm';
-import { useDispatch } from 'react-redux';
 import action from '../redux/course/week.action';
 
 function WeekInfo({ course, owner }) {
@@ -15,13 +15,11 @@ function WeekInfo({ course, owner }) {
     function deleteWeek(week, index) {
         confirm({
             title: 'Xóa tuần học',
-            message: `Khi bạn xác nhận Tuần ${index + 1}: ${week.Title} sẽ bị xóa vĩnh viễn và không thể khôi phục. Bạn vẫn muốn xóa`,
+            message: `Khi bạn xác nhận Tuần ${index + 1}: ${
+                week.Title
+            } sẽ bị xóa vĩnh viễn và không thể khôi phục. Bạn vẫn muốn xóa`,
             onConfirm: () => {
-                dispatch(
-                    action.deleteWeek(week.Week_ID, () => {
-                        notify('Xóa tuần học thành công', 'success');
-                    }),
-                );
+                dispatch(action.deleteWeek(week.Week_ID));
             },
         });
     }
@@ -33,10 +31,17 @@ function WeekInfo({ course, owner }) {
                     <input type="checkbox" />
                     <div className="flex items-center justify-between text-xl font-medium border-b collapse-title hover:bg-sky-50">
                         <div>
-                            Tuần {index + 1}: {week.Title}{' '}
+                            Tuần {index + 1}: {week.Title}
                         </div>
                         <div className="z-10">
-                            <FaRegEdit className="inline-block mr-10 text-green-600" />
+                            <Link to="/week/edit">
+                                <FaRegEdit
+                                    onClick={() => {
+                                        dispatch(action.addWeek(week.Week_ID));
+                                    }}
+                                    className="inline-block mr-10 text-green-600"
+                                />
+                            </Link>
                             <RiDeleteBinLine
                                 onClick={() => deleteWeek(week, index)}
                                 className="inline-block mr-10 text-error"
@@ -64,7 +69,7 @@ function WeekInfo({ course, owner }) {
             ))}
             {owner && (
                 <Link
-                    to="/add_week"
+                    to="/week/add"
                     onClick={() => dispatch(action.addCourse(course.Course_ID))}
                     className="w-full btn btn-outline btn-primary"
                 >

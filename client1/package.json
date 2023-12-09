@@ -1,5 +1,5 @@
 {
-    "name": "tailadmin-react-free",
+    "name": "client",
     "private": true,
     "version": "1.0.5",
     "type": "module",
@@ -9,14 +9,14 @@
         "preview": "vite preview"
     },
     "author": {
-        "name": "TailAdmin",
-        "email": "hello@tailadmin.com",
-        "url": "https://tailadmin.com"
+        "name": "TranHung",
+        "email": "tranviethung912002@gmail.com"
     },
     "dependencies": {
         "@reduxjs/toolkit": "^1.9.7",
         "apexcharts": "^3.41.0",
         "axios": "^1.6.2",
+        "date-fns": "^2.30.0",
         "headlessui": "^0.0.0",
         "jsvectormap": "^1.5.3",
         "lodash": "^4.17.21",
@@ -46,6 +46,7 @@
         "postcss": "^8.4.27",
         "tailwindcss": "^3.3.3",
         "vite": "^4.4.7",
+        "vite-plugin-mkcert": "^1.17.1",
         "webpack": "^5.88.2"
     }
 }

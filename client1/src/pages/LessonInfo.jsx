@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { BsDot } from 'react-icons/bs';
 import { MdOutlineSlowMotionVideo } from 'react-icons/md';
 import { AiOutlineRead } from 'react-icons/ai';
+
 import action from '../redux/course/course.action';
-import { IoMdCheckmarkCircleOutline } from 'react-icons/io';
 
 function LessonInfo({ lecture, owner }) {
     return (
@@ -31,7 +31,7 @@ function LessonInfo({ lecture, owner }) {
             ))}
             {owner && (
                 <Link
-                    to="/add_lesson"
+                    to="/lesson/add"
                     onClick={() => dispatch(action.addCourse(lecture.Lecture_ID))}
                     className="w-full btn btn-outline btn-warning"
                 >

@@ -2,13 +2,13 @@ import { Suspense, lazy, useEffect, useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
-import NotFound from './pages/NotFound';
-import Loader from './components/Loader';
-import RequireOrg from './components/RequireOrg';
 import routes from './routes/router';
 
+const SignIn = lazy(() => import('./pages/SignIn'));
+const SignUp = lazy(() => import('./pages/SignUp'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+const Loader = lazy(() => import('./components/Loader'));
+const RequireOrg = lazy(() => import('./components/RequireOrg'));
 const DefaultLayout = lazy(() => import('./layout/DefaultLayout'));
 
 function App() {
@@ -16,7 +16,6 @@ function App() {
 
     useEffect(() => {
         setLoading(false);
-        // setTimeout(() => setLoading(false), 3000);
     }, []);
 
     return loading ? (
@@ -29,7 +28,7 @@ function App() {
                 <Route path="/signup" element={<SignUp />} />
                 <Route element={<RequireOrg />}>
                     <Route element={<DefaultLayout />}>
-                        <Route path="/" element={<Navigate to="/course_manager" />} />
+                        <Route path="/" element={<Navigate to="/course/manager" />} />
                         {routes.map((routes, index) => {
                             const { path, component: Component } = routes;
                             return (

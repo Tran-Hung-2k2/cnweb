@@ -8,7 +8,7 @@ const action = {
             type: type.LOGIN,
             payload: response.data,
         });
-        callback();
+        if (callback) callback();
     },
 
     logout: () => async (dispatch) => {

@@ -43,6 +43,28 @@ const reducer = (state = initialState, action) => {
                 Lecture_ID: action.payload,
             };
 
+        case type.DELETE_LECTURE:
+            const updatedLectures = state.course.Weeks.map((week) => {
+                // Nếu Week có Lectures, thực hiện xóa lecture
+                if (week.Lectures && week.Lectures.length > 0) {
+                    const updatedLectures = week.Lectures.filter((lecture) => lecture.Lecture_ID !== action.payload);
+                    return {
+                        ...week,
+                        Lectures: updatedLectures,
+                    };
+                }
+                // Nếu không có Lectures, không cần thay đổi gì
+                return week;
+            });
+
+            return {
+                ...state,
+                course: {
+                    ...state.course,
+                    Weeks: updatedLectures,
+                },
+            };
+
         default:
             return state;
     }

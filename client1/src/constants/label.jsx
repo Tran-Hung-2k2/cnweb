@@ -1,32 +1,32 @@
 const label = {
     role: {
-        ADMIN: 'admin',
-        ORGANIZATION: 'organization',
-        STUDENT: 'student',
+        ADMIN: 'Admin',
+        ORGANIZATION: 'Organization',
+        STUDENT: 'Student',
     },
     user: {
-        APPROVAL: 'approval',
-        PENDING_APPROVAL: 'pending approval',
+        APPROVAL: 'Approval',
+        PENDING_APPROVAL: 'Pending approval',
     },
     course: {
-        VISIBLE: 'visible',
-        HIDDEN: 'hidden',
-        PENDING_APPROVAL: 'pending approval',
+        VISIBLE: 'Visible',
+        HIDDEN: 'Hidden',
+        PENDING_APPROVAL: 'Pending approval',
     },
     course_level: {
-        BEGINNER: 'beginner',
-        INTERMEDIATE: 'intermediate',
-        ADVANCED: 'advanced',
-        EXPERT: 'expert',
+        BEGINNER: 'Beginner',
+        INTERMEDIATE: 'Intermediate',
+        ADVANCED: 'Advanced',
+        EXPERT: 'Expert',
     },
     parti_course: {
-        COMPLETED: 'completed',
-        NOT_COMPLETED: 'not completed',
-        PENDING_APPROVAL: 'pending approval',
+        COMPLETED: 'Completed',
+        NOT_COMPLETED: 'Not completed',
+        PENDING_APPROVAL: 'Pending approval',
     },
     lesson_type: {
-        READING: 'reading',
-        VIDEO: 'video',
+        READING: 'Reading',
+        VIDEO: 'Video',
     },
 };
 

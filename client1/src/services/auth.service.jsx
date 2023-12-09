@@ -3,8 +3,7 @@ import axios from './axios.service';
 const service = {
     login: async (data) =>
         (
-            await axios.post('/api/auth/login', JSON.stringify(data), {
-                headers: { 'Content-Type': 'application/json' },
+            await axios.post('/api/auth/login',data, {
                 withCredentials: true,
             })
         ).data,
@@ -14,7 +13,6 @@ const service = {
     refresh_token: async () => (
         await axios.post('/api/auth/refresh_token'),
         {
-            headers: { 'Content-Type': 'application/json' },
             withCredentials: true,
         }
     ),

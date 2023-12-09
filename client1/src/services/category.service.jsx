@@ -1,8 +1,8 @@
 import axios from './axios.service';
 
 const service = {
-    getWeek: async (params) => {
-        const queryParams = ['Week_ID', 'Course_ID'];
+    getCategory: async (params) => {
+        const queryParams = ['Category_ID'];
         const paramsObject = {};
 
         if (params) {
@@ -13,30 +13,29 @@ const service = {
             });
         }
 
-        const response = await axios.get('/api/week', { withCredentials: true, params: paramsObject });
+        const response = await axios.get('/api/category', { withCredentials: true, params: paramsObject });
 
         return response.data;
     },
 
-    addWeek: async (data) => {
-        const response = await axios.post('/api/week', data, {
+    addCategory: async (data) => {
+        const response = await axios.post('/api/category', data, {
             withCredentials: true,
         });
 
         return response.data;
     },
 
-    updateWeek: async (data, id) => {
-        const response = await axios.patch(`/api/week/${id}`, data, {
+    updateCategory: async (data, id) => {
+        const response = await axios.patch(`/api/category/${id}`, data, {
             withCredentials: true,
         });
 
         return response.data;
     },
 
-
-    deleteWeek: async (id) => {
-        const response = await axios.delete(`/api/week/${id}`, {
+    deleteCategory: async (id) => {
+        const response = await axios.delete(`/api/category/${id}`, {
             withCredentials: true,
         });
 

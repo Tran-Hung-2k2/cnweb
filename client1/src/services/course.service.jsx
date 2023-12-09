@@ -54,6 +54,30 @@ const service = {
 
         return response.data;
     },
+
+    addCourse: async (data) => {
+        const response = await axios.post('/api/course', data, {
+            withCredentials: true,
+        });
+
+        return response.data;
+    },
+
+    updateCourse: async (data, id) => {
+        const response = await axios.patch(`/api/course/${id}`, data, {
+            withCredentials: true,
+        });
+
+        return response.data;
+    },
+
+    deleteCourse: async (id) => {
+        const response = await axios.delete(`/api/course/${id}`, {
+            withCredentials: true,
+        });
+
+        return response.data;
+    },
 };
 
 export default service;

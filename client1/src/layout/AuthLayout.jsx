@@ -1,5 +1,4 @@
 import image from '../assets/images/signin.png';
-import { Outlet } from 'react-router-dom';
 
 export default function SignIn({ children }) {
     return (

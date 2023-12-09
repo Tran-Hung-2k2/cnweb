@@ -11,7 +11,7 @@ const fields = [
         id: 'Index',
         type: 'number',
         required: true,
-        placeholder: 'Thư tự trong khóa học 1, 2,...',
+        placeholder: 'Thứ tự trong khóa học 1, 2,...',
     },
     {
         label: 'Mô tả',

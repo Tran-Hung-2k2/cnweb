@@ -7,17 +7,19 @@ import storage from 'redux-persist/lib/storage';
 
 import auth from './auth/auth.reducer';
 import course from './course/course.reducer';
+import category from './category/category.reducer';
 
 const persistConfig = {
     key: 'root',
     storage: storage,
     stateReconciler: autoMergeLevel2, // Xem thêm tại mục "Quá trình merge".
-    whitelist: ['auth', 'course'],
+    whitelist: ['auth', 'course', 'category'],
 };
 
 const rootReducer = combineReducers({
     auth,
     course,
+    category,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

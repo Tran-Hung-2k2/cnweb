@@ -1,5 +1,4 @@
 import type from './course.type';
-import notify from '../../utils/notify';
 import service from '../../services/week.service';
 
 const action = {
@@ -10,17 +9,19 @@ const action = {
         };
     },
 
-    deleteWeek: (id, callback) => async (dispatch) => {
-        try {
-            const response = await service.deleteWeek(id);
-            dispatch({
-                type: type.DELETE_WEEK,
-                payload: id,
-            });
-            if (callback) callback();
-        } catch (error) {
-            notify(error.response.data.details.body[0].message, 'error');
-        }
+    addWeek: (data) => {
+        return {
+            type: type.ADD_WEEK,
+            payload: data,
+        };
+    },
+
+    deleteWeek: (id) => async (dispatch) => {
+        await service.deleteWeek(id);
+        dispatch({
+            type: type.DELETE_WEEK,
+            payload: id,
+        });
     },
 };
 
