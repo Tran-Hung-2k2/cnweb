@@ -1,0 +1,20 @@
+
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+const BlogItem = ({ post }) => {
+  return (
+    <div className="card mb-4">
+      <img src={post.image} className="card-img-top" alt={post.title} />
+      <div className="card-body">
+        <h5 className="card-title">{post.title}</h5>
+        <p className="card-text">{post.excerpt}</p>
+        <Link to={`/blog/${post.id}`} className="btn btn-primary">
+          Đọc thêm
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+export default BlogItem;
