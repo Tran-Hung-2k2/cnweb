@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { LuClipboardEdit } from "react-icons/lu";
+import { LuClipboardEdit } from 'react-icons/lu';
 import { FiDelete } from 'react-icons/fi';
 
 import WeekInfo from './WeekInfo';
@@ -12,7 +12,6 @@ import action from '../redux/course/course.action';
 import service from '../services/course.service';
 import confirm from '../utils/confirm';
 import convertTime from '../utils/convertTime';
-
 
 const CourseManager = () => {
     const [owner, setOwner] = useState(false);
@@ -73,22 +72,30 @@ const CourseManager = () => {
                             <div className="py-3 mx-4 text-lg font-semibold badge badge-primary badge-outline">
                                 {course.Category.Name}
                             </div>
-                            <Link
-                                to="/course/edit"
-                                className="inline-block mx-2"
-                                onClick={() => {
-                                    dispatch(action.addCourse(course.Course_ID));
-                                }}
-                            >
-                                <LuClipboardEdit className="text-green-700 w-7 h-7" />
-                            </Link>
-                            <Link onClick={() => deleteCourse(course)} className="inline-block mx-2">
-                                <FiDelete className="w-7 h-7 text-error" />
-                            </Link>
+                            {owner && (
+                                <Link
+                                    to="/course/edit"
+                                    className="inline-block mx-2"
+                                    onClick={() => {
+                                        dispatch(action.addCourse(course.Course_ID));
+                                    }}
+                                >
+                                    <LuClipboardEdit className="text-green-700 w-7 h-7" />
+                                </Link>
+                            )}
+                            {owner && (
+                                <Link onClick={() => deleteCourse(course)} className="inline-block mx-2">
+                                    <FiDelete className="w-7 h-7 text-error" />
+                                </Link>
+                            )}
                         </div>
                         <p className="my-2 text-lg font-bold text-green-600">{course.Level} Level</p>
-                        <p className="text-md"><b>Ngày tạo:</b> {convertTime(course.createdAt)}</p>
-                        <p className="text-md"><b>Lần cập nhật gần nhất:</b> {convertTime(course.updatedAt)}</p>
+                        <p className="text-md">
+                            <b>Ngày tạo:</b> {convertTime(course.createdAt)}
+                        </p>
+                        <p className="text-md">
+                            <b>Lần cập nhật gần nhất:</b> {convertTime(course.updatedAt)}
+                        </p>
                         <p className="mt-4 text-lg">{course.Description}</p>
                     </div>
                     <WeekInfo {...{ course, owner }} />

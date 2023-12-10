@@ -5,6 +5,8 @@ const type = {
     DELETE_WEEK: 'DELETE_WEEK',
     ADD_LECTURE: 'ADD_LECTURE',
     DELETE_LECTURE: 'DELETE_LECTURE',
+    ADD_LESSON: 'ADD_LESSON',
+    DELETE_LESSON: 'DELETE_LESSON',
 };
 
 export default type;

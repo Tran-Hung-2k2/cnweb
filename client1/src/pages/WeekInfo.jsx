@@ -27,25 +27,29 @@ function WeekInfo({ course, owner }) {
     return (
         <>
             {_.sortBy(course.Weeks, ['Index', 'createdAt']).map((week, index) => (
-                <div key={week.Week_ID} className="border rounded-none collapse collapse-arrow">
+                <div key={week.Week_ID} className="mt-2 border border-black rounded-md collapse collapse-arrow">
                     <input type="checkbox" />
                     <div className="flex items-center justify-between text-xl font-medium border-b collapse-title hover:bg-sky-50">
                         <div>
                             Tuần {index + 1}: {week.Title}
                         </div>
                         <div className="z-10">
-                            <Link to="/week/edit">
-                                <FaRegEdit
-                                    onClick={() => {
-                                        dispatch(action.addWeek(week.Week_ID));
-                                    }}
-                                    className="inline-block mr-10 text-green-600"
+                            {owner && (
+                                <Link to="/week/edit">
+                                    <FaRegEdit
+                                        onClick={() => {
+                                            dispatch(action.addWeek(week.Week_ID));
+                                        }}
+                                        className="inline-block mr-10 text-green-600"
+                                    />
+                                </Link>
+                            )}
+                            {owner && (
+                                <RiDeleteBinLine
+                                    onClick={() => deleteWeek(week, index)}
+                                    className="inline-block mr-10 text-error"
                                 />
-                            </Link>
-                            <RiDeleteBinLine
-                                onClick={() => deleteWeek(week, index)}
-                                className="inline-block mr-10 text-error"
-                            />
+                            )}
                         </div>
                     </div>
                     <div className="collapse-content">
@@ -71,7 +75,7 @@ function WeekInfo({ course, owner }) {
                 <Link
                     to="/week/add"
                     onClick={() => dispatch(action.addCourse(course.Course_ID))}
-                    className="w-full btn btn-outline btn-primary"
+                    className="w-full mt-4 btn btn-outline btn-primary"
                 >
                     Thêm tuần học
                 </Link>

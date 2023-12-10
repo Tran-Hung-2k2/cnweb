@@ -4,7 +4,7 @@ import ButtonBack from './ButtonBack';
 import TextEditor from './TextEditor';
 import Loader from './Loader';
 
-function FormEdit({ fields, title, onSubmit, getData }) {
+function FormEdit({ fields, title, onSubmit, getData, children }) {
     const [loading, setLoading] = useState(true);
     const fieldsState = fields.reduce(
         (acc, field) => ({ ...acc, [field.id]: field.type == 'checkbox' ? true : '' }),
@@ -42,7 +42,8 @@ function FormEdit({ fields, title, onSubmit, getData }) {
                     <form className="m-6 space-y-6 h-fit" onSubmit={(e) => onSubmit(e, state)}>
                         <h3 className="text-2xl font-bold text-primary">{title}</h3>
                         <div className="flex flex-col space-y-4 h-fit">
-                            {fields.map((field) => (
+                            {children}
+                            {fields.map((field, index) => (
                                 <div key={field.id}>
                                     <label htmlFor={field.id} className="block mb-2 font-medium">
                                         {field.label}

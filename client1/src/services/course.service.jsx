@@ -2,7 +2,7 @@ import axios from './axios.service';
 
 const service = {
     getCourses: async (params) => {
-        const queryParams = ['Course_ID', 'Category_ID', 'User_ID'];
+        const queryParams = ['Course_ID', 'Category_ID', 'User_ID', 'Status'];
         const paramsObject = {};
 
         if (params) {

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import ButtonBack from './ButtonBack';
 import TextEditor from './TextEditor';
 
-function FormAdd({ fields, title, onSubmit }) {
+function FormAdd({ fields, title, onSubmit, children }) {
     const fieldsState = fields.reduce(
         (acc, field) => ({ ...acc, [field.id]: field.type == 'checkbox' ? true : '' }),
         {},
@@ -25,6 +25,7 @@ function FormAdd({ fields, title, onSubmit }) {
             <ButtonBack />
             <h3 className="text-2xl font-bold text-primary">{title}</h3>
             <div className="flex flex-col space-y-4 h-fit">
+                {children}
                 {fields.map((field) => (
                     <div key={field.id}>
                         <label htmlFor={field.id} className="block mb-2 font-medium">

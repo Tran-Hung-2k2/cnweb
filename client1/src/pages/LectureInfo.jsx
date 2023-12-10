@@ -28,25 +28,29 @@ function LectureInfo({ week, owner }) {
             {_.sortBy(week.Lectures, ['Index', 'createdAt']).map((lecture, index) => (
                 <details
                     key={lecture.Lecture_ID}
-                    className="rounded-none collapse collapse-arrow hover:border border-primary"
+                    className="rounded-md collapse collapse-arrow hover:border border-primary"
                 >
                     <summary className="!flex items-center justify-between text-lg font-medium collapse-title hover:bg-sky-50 text-stone-700 group hover:opacity-100">
                         <div className="">
                             Bài giảng {index + 1}: {lecture.Lecture_Title}
                         </div>
                         <div className="z-10 transition-opacity duration-300 opacity-0 group-hover:opacity-100">
-                            <Link to="/lecture/edit">
-                                <FaRegEdit
-                                    onClick={() => {
-                                        dispatch(action.addLecture(lecture.Lecture_ID));
-                                    }}
-                                    className="inline-block mr-10 text-green-600"
+                            {owner && (
+                                <Link to="/lecture/edit">
+                                    <FaRegEdit
+                                        onClick={() => {
+                                            dispatch(action.addLecture(lecture.Lecture_ID));
+                                        }}
+                                        className="inline-block mr-10 text-green-600"
+                                    />
+                                </Link>
+                            )}
+                            {owner && (
+                                <RiDeleteBinLine
+                                    onClick={() => deleteLecture(lecture, index)}
+                                    className="inline-block mr-10 text-error"
                                 />
-                            </Link>
-                            <RiDeleteBinLine
-                                onClick={() => deleteLecture(lecture, index)}
-                                className="inline-block mr-10 text-error"
-                            />
+                            )}
                         </div>
                     </summary>
 
@@ -59,7 +63,7 @@ function LectureInfo({ week, owner }) {
                 <Link
                     to="/lecture/add"
                     onClick={() => dispatch(action.addWeek(week.Week_ID))}
-                    className="w-full btn btn-outline btn-success"
+                    className="w-full mt-4 btn btn-outline btn-success"
                 >
                     Thêm bài giảng
                 </Link>

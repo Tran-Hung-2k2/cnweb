@@ -14,6 +14,8 @@ const CategoryManager = lazy(() => import('../pages/CategoryManager'));
 const CategoryAdd = lazy(() => import('../pages/CategoryAdd'));
 const CategoryEdit = lazy(() => import('../pages/CategoryEdit'));
 const LectureEdit = lazy(() => import('../pages/LectureEdit'));
+const LessonAdd = lazy(() => import('../pages/LessonAdd'));
+const LessonEdit = lazy(() => import('../pages/LessonEdit'));
 
 const coreRoutes = [
     {
@@ -62,7 +64,11 @@ const coreRoutes = [
     },
     {
         path: '/lesson/add',
-        component: WeekAdd,
+        component: LessonAdd,
+    },
+    {
+        path: '/lesson/edit',
+        component: LessonEdit,
     },
     {
         path: '/category/add',

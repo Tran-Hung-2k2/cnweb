@@ -10,6 +10,7 @@ const api_notify = [
     { url: '/api/week', methods: ['post', 'patch', 'delete'] },
     { url: '/api/category', methods: ['post', 'patch', 'delete'] },
     { url: '/api/lecture', methods: ['post', 'patch', 'delete'] },
+    { url: '/api/lesson', methods: ['post', 'patch', 'delete'] },
 ];
 
 const service = axios.create({

@@ -27,7 +27,7 @@ const Header = () => {
                     ))}
                 </select>
                 <div className="indicator">
-                    <span className="indicator-item badge badge-secondary">new</span>
+                    <span className="font-bold shadow-lg bg-slate-100 indicator-item badge badge-secondary">new</span>
                     <button className="btn btn-primary join-item">Search</button>
                 </div>
             </div>

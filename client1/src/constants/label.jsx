@@ -7,6 +7,7 @@ const label = {
     user: {
         APPROVAL: 'Approval',
         PENDING_APPROVAL: 'Pending approval',
+        LOCK: 'Lock',
     },
     course: {
         VISIBLE: 'Visible',
