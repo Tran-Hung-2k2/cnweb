@@ -10,6 +10,7 @@ const validation = {
             Course_ID: Joi.string().custom(cv.uuidv4Id),
             Category_ID: Joi.string().custom(cv.uuidv4Id),
             User_ID: Joi.string().custom(cv.uuidv4Id),
+            Status: Joi.string().valid(...Object.values(label.course)),
         })
             .unknown(false)
             .prefs({ messages }),

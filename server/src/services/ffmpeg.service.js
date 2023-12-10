@@ -14,7 +14,7 @@ const service = {
                     // Trả về đối tượng chứa kích thước (MB) và thời lượng của video (minute)
                     resolve({
                         size: metadata.format.size / (1024 * 1024),
-                        duration: metadata.format.duration / 60,
+                        duration: metadata.format.duration,
                     });
                 }
             });

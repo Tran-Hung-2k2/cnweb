@@ -8,7 +8,7 @@ import async_wrap from '../utils/async_wrap.js';
 const controller = {
     // [GET] /api/course/
     get_all_courses: async_wrap(async (req, res) => {
-        const queryParams = ['Course_ID', 'Category_ID', 'User_ID'];
+        const queryParams = ['Course_ID', 'Category_ID', 'User_ID', 'Status'];
         const whereClause = {};
 
         queryParams.forEach((param) => {
@@ -67,7 +67,7 @@ const controller = {
     // [POST] /api/course/
     add_course: async_wrap(async (req, res) => {
         req.body.User_ID = req.token.id;
-        req.body.Status = label.course.PENDING_APPROVAL;
+        req.body.Status = req.token.role == label.role.ADMIN ? label.course.VISIBLE : label.course.PENDING_APPROVAL;
 
         if (!req.file) throw new APIError(400, 'Ảnh khóa học là bắt buộc');
 
@@ -82,13 +82,16 @@ const controller = {
     update_course: async_wrap(async (req, res) => {
         const course = await db.Course.findByPk(req.params.id);
         if (!course) throw new APIError(404, 'Không tìm thấy khóa học');
-        if (course.User_ID != req.token.id) throw new APIError(403, 'Bạn không có quyền chỉnh sửa khóa học này');
+        if (course.User_ID != req.token.id && req.token.role != label.role.ADMIN)
+            throw new APIError(403, 'Bạn không có quyền chỉnh sửa khóa học này');
 
-        course.Category_ID = req.body.Category_ID || course.Category_ID;
-        course.Name = req.body.Name || course.Name;
-        course.Description = req.body.Description || course.Description;
-        course.Level = req.body.Level || course.Level;
-        course.Need_Approval = req.body.Need_Approval != undefined ? req.body.Need_Approval : course.Need_Approval;
+        if (course.User_ID == req.token.id) {
+            course.Category_ID = req.body.Category_ID || course.Category_ID;
+            course.Name = req.body.Name || course.Name;
+            course.Description = req.body.Description || course.Description;
+            course.Level = req.body.Level || course.Level;
+            course.Need_Approval = req.body.Need_Approval != undefined ? req.body.Need_Approval : course.Need_Approval;
+        }
         course.Status = req.body.Status || course.Status;
 
         if (req.file) {

@@ -32,11 +32,15 @@ const controller = {
         if (!user || !(await bcrypt.compare(req.body.Password, user.Password)))
             throw new APIError(400, 'Tài khoản hoặc mật khẩu không chính xác');
 
+        if (user.Status == label.user.LOCK)
+            throw new APIError(400, 'Tài khoản của bạn đã bị khóa. Vui lòng thử lại sau.');
+
         res.cookie('access_token', token_service.generate_access_token(user.User_ID), {
             httpOnly: true,
             secure: true, // Chỉ gửi cookie qua HTTPS
             sameSite: 'None', // Cho phép gửi từ mọi nguồn
         });
+
         res.cookie('refresh_token', token_service.generate_refresh_token(user.User_ID), {
             httpOnly: true,
             secure: true, // Chỉ gửi cookie qua HTTPS

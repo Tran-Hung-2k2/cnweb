@@ -1,58 +1,55 @@
 import { Joi } from 'express-validation';
 import messages from '../utils/validation_message';
 import cv from './custom.validation';
+import label from '../constants/label';
 
 const validation = {
-    // [GET] /api/week/:id
-    get_week_by_id: () => ({
-        params: Joi.object({
-            id: Joi.string().required().custom(cv.uuidv4Id),
+    // [GET] api/user/
+    get_all_users: () => ({
+        query: Joi.object({
+            Status: Joi.string()
+                .trim()
+                .valid(...Object.values(label.user))
+                .label('Trạng thái tài khoản'),
+            Role: Joi.string()
+                .valid(...Object.values(label.role))
+                .label('Vai trò'),
+            Name: Joi.string().trim(),
+            Email: Joi.string().email(),
+            User_ID: Joi.string().custom(cv.uuidv4Id),
         })
             .unknown(false)
             .prefs({ messages }),
     }),
 
-    // [GET] /api/week/course/:id
-    get_week_by_course_id: () => ({
-        params: Joi.object({
-            id: Joi.string().required().custom(cv.uuidv4Id).external(cv.isCourseExists),
-        })
-            .unknown(false)
-            .prefs({ messages }),
-    }),
-
-    // [POST] /api/week/
-    add_week: () => ({
-        body: Joi.object({
-            Course_ID: Joi.string().required().custom(cv.uuidv4Id).label('ID Khóa học'),
-            Title: Joi.string().required().label('Tiêu đề'),
-            Index: Joi.number().positive().required().label('Thứ tự'),
-            Description: Joi.string().required().label('Miêu tả'),
-            Target: Joi.string().required().label('Mục tiêu'),
-        })
-            .unknown(false)
-            .prefs({ messages }),
-    }),
-
-    // [PATCH] /api/week/:id
-    update_week: () => ({
+    // [PATCH] /api/user/:id
+    update_user: () => ({
         params: Joi.object({
             id: Joi.string().required().custom(cv.uuidv4Id),
         })
             .unknown(false)
             .prefs({ messages }),
         body: Joi.object({
-            Title: Joi.string().label('Tiêu đề'),
-            Index: Joi.number().positive().label('Thứ tự'),
-            Description: Joi.string().label('Miêu tả'),
-            Target: Joi.string().label('Mục tiêu'),
+            Status: Joi.string()
+                .valid(...Object.values(label.user))
+                .label('Trạng thái tài khoản'),
         })
             .unknown(false)
             .prefs({ messages }),
     }),
 
-    // [DELETE] /api/week/:id
-    delete_week: () => ({
+    // [PATCH] /api/user/detail
+    update_user_detail: () => ({
+        body: Joi.object({
+            Name: Joi.string().trim().label('Tên người dùng'),
+            Avatar: Joi.string().label('Ảnh đại diện'),
+        })
+            .unknown(false)
+            .prefs({ messages }),
+    }),
+
+    // [DELETE] /api/user/:id
+    delete_user: () => ({
         params: Joi.object({
             id: Joi.string().required().custom(cv.uuidv4Id),
         })

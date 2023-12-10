@@ -30,7 +30,7 @@ const service = {
         const videoInfo = await ffmpeg_service.get_video_info(filePath);
 
         console.log('Kích thước:', videoInfo.size, 'MB');
-        console.log('Thời lượng:', videoInfo.duration, 'minutes');
+        console.log('Thời lượng:', videoInfo.duration/60, 'minutes');
 
         let compressedFilePath;
         // Kiểm tra tỷ lệ kích thước và thời lượng để quyết định có cần nén video trước khi tải lên hay không
@@ -56,7 +56,7 @@ const service = {
         service.delete_temp();
 
         // Trả về URL tải xuống của file đã tải lên
-        return { duration: Math.round(videoInfo.duration * 60), url: await getDownloadURL(storageRef) };
+        return { duration: Math.round(videoInfo.duration), url: await getDownloadURL(storageRef) };
     },
 
     upload_image: async (filePath) => {

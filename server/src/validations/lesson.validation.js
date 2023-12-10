@@ -43,6 +43,9 @@ const validation = {
             Lecture_ID: Joi.string().custom(cv.uuidv4Id).label('ID bài giảng'),
             Title: Joi.string().label('Tiêu đề'),
             Index: Joi.number().positive().label('Thứ tự'),
+            Type: Joi.string()
+                .valid(...Object.values(label.lesson_type))
+                .label('Loại bài học'),
             Duration: Joi.number().positive().label('Thời lượng'),
             Content: Joi.string().label('Nội dung'),
         })
