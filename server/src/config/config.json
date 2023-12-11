@@ -20,7 +20,7 @@
         "username": "tranhung",
         "password": "Of3PFjuQoyDhaeM2McuES48zs1pYTeTK",
         "database": "cnweb",
-        "host": "dpg-clri5d3h3k0c73aj76ng-a",
+        "host": "dpg-clri5d3h3k0c73aj76ng-a.singapore-postgres.render.com",
         "logging": false,
         "timezone": "+07:00",
         "dialect": "postgres",
