@@ -14,8 +14,6 @@ const PORT = process.env.PORT || 8080;
 
 const app = express();
 
-app.use('/client1', express.static(path.join(__dirname, 'client1', 'dist')));
-
 app.use(
     cors({
         origin: ['https://localhost:5173', 'http://localhost:5173'],
