@@ -20,7 +20,7 @@
         "username": "sql12669486",
         "password": "pEbf1mHVwG",
         "database": "sql12669486",
-        "host": " sql12.freesqldatabase.com",
+        "host": "sql12.freesqldatabase.com",
         "logging": false,
         "timezone": "+07:00",
         "dialect": "mysql",
