@@ -24,7 +24,13 @@
         "logging": false,
         "timezone": "+07:00",
         "dialect": "postgres",
-        "port": 5432
+        "port": 5432,
+        "dialectOptions": {
+            "ssl": {
+                "require": true,
+                "rejectUnauthorized": false
+            }
+        }
     },
     "production1": {
         "username": "sql12669486",
