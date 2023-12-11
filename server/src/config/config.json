@@ -19,8 +19,11 @@
     "production": {
         "username": "root",
         "password": null,
-        "database": "database_production",
+        "database": "cnweb",
         "host": "127.0.0.1",
-        "dialect": "mysql"
+        "logging": false,
+        "timezone": "+07:00",
+        "dialect": "mysql",
+        "port": 3306
     }
 }
