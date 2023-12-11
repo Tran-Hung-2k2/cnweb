@@ -8,6 +8,7 @@ const validation = {
     get_all_courses: () => ({
         query: Joi.object({
             Course_ID: Joi.string().custom(cv.uuidv4Id),
+            Name: Joi.string(),
             Category_ID: Joi.string().custom(cv.uuidv4Id),
             User_ID: Joi.string().custom(cv.uuidv4Id),
             Status: Joi.string().valid(...Object.values(label.course)),

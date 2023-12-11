@@ -17,11 +17,6 @@ const menuItem = [
                 title: 'Quản lý người dùng',
                 role: [label.role.ADMIN],
             },
-            {
-                path: '/organization/approval',
-                title: 'Xét duyệt tổ chức',
-                role: [label.role.ADMIN],
-            },
         ],
         icon: <GrUserManager />,
     },
@@ -40,7 +35,7 @@ const menuItem = [
                 role: [label.role.ADMIN, label.role.ORGANIZATION],
             },
             {
-                path: '/student/approval',
+                path: '/course/approval',
                 title: 'Xét duyệt học viên',
                 role: [label.role.ADMIN, label.role.ORGANIZATION],
             },

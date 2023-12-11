@@ -9,10 +9,15 @@ module.exports = (sequelize, DataTypes) => {
          * Tệp `models/index` sẽ tự động gọi phương thức này.
          */
         static associate(models) {
-            User.belongsToMany(models.Course, {
-                through: 'Participating_Course',
+            // User.belongsToMany(models.Course, {
+            //     through: 'Participating_Course',
+            //     foreignKey: 'User_ID',
+            //     otherKey: 'Course_ID',
+            //     onDelete: 'CASCADE',
+            // });
+
+            User.hasMany(models.Participating_Course, {
                 foreignKey: 'User_ID',
-                otherKey: 'Course_ID',
                 onDelete: 'CASCADE',
             });
 

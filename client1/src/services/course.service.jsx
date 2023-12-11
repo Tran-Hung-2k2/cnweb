@@ -2,7 +2,7 @@ import axios from './axios.service';
 
 const service = {
     getCourses: async (params) => {
-        const queryParams = ['Course_ID', 'Category_ID', 'User_ID', 'Status'];
+        const queryParams = ['Course_ID', 'Category_ID', 'User_ID', 'Status', 'Name'];
         const paramsObject = {};
 
         if (params) {
@@ -12,7 +12,7 @@ const service = {
                 }
             });
         }
-
+        console.log(paramsObject);
         const response = await axios.get('/api/course', {
             params: paramsObject,
         });

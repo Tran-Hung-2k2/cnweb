@@ -19,10 +19,14 @@ module.exports = (sequelize, DataTypes) => {
                 onDelete: 'CASCADE',
             });
 
-            Course.belongsToMany(models.User, {
-                through: 'Participating_Course',
+            // Course.belongsToMany(models.User, {
+            //     through: 'Participating_Course',
+            //     foreignKey: 'Course_ID',
+            //     otherKey: 'User_ID',
+            //     onDelete: 'CASCADE',
+            // });
+            Course.hasMany(models.Participating_Course, {
                 foreignKey: 'Course_ID',
-                otherKey: 'User_ID',
                 onDelete: 'CASCADE',
             });
 

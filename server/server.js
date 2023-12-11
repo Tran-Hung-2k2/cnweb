@@ -1,10 +1,9 @@
 import express from 'express';
 import cors from 'cors';
-import fs from 'fs';
+import path from 'path';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-import https from 'https';
 import { ValidationError } from 'express-validation';
 import route from './src/routes/index.js';
 import api_response from './src/utils/api_response.js';
@@ -14,6 +13,8 @@ dotenv.config();
 const PORT = process.env.PORT || 8080;
 
 const app = express();
+
+app.use('/client1', express.static(path.join(__dirname, 'client1', 'dist')));
 
 app.use(
     cors({

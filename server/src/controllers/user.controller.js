@@ -19,7 +19,7 @@ const controller = {
 
         const users = await db.User.findAll({
             where: whereClause,
-            attributes: ['User_ID', 'Name', 'Email', 'Avatar', 'Status', 'Role'],
+            attributes: ['User_ID', 'Name', 'Email', 'Avatar', 'Status', 'Role', 'createdAt', 'updatedAt'],
         });
 
         if (users.length > 0)
@@ -74,6 +74,7 @@ const controller = {
         if (!user) throw new APIError(404, 'Người dùng không tồn tại');
         if (user.Role == label.role.ADMIN) throw new APIError(400, 'Bạn không thể xóa tài khoản admin');
 
+        if (user.Avatar) await firebase_service.delete_file(user.Avatar);
         await db.User.destroy({
             where: { User_ID: req.params.id },
         });

@@ -2,6 +2,7 @@ import { CgProfile } from 'react-icons/cg';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { HiOutlineLogout } from 'react-icons/hi';
 import { PiPassword } from 'react-icons/pi';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import action from '../redux/auth/auth.action';
@@ -15,11 +16,16 @@ const Header = () => {
 
     return (
         <div className="my-1 xl:gap-60 lg:gap-40 md:gap-30 sm:gap-20 justify-evenly navbar bg-base-100">
-            <div className="flex-1 ml-6 join">
+            <form action="/course/manager" method="GET" className="flex-1 ml-6 join">
                 <div className="flex flex-1">
-                    <input className="flex-1 input input-bordered join-item" placeholder="Nhập để tìm kiếm khóa học" />
+                    <input
+                        name="Name"
+                        className="flex-1 input input-bordered join-item"
+                        placeholder="Nhập để tìm kiếm khóa học"
+                    />
                 </div>
-                <select className="select select-bordered join-item">
+                <select name="Category_ID" className="select select-bordered join-item">
+                    <option value="">Tất cả</option>
                     {categories.map((category, index) => (
                         <option key={index} value={category.Category_ID}>
                             {category.Name}
@@ -27,10 +33,13 @@ const Header = () => {
                     ))}
                 </select>
                 <div className="indicator">
-                    <span className="font-bold shadow-lg bg-slate-100 indicator-item badge badge-secondary">new</span>
-                    <button className="btn btn-primary join-item">Search</button>
+                    <span className="font-bold shadow-lg bg-slate-100 indicator-item badge badge-secondary">mới</span>
+                    <button type="submit" className="btn btn-primary join-item">
+                        Tìm kiếm
+                    </button>
                 </div>
-            </div>
+            </form>
+
             <div className="flex-none mr-20">
                 <div className="w-full dropdown dropdown-end">
                     <span className="inline-block -translate-y-1">

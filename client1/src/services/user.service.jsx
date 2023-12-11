@@ -40,7 +40,7 @@ const service = {
         return response.data;
     },
 
-    deleteWeek: async (id) => {
+    deleteUser: async (id) => {
         const response = await axios.delete(`/api/user/${id}`, {
             withCredentials: true,
         });

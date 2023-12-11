@@ -3,17 +3,18 @@ import { lazy } from 'react';
 const UserProfile = lazy(() => import('../pages/UserProfile'));
 const CourseManager = lazy(() => import('../pages/CourseManager'));
 const CourseInfo = lazy(() => import('../pages/CourseInfo'));
+const CourseAdd = lazy(() => import('../pages/CourseAdd'));
+const CourseEdit = lazy(() => import('../pages/CourseEdit'));
+const CourseApproval = lazy(() => import('../pages/CourseApproval'));
 const UserManager = lazy(() => import('../pages/UserManager'));
-const Lesson = lazy(() => import('../pages/Lesson'));
 const WeekAdd = lazy(() => import('../pages/WeekAdd'));
 const WeekEdit = lazy(() => import('../pages/WeekEdit'));
-const CourseAdd = lazy(() => import('../pages/CourseAdd'));
 const LectureAdd = lazy(() => import('../pages/LectureAdd'));
-const CourseEdit = lazy(() => import('../pages/CourseEdit'));
+const LectureEdit = lazy(() => import('../pages/LectureEdit'));
 const CategoryManager = lazy(() => import('../pages/CategoryManager'));
 const CategoryAdd = lazy(() => import('../pages/CategoryAdd'));
 const CategoryEdit = lazy(() => import('../pages/CategoryEdit'));
-const LectureEdit = lazy(() => import('../pages/LectureEdit'));
+const Lesson = lazy(() => import('../pages/Lesson'));
 const LessonAdd = lazy(() => import('../pages/LessonAdd'));
 const LessonEdit = lazy(() => import('../pages/LessonEdit'));
 
@@ -37,6 +38,10 @@ const coreRoutes = [
     {
         path: '/course/manager',
         component: CourseManager,
+    },
+    {
+        path: '/course/approval',
+        component: CourseApproval,
     },
     {
         path: '/course/:id',

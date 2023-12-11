@@ -20,7 +20,7 @@ var Sequelize = require('sequelize');
 var info = {
     "revision": 1,
     "name": "noname",
-    "created": "2023-12-10T19:46:00.544Z",
+    "created": "2023-12-09T15:36:12.748Z",
     "comment": ""
 };
 
@@ -402,26 +402,28 @@ var migrationCommands = [{
             {
                 "User_ID": {
                     "type": Sequelize.UUID,
+                    "unique": "Participating_Courses_User_ID_Course_ID_unique",
                     "onUpdate": "CASCADE",
                     "onDelete": "CASCADE",
                     "references": {
                         "model": "Users",
                         "key": "User_ID"
                     },
-                    "field": "User_ID",
                     "primaryKey": true,
+                    "field": "User_ID",
                     "allowNull": false
                 },
                 "Course_ID": {
                     "type": Sequelize.UUID,
+                    "unique": "Participating_Courses_User_ID_Course_ID_unique",
                     "onUpdate": "CASCADE",
                     "onDelete": "CASCADE",
                     "references": {
                         "model": "Courses",
                         "key": "Course_ID"
                     },
-                    "field": "Course_ID",
                     "primaryKey": true,
+                    "field": "Course_ID",
                     "allowNull": false
                 },
                 "Review_Content": {

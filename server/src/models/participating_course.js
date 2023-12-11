@@ -10,6 +10,15 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // Định nghĩa mối quan hệ ở đây
+            Participating_Course.belongsTo(models.User, {
+                foreignKey: 'User_ID',
+                onDelete: 'CASCADE',
+            });
+
+            Participating_Course.belongsTo(models.Course, {
+                foreignKey: 'Course_ID',
+                onDelete: 'CASCADE',
+            });
         }
     }
 
@@ -18,10 +27,12 @@ module.exports = (sequelize, DataTypes) => {
             User_ID: {
                 type: DataTypes.UUID,
                 allowNull: false,
+                primaryKey: true,
             },
             Course_ID: {
                 type: DataTypes.UUID,
                 allowNull: false,
+                primaryKey: true,
             },
             Review_Content: {
                 type: DataTypes.TEXT,

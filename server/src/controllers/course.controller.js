@@ -4,15 +4,18 @@ import firebase_service from '../services/firebase.service.js';
 import APIError from '../utils/api_error.js';
 import api_response from '../utils/api_response.js';
 import async_wrap from '../utils/async_wrap.js';
+import { Op } from 'sequelize';
 
 const controller = {
     // [GET] /api/course/
     get_all_courses: async_wrap(async (req, res) => {
-        const queryParams = ['Course_ID', 'Category_ID', 'User_ID', 'Status'];
+        const queryParams = ['Course_ID', 'Category_ID', 'User_ID', 'Status', 'Name'];
         const whereClause = {};
 
         queryParams.forEach((param) => {
-            if (req.query[param]) {
+            if (param === 'Name' && req.query[param]) {
+                whereClause[param] = { [Op.like]: `%${req.query[param]}%` };
+            } else if (req.query[param]) {
                 whereClause[param] = req.query[param];
             }
         });

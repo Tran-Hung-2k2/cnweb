@@ -302,26 +302,28 @@
             "schema": {
                 "User_ID": {
                     "allowNull": false,
-                    "primaryKey": true,
                     "field": "User_ID",
+                    "primaryKey": true,
                     "references": {
                         "model": "Users",
                         "key": "User_ID"
                     },
                     "onDelete": "CASCADE",
                     "onUpdate": "CASCADE",
+                    "unique": "Participating_Courses_User_ID_Course_ID_unique",
                     "seqType": "Sequelize.UUID"
                 },
                 "Course_ID": {
                     "allowNull": false,
-                    "primaryKey": true,
                     "field": "Course_ID",
+                    "primaryKey": true,
                     "references": {
                         "model": "Courses",
                         "key": "Course_ID"
                     },
                     "onDelete": "CASCADE",
                     "onUpdate": "CASCADE",
+                    "unique": "Participating_Courses_User_ID_Course_ID_unique",
                     "seqType": "Sequelize.UUID"
                 },
                 "Review_Content": {
