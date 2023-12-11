@@ -17,6 +17,16 @@
         "dialect": "mysql"
     },
     "production": {
+        "username": "tranhung",
+        "password": "Of3PFjuQoyDhaeM2McuES48zs1pYTeTK",
+        "database": "cnweb",
+        "host": "dpg-clri5d3h3k0c73aj76ng-a",
+        "logging": false,
+        "timezone": "+07:00",
+        "dialect": "postgres",
+        "port": 5432
+    },
+    "production1": {
         "username": "sql12669486",
         "password": "pEbf1mHVwG",
         "database": "sql12669486",
