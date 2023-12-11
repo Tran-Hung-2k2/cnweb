@@ -16,7 +16,7 @@ const app = express();
 
 app.use(
     cors({
-        origin: ['https://localhost:5173', 'http://localhost:5173'],
+        origin: ['https://localhost:5173', 'http://localhost:5173', 'https://coursera-cnweb.onrender.com'],
         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
         credentials: true,
         allowedHeaders: [
