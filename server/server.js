@@ -14,6 +14,8 @@ const PORT = process.env.PORT || 8080;
 
 const app = express();
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(
     cors({
         origin: [
