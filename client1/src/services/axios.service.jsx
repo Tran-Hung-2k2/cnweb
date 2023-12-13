@@ -17,7 +17,7 @@ const api_notify = [
 ];
 
 const service = axios.create({
-    baseURL: SERVER_URL || 'http://localhost:8080',
+    baseURL: SERVER_URL || 'http://localhost:10000',
 });
 
 service.interceptors.response.use(
