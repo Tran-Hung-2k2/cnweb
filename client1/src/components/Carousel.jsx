@@ -1,69 +1,51 @@
-import classNames from 'classnames';
-import React, { useEffect, useState } from 'react';
-import { twMerge } from 'tailwind-merge';
+import React, { useState, useEffect } from 'react';
 
-const goToOtherImage = (href, carouselId) => {
-    const carousel = document.getElementById(carouselId);
-    if (carousel) {
-        const target = document.querySelector(href);
-        const left = target.offsetLeft;
-        carousel.scrollTo({ left: left });
-    }
-};
+const Carousel = ({ slides, interval = 3000, className }) => {
+    const [currentIndex, setCurrentIndex] = useState(0);
 
-export default function DaisyUICarousel({
-    imgs,
-    carouselId,
-    classNameCarousel,
-    classNameForImage,
-    isAutoPlay = true,
-    autoPlayMilliseconds = 5000,
-}) {
-    const [activeIndex, setActiveIndex] = useState(0);
+    const nextSlide = () => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
+    };
 
-    const handleClickBtn = (event, i) => {
-        event.preventDefault();
-        const btn = event.currentTarget;
-        const href = btn.getAttribute('href');
-        goToOtherImage(href, carouselId);
-        setActiveIndex(i);
+    const prevSlide = () => {
+        setCurrentIndex((prevIndex) => (prevIndex - 1 + slides.length) % slides.length);
     };
 
     useEffect(() => {
-        if (isAutoPlay) {
-            const intervalId = setInterval(() => {
-                const newActiveIndex = activeIndex + 1 === imgs.length ? 0 : activeIndex + 1;
-                goToOtherImage(`#DaisyUICarousel_img_${newActiveIndex}`, carouselId);
-                setActiveIndex(newActiveIndex);
-            }, autoPlayMilliseconds);
-            return () => clearInterval(intervalId);
-        }
-    }, [activeIndex, autoPlayMilliseconds, carouselId, imgs.length, isAutoPlay]);
+        const timer = setInterval(nextSlide, interval);
+
+        return () => clearInterval(timer);
+    }, [currentIndex, interval, slides.length]);
 
     return (
-        <div className="relative">
-            <div id={carouselId} className={classNames('carousel', classNameCarousel)}>
-                {imgs.map((img, i) => (
-                    <div
-                        key={`DaisyUICarousel_img_${i}`}
-                        id={`DaisyUICarousel_img_${i}`}
-                        className={twMerge('carousel-item w-full bg-center bg-cover bg-no-repeat', classNameForImage)}
-                        style={{
-                            backgroundImage: `url(${img.src})`,
-                        }}
-                    ></div>
-                ))}
-            </div>
-            <div className="absolute flex justify-center w-full gap-2 py-2 bottom-3">
-                {imgs.map((img, i) => (
-                    <a
-                        onClick={(e) => handleClickBtn(e, i)}
-                        key={`DaisyUICarousel_img_point_${i}`}
-                        href={`#DaisyUICarousel_img_${i}`}
-                        className={classNames(activeIndex !== i && ' opacity-30', 'btn btn-xs btn-circle')}
-                    ></a>
-                ))}
-            </div>
+        <div className={`w-full carousel ${className}`}>
+            {slides.map((slide, index) => (
+                <div
+                    key={index}
+                    id={`slide${index + 1}`}
+                    className={`carousel-item relative w-full ${index === currentIndex ? '' : 'hidden'}`}
+                >
+                    <img src={slide} className="object-contain w-full max-h-96" alt={`Slide ${index + 1}`} />
+                    <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                        <a
+                            href={`#slide${index === 0 ? slides.length : index}`}
+                            className="btn btn-circle"
+                            onClick={prevSlide}
+                        >
+                            ❮
+                        </a>
+                        <a
+                            href={`#slide${index === slides.length - 1 ? 1 : index + 2}`}
+                            className="btn btn-circle"
+                            onClick={nextSlide}
+                        >
+                            ❯
+                        </a>
+                    </div>
+                </div>
+            ))}
         </div>
     );
-}
+};
+
+export default Carousel;

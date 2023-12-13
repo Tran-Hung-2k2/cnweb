@@ -20,7 +20,7 @@ const MainLayout = () => {
         <Navigate to="/course/manager" state={{ from: location }} replace />
     ) : (
         <main className="flex flex-col">
-            <MainHeader />
+            <MainHeader className="z-10" />
             <Outlet />
             <FooterComponent />
         </main>

@@ -8,20 +8,24 @@ import action from '../redux/auth/auth.action';
 import avatar from '../assets/images/avatar.jpg';
 import { NavLink } from 'react-router-dom';
 
-const MainHeader = () => {
+const MainHeader = ({ className }) => {
     const { user } = useSelector((state) => state.auth);
     const { categories } = useSelector((state) => state.category);
 
     const dispatch = useDispatch();
 
     return (
-        <header className="sticky top-0 px-20 bg-white border-2">
+        <header className={`sticky top-0 px-20 bg-white border-2 ${className}`}>
             <div className="flex justify-between navbar bg-base-100">
                 <NavLink to="/" className="flex items-center">
                     <p className="px-0 py-3 text-4xl font-bold text-primary">coursera</p>
                 </NavLink>
-                <form action="/course" method="GET" className="rounded-full join sm:invisible md:visible">
-                    <div className="flex flex-1">
+                <form
+                    action="/course"
+                    method="GET"
+                    className="justify-center flex-1 hidden rounded-full just join md:flex"
+                >
+                    <div className="flex w-2/5">
                         <input
                             name="Name"
                             className="flex-1 input input-bordered join-item"

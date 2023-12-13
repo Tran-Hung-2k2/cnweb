@@ -38,6 +38,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 route(app);
 
+app.use((req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 app.use(function (err, req, res, next) {
     if (err instanceof ValidationError) {
         return res.status(err.statusCode).json(api_response(true, 'Dữ liệu không hợp lệ', err.details.body));
