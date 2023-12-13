@@ -79,7 +79,6 @@ const controller = {
             where: { User_ID: req.params.id },
         });
         
-
         return res.status(200).json(api_response(false, 'Xóa người dùng thành công'));
     }),
 };
