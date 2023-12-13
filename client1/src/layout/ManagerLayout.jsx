@@ -6,7 +6,7 @@ import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import action from '../redux/category/category.action';
 
-const DefaultLayout = () => {
+const ManagerLayout = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -27,4 +27,4 @@ const DefaultLayout = () => {
     );
 };
 
-export default DefaultLayout;
+export default ManagerLayout;

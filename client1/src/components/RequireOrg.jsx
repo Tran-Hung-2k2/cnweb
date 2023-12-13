@@ -8,8 +8,12 @@ function RequireOrg() {
     const { user } = useSelector((state) => state.auth);
     const location = useLocation();
 
-    return user && [label.role.ADMIN, label.role.ORGANIZATION].includes(user.Role) ? (
-        <Outlet />
+    return user ? (
+        [label.role.ADMIN, label.role.ORGANIZATION].includes(user.Role) ? (
+            <Outlet />
+        ) : (
+            <Navigate to="/" state={{ from: location }} replace />
+        )
     ) : (
         <Navigate to="/signin" state={{ from: location }} replace />
     );

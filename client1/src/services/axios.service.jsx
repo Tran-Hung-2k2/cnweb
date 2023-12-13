@@ -7,6 +7,7 @@ const SERVER_URL = import.meta.env.VITE_REACT_APP_API_KEY;
 const api_notify = [
     { url: '/api/auth/login', methods: ['post'] },
     { url: '/api/auth/logout', methods: ['post'] },
+    { url: '/api/auth/register', methods: ['post'] },
     { url: '/api/course', methods: ['post', 'patch', 'delete'] },
     { url: '/api/week', methods: ['post', 'patch', 'delete'] },
     { url: '/api/category', methods: ['post', 'patch', 'delete'] },

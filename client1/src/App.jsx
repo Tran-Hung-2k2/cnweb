@@ -3,13 +3,18 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
 import routes from './routes/router';
+import AuthLayout from './layout/AuthLayout';
+import MainLayout from './layout/MainLayout';
+import ManagerLayout from './layout/ManagerLayout';
+import RequireOrg from './components/RequireOrg';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import Home from './pages/Home';
+import NotFound from './pages/NotFound';
+import Loader from './components/Loader';
 
-const SignIn = lazy(() => import('./pages/SignIn'));
-const SignUp = lazy(() => import('./pages/SignUp'));
-const NotFound = lazy(() => import('./pages/NotFound'));
-const Loader = lazy(() => import('./components/Loader'));
-const RequireOrg = lazy(() => import('./components/RequireOrg'));
-const DefaultLayout = lazy(() => import('./layout/DefaultLayout'));
+const Course = lazy(() => import('./pages/Course'));
+const CourseOwner = lazy(() => import('./pages/CourseOwner'));
 
 function App() {
     const [loading, setLoading] = useState(true);
@@ -24,11 +29,31 @@ function App() {
         <>
             <Toaster position="top-right" reverseOrder={false} containerClassName="overflow-auto" />
             <Routes>
-                <Route path="/signin" element={<SignIn />} />
-                <Route path="/signup" element={<SignUp />} />
+                <Route element={<MainLayout />}>
+                    <Route path="/" element={<Home />} />
+                    <Route
+                        path="/course"
+                        element={
+                            <Suspense fallback={<Loader />}>
+                                <Course />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="/my_course"
+                        element={
+                            <Suspense fallback={<Loader />}>
+                                <CourseOwner />
+                            </Suspense>
+                        }
+                    />
+                </Route>
+                <Route element={<AuthLayout />}>
+                    <Route path="/signin" element={<SignIn />} />
+                    <Route path="/signup" element={<SignUp />} />
+                </Route>
                 <Route element={<RequireOrg />}>
-                    <Route element={<DefaultLayout />}>
-                        <Route path="/" element={<Navigate to="/course/manager" />} />
+                    <Route element={<ManagerLayout />}>
                         {routes.map((routes, index) => {
                             const { path, component: Component } = routes;
                             return (
