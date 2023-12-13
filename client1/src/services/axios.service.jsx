@@ -2,6 +2,7 @@ import axios from 'axios';
 import store from '../redux/store';
 import type from '../redux/auth/auth.type';
 import notify from '../utils/notify';
+const SERVER_URL = import.meta.env.VITE_REACT_APP_API_KEY;
 
 const api_notify = [
     { url: '/api/auth/login', methods: ['post'] },
@@ -16,7 +17,7 @@ const api_notify = [
 ];
 
 const service = axios.create({
-    baseURL: 'https://coursera-6wby.onrender.com',
+    baseURL: SERVER_URL || 'https://coursera-6wby.onrender.com',
 });
 
 service.interceptors.response.use(
