@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, useSearchParams } from 'react-router-dom';
 
 import fields from '../constants/signupFields';
 import service from '../services/auth.service';
@@ -9,6 +9,7 @@ const fieldsState = fields.reduce((acc, field) => ({ ...acc, [field.id]: '' }), 
 
 export default function SignUp() {
     const [state, setState] = useState(fieldsState);
+    const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -17,15 +18,24 @@ export default function SignUp() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await service.register({ ...state, Role: label.role.STUDENT });
+        await service.register({
+            ...state,
+            Role: searchParams.get('role') == label.role.ORGANIZATION ? label.role.ORGANIZATION : label.role.STUDENT,
+        });
         navigate('/signin');
     };
 
     return (
         <form className="m-auto -translate-x-36 w-200" onSubmit={handleSubmit}>
-            <h3 className="mb-2 text-2xl font-bold text-primary">Đăng ký</h3>
+            <h3 className="mb-2 text-2xl font-bold text-primary">
+                {searchParams.get('role') == label.role.ORGANIZATION
+                    ? 'Bạn đang đăng ký tài khoản dành cho tổ chức giáo dục'
+                    : 'Đăng ký'}
+            </h3>
             <div>
-                Bạn đã có tài khoản?
+                {searchParams.get('role') == label.role.ORGANIZATION
+                    ? 'Tổ chức của bạn đã có tài khoản?'
+                    : 'Bạn đã có tài khoản?'}
                 <NavLink to="/signin" className="ml-2 text-primary">
                     Đăng nhập ngay
                 </NavLink>

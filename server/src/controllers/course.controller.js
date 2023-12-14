@@ -22,10 +22,15 @@ const controller = {
 
         const courses = await db.Course.findAll({
             where: whereClause,
-            include: {
-                model: db.User,
-                attributes: ['User_ID', 'Name', 'Avatar'],
-            },
+            include: [
+                {
+                    model: db.User,
+                    attributes: ['User_ID', 'Name', 'Avatar'],
+                },
+                {
+                    model: db.Category,
+                },
+            ],
         });
         return res.status(200).json(api_response(false, 'Lấy danh sách khóa học thành công', courses));
     }),

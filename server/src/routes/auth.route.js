@@ -6,6 +6,7 @@ import ctrl from '../controllers/auth.controller.js';
 const route = express.Router();
 
 route.post('/register', validate(vld.register()), ctrl.register);
+route.post('/verify_register', validate(vld.verify_register()), ctrl.verify_register);
 route.post('/login', validate(vld.login()), ctrl.login);
 route.post('/change_password', validate(vld.change_password()), ctrl.change_password);
 route.post('/forget_password', validate(vld.forget_password()), ctrl.forget_password);

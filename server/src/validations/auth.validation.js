@@ -21,6 +21,15 @@ const validation = {
             .prefs({ messages }),
     }),
 
+    // [POST] /api/auth/verify_register/
+    verify_register: () => ({
+        body: Joi.object({
+            register_token: Joi.string().required().label('Token xác thực'),
+        })
+            .unknown(false)
+            .prefs({ messages }),
+    }),
+
     // [POST] /api/auth/login/
     login: () => ({
         body: Joi.object({

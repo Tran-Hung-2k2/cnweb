@@ -12,7 +12,6 @@ const service = {
                 }
             });
         }
-        console.log(paramsObject);
         const response = await axios.get('/api/course', {
             params: paramsObject,
         });

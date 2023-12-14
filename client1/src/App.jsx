@@ -9,6 +9,7 @@ import ManagerLayout from './layout/ManagerLayout';
 import RequireOrg from './components/RequireOrg';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import VerifySignup from './pages/VerifySignup';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Loader from './components/Loader';
@@ -29,6 +30,7 @@ function App() {
         <>
             <Toaster position="top-right" reverseOrder={false} containerClassName="overflow-auto" />
             <Routes>
+                <Route path="/verify_signup" element={<VerifySignup />} />
                 <Route element={<MainLayout />}>
                     <Route path="/" element={<Home />} />
                     <Route

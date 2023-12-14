@@ -9,18 +9,45 @@ import email_service from '../services/email.service.js';
 import label from '../constants/label.js';
 import APIError from '../utils/api_error.js';
 
-const BASE_URL = process.env.BASE_URL || 'http://localhost:8080';
+const BASE_URL = process.env.BASE_URL || 'http://localhost:5173';
 
 const controller = {
     // [POST] /api/auth/register/
     register: async_wrap(async (req, res) => {
         if (req.body.Role == label.role.ORGANIZATION) req.body.Status = label.user.PENDING_APPROVAL;
         else req.body.Status = label.user.APPROVAL;
-        const user = await db.User.create({
-            ...req.body,
-            Password: await hash_password(req.body.Password),
+
+        const register_token = token_service.generate_register_token(req.body);
+
+        await email_service.send_email(
+            req.body.Email,
+            'Xác nhận đăng ký tài khoản',
+            `Nhấn vào link này để tiếp tục đăng ký: ${BASE_URL}/verify_signup?register_token=${register_token}`,
+        );
+
+        return res
+            .status(200)
+            .json(
+                api_response(
+                    false,
+                    'Email xác nhận đăng ký đã được gửi tới bạn. Vui lòng kiểm tra hộp thư đến hoặc thư rác để xác nhận đăng ký.',
+                ),
+            );
+    }),
+
+    // [POST] /api/auth/verify_register/
+    verify_register: async_wrap(async (req, res) => {
+        token_service.verify_token(req.body.register_token, process.env.JWT_REGISTER_KEY, async (err, token_decode) => {
+            if (err) throw new APIError(403, 'Thông tin xác thực không chính xác');
+
+            try {
+                const user = await db.User.create({
+                    ...token_decode,
+                    Password: await hash_password(token_decode.Password),
+                });
+                return res.status(201).json(api_response(false, 'Đăng ký thành công'));
+            } catch (error) {}
         });
-        return res.status(201).json(api_response(false, 'Đăng ký thành công', user));
     }),
 
     // [POST] /api/auth/login/
@@ -34,6 +61,9 @@ const controller = {
 
         if (user.Status == label.user.LOCK)
             throw new APIError(400, 'Tài khoản của bạn đã bị khóa. Vui lòng thử lại sau.');
+
+        if (user.Status == label.user.PENDING_APPROVAL)
+            throw new APIError(400, 'Tài khoản của bạn đang chờ xét duyệt hãy thử lại sau.');
 
         res.cookie('access_token', token_service.generate_access_token(user.User_ID), {
             httpOnly: true,

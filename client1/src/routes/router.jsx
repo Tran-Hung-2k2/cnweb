@@ -44,7 +44,7 @@ const coreRoutes = [
         component: CourseApproval,
     },
     {
-        path: '/course/:id',
+        path: '/course/details/:id',
         component: CourseInfo,
     },
     {

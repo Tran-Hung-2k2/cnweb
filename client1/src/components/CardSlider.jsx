@@ -2,6 +2,7 @@ import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { Link } from 'react-router-dom';
 
 const CardSlider = ({ cards }) => {
     const CustomPrevArrow = (props) => {
@@ -53,26 +54,40 @@ const CardSlider = ({ cards }) => {
     };
 
     return (
-        <Slider {...settings}>
-            {cards.map((card, index) => (
-                <div key={index} className="px-2">
-                    <div className="relative w-full shadow-xl card bg-base-100">
-                        <figure>
-                            <img src={card.image} alt={card.title} className="object-cover w-full h-48" />
-                        </figure>
-                        <div className="card-body">
-                            <h2 className="card-title">
-                                {card.title}
-                                <div className="text-white badge badge-success">MỚI</div>
-                            </h2>
-                            <p>{card.description}</p>
-                            <div className="justify-end card-actions">
-                                <div className="badge badge-outline">Fashion</div>
+        <Slider {...settings} className="h-full">
+            {cards.map(
+                (card, index) =>
+                    index < 5 && (
+                        <div key={index} className="h-full px-2">
+                            <div className="relative w-full h-full shadow-xl card bg-base-100">
+                                <Link to={`/course/${card.Course_ID}`}  className="w-full p-2 border rounded-lg">
+                                    <img
+                                        src={card.Image}
+                                        alt={card.Name}
+                                        className="object-cover w-full rounded-lg h-52"
+                                    />
+                                </Link>
+                                <div className="card-body">
+                                    <h2 className="overflow-hidden h-14 card-title">
+                                        {card.Name}
+                                        <div className="text-white badge badge-success">MỚI</div>
+                                    </h2>
+                                    <div className="flex mt-2 mb-4">
+                                        <img
+                                            className="object-fill h-6 mr-3"
+                                            src={card.User.Avatar}
+                                            alt="organization"
+                                        />
+                                        <div>{card.User.Name}</div>
+                                    </div>
+                                    <div className="justify-end card-actions">
+                                        <div className="badge badge-outline badge-primary">{card.Category.Name}</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            ))}
+                    ),
+            )}
         </Slider>
     );
 };
