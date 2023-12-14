@@ -12,13 +12,9 @@ function VerifySignup() {
         const verify = async () => {
             setLoading(true);
 
-            // const delay = Math.floor(Math.random() * (4000 - 1000 + 1) + 1000) + Math.floor(Math.random() * 501);
-
-            // setTimeout(async () => {
-                const res = await service.verify_register({ register_token: searchParams.get('register_token') });
-                setMessage(res.message);
-                setLoading(false);
-            // }, delay);
+            const res = await service.verify_register({ register_token: searchParams.get('register_token') });
+            setMessage(res.message);
+            setLoading(false);
         };
 
         verify();

@@ -8,6 +8,7 @@ import label from '../constants/label';
 const fieldsState = fields.reduce((acc, field) => ({ ...acc, [field.id]: '' }), {});
 
 export default function SignUp() {
+    const [loading, setLoading] = useState(false);
     const [state, setState] = useState(fieldsState);
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
@@ -18,10 +19,18 @@ export default function SignUp() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await service.register({
-            ...state,
-            Role: searchParams.get('role') == label.role.ORGANIZATION ? label.role.ORGANIZATION : label.role.STUDENT,
-        });
+
+        try {
+            setLoading(true);
+            await service.register({
+                ...state,
+                Role:
+                    searchParams.get('role') == label.role.ORGANIZATION ? label.role.ORGANIZATION : label.role.STUDENT,
+            });
+        } finally {
+            setLoading(false);
+        }
+
         navigate('/signin');
     };
 
@@ -51,7 +60,7 @@ export default function SignUp() {
                 ))}
             </div>
 
-            <button type="submit" className="btn btn-active btn-primary">
+            <button type="submit" className={`btn btn-active btn-primary ${loading && 'btn-disabled'}`}>
                 Đăng ký
             </button>
         </form>
