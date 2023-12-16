@@ -38,6 +38,14 @@ const service = {
         return response.data;
     },
 
+    getCourseOwner: async (id) => {
+        const response = await axios.get(`/api/course/owner/${id}`, {
+            withCredentials: true,
+        });
+
+        return response.data;
+    },
+
     getLesson: async (params) => {
         const queryParams = ['Lesson_ID'];
         const paramsObject = {};

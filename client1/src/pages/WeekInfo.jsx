@@ -8,8 +8,9 @@ import LectureInfo from './LectureInfo';
 import HTMLText from '../components/TextHTML';
 import confirm from '../utils/confirm';
 import action from '../redux/course/week.action';
+import { useEffect } from 'react';
 
-function WeekInfo({ course, owner }) {
+function WeekInfo({ course, owner, isRegistered }) {
     const dispatch = useDispatch();
 
     function deleteWeek(week, index) {
@@ -67,7 +68,7 @@ function WeekInfo({ course, owner }) {
                                 </div>
                             </div>
                         </div>
-                        <LectureInfo {...{ week, owner }} />
+                        <LectureInfo {...{ week, owner, isRegistered }} />
                     </div>
                 </div>
             ))}

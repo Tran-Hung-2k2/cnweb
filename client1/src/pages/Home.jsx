@@ -7,6 +7,7 @@ import CardSlider from '../components/CardSlider';
 import Loader from '../components/Loader';
 import service from '../services/course.service';
 import Hero from '../components/Hero';
+import label from '../constants/label';
 
 const imgs = [
     'https://www.classcentral.com/report/wp-content/uploads/2021/02/coursera-free-courses.png',
@@ -24,7 +25,7 @@ const Home = () => {
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            const res = await service.getCourses({});
+            const res = await service.getCourses({ Status: label.course.VISIBLE });
             const sortedCourses = _.orderBy(res.data, 'createdAt', 'desc');
             setCourses(sortedCourses);
             setLoading(false);

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { BsDot } from 'react-icons/bs';
 import { MdOutlineSlowMotionVideo } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
@@ -9,9 +9,11 @@ import { FaRegEdit } from 'react-icons/fa';
 
 import action from '../redux/course/lesson.action';
 import confirm from '../utils/confirm';
+import notify from '../utils/notify';
 
-function LessonInfo({ lecture, owner }) {
+function LessonInfo({ lecture, week, owner, isRegistered }) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     function deleteLesson(lesson) {
         confirm({
@@ -36,7 +38,21 @@ function LessonInfo({ lecture, owner }) {
                         ) : (
                             <AiOutlineRead className="inline-block w-6 h-10" />
                         )}
-                        <Link to={`/lesson/${lesson.Lesson_ID}`} key={lesson.Lesson_ID} className="inline-block my-2">
+                        <Link
+                            onClick={(e) => {
+                                e.preventDefault();
+                                dispatch(action.setWeek(week));
+                                if (isRegistered) navigate(`/lesson/learning/${lesson.Lesson_ID}`);
+                                else if (owner) navigate(`/lesson/${lesson.Lesson_ID}`);
+                                else
+                                    notify(
+                                        'Bạn chưa đăng ký vào khóa học hoặc chưa được xét duyệt. Vui lòng thử lại sau.',
+                                        'error',
+                                    );
+                            }}
+                            key={lesson.Lesson_ID}
+                            className="inline-block my-2"
+                        >
                             {lesson.Title}
                             <div className="text-sm">
                                 <span>

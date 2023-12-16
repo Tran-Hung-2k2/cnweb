@@ -6,12 +6,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import action from '../redux/auth/auth.action';
 import avatar from '../assets/images/avatar.jpg';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 
 const MainHeader = ({ className }) => {
     const { user } = useSelector((state) => state.auth);
     const { categories } = useSelector((state) => state.category);
-
+    const { id } = useParams();
     const dispatch = useDispatch();
 
     return (
@@ -108,28 +108,34 @@ const MainHeader = ({ className }) => {
                     )}
                 </div>
             </div>
-            <nav>
-                <ul className="flex gap-4 list-none">
-                    <NavLink
-                        className={({ isActive }) => 'px-4 py-2 ' + (isActive && 'border-b-4 border-primary')}
-                        to="/"
-                    >
-                        Trang chủ
-                    </NavLink>
-                    <NavLink
-                        className={({ isActive }) => 'px-4 py-2 ' + (isActive && 'border-b-4 border-primary')}
-                        to="/course"
-                    >
-                        Khóa học
-                    </NavLink>
-                    <NavLink
-                        className={({ isActive }) => 'px-4 py-2 ' + (isActive && 'border-b-4 border-primary')}
-                        to="/my_course"
-                    >
-                        Khóa học của tôi
-                    </NavLink>
-                </ul>
-            </nav>
+            {!id ? (
+                <nav>
+                    <ul className="flex gap-4 list-none">
+                        <NavLink
+                            className={({ isActive }) => 'px-4 py-2 ' + (isActive && 'border-b-4 border-primary')}
+                            to="/"
+                        >
+                            Trang chủ
+                        </NavLink>
+                        <NavLink
+                            className={({ isActive }) => 'px-4 py-2 ' + (isActive && 'border-b-4 border-primary')}
+                            to="/course"
+                        >
+                            Khóa học
+                        </NavLink>
+                        {user && (
+                            <NavLink
+                                className={({ isActive }) => 'px-4 py-2 ' + (isActive && 'border-b-4 border-primary')}
+                                to="/my_course"
+                            >
+                                Khóa học của tôi
+                            </NavLink>
+                        )}
+                    </ul>
+                </nav>
+            ) : (
+                ''
+            )}
         </header>
     );
 };

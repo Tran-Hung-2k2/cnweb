@@ -14,6 +14,7 @@ const api_notify = [
     { url: '/api/lecture', methods: ['post', 'patch', 'delete'] },
     { url: '/api/lesson', methods: ['post', 'patch', 'delete'] },
     { url: '/api/user', methods: ['post', 'patch', 'delete'] },
+    { url: '/api/participating_course', methods: ['post', 'patch', 'delete'] },
 ];
 
 const service = axios.create({

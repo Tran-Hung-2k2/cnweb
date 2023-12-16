@@ -2,33 +2,33 @@ const label = {
     role: {
         ADMIN: 'Admin',
         ORGANIZATION: 'Organization',
-        STUDENT: 'Student',
+        STUDENT: 'Student'
     },
     user: {
         APPROVAL: 'Approval',
         PENDING_APPROVAL: 'Pending approval',
-        LOCK: 'Lock',
+        LOCK: 'Lock'
     },
     course: {
         VISIBLE: 'Visible',
         HIDDEN: 'Hidden',
-        PENDING_APPROVAL: 'Pending approval',
+        PENDING_APPROVAL: 'Pending approval'
     },
     course_level: {
         BEGINNER: 'Beginner',
         INTERMEDIATE: 'Intermediate',
         ADVANCED: 'Advanced',
-        EXPERT: 'Expert',
+        EXPERT: 'Expert'
     },
     parti_course: {
         COMPLETED: 'Completed',
         NOT_COMPLETED: 'Not completed',
-        PENDING_APPROVAL: 'Pending approval',
+        PENDING_APPROVAL: 'Pending approval'
     },
     lesson_type: {
         READING: 'Reading',
-        VIDEO: 'Video',
-    },
+        VIDEO: 'Video'
+    }
 };
 
-export default label;
+module.exports = label;

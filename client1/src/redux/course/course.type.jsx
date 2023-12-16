@@ -1,5 +1,6 @@
 const type = {
     SET_COURSE: 'SET_COURSE',
+    SET_WEEK: 'SET_WEEK',
     ADD_COURSE: 'ADD_COURSE',
     ADD_WEEK: 'ADD_WEEK',
     DELETE_WEEK: 'DELETE_WEEK',

@@ -9,6 +9,7 @@ const route = express.Router();
 
 route.get('/', validate(vld.get_all_courses()), ctrl.get_all_courses);
 route.get('/detail', validate(vld.get_course_detail()), ctrl.get_course_detail);
+route.get('/owner/:id', validate(vld.get_owner_courses()), mdw.verify_user, ctrl.get_owner_courses);
 route.post('/', ms.upload.single('Image'), validate(vld.add_course()), mdw.verify_admin_and_org, ctrl.add_course);
 route.patch(
     '/:id',

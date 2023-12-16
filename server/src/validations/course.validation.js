@@ -16,10 +16,20 @@ const validation = {
             .unknown(false)
             .prefs({ messages }),
     }),
+
     // [GET] /api/course/detail
     get_course_detail: () => ({
         query: Joi.object({
             Course_ID: Joi.string().required().custom(cv.uuidv4Id),
+        })
+            .unknown(false)
+            .prefs({ messages }),
+    }),
+
+    // [GET] /api/course/owner/:id
+    get_owner_courses: () => ({
+        params: Joi.object({
+            id: Joi.string().required().custom(cv.uuidv4Id),
         })
             .unknown(false)
             .prefs({ messages }),

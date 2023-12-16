@@ -2,6 +2,7 @@ import type from './course.type';
 
 const initialState = {
     course: null,
+    week: null,
     Course_ID: '',
     Week_ID: '',
     Lecture_ID: '',
@@ -14,6 +15,12 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 course: action.payload,
+            };
+
+        case type.SET_WEEK:
+            return {
+                ...state,
+                week: action.payload,
             };
 
         case type.ADD_COURSE:

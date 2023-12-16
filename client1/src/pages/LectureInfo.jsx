@@ -8,7 +8,7 @@ import LessonInfo from './LessonInfo';
 import action from '../redux/course/lecture.action';
 import confirm from '../utils/confirm';
 
-function LectureInfo({ week, owner }) {
+function LectureInfo({ week, owner, isRegistered }) {
     const dispatch = useDispatch();
 
     function deleteLecture(lecture, index) {
@@ -55,7 +55,7 @@ function LectureInfo({ week, owner }) {
                     </summary>
 
                     <div className="collapse-content">
-                        <LessonInfo {...{ lecture, owner }} />
+                        <LessonInfo {...{ lecture, week, owner, isRegistered }} />
                     </div>
                 </details>
             ))}

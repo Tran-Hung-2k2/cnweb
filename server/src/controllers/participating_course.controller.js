@@ -91,6 +91,7 @@ const controller = {
 
         const articipating_course = await db.Participating_Course.create({
             ...req.body,
+            Status: course.Need_Approval ? label.parti_course.PENDING_APPROVAL : label.parti_course.NOT_COMPLETED,
             User_ID: req.token.id,
         });
         return res.status(201).json(api_response(false, 'Đăng ký khóa học thành công', articipating_course));

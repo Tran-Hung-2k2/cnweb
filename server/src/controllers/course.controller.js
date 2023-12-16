@@ -35,6 +35,27 @@ const controller = {
         return res.status(200).json(api_response(false, 'Lấy danh sách khóa học thành công', courses));
     }),
 
+    // [GET] /api/course/owner/:id
+    get_owner_courses: async_wrap(async (req, res) => {
+        const courses = await db.Course.findAll({
+            where: { Status: label.course.VISIBLE },
+            include: [
+                {
+                    model: db.User,
+                    attributes: ['User_ID', 'Name', 'Avatar'],
+                },
+                {
+                    model: db.Category,
+                },
+                {
+                    model: db.Participating_Course,
+                    where: { User_ID: req.params.id },
+                },
+            ],
+        });
+        return res.status(200).json(api_response(false, 'Lấy danh sách khóa học thành công', courses));
+    }),
+
     // [GET] /api/course/detail
     get_course_detail: async_wrap(async (req, res) => {
         const queryParams = ['Course_ID'];
@@ -65,6 +86,9 @@ const controller = {
                             attributes: ['Lesson_ID', 'Lecture_ID', 'Title', 'Type', 'Index', 'Duration'],
                         },
                     },
+                },
+                {
+                    model: db.Participating_Course,
                 },
             ],
         });

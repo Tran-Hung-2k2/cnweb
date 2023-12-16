@@ -2,6 +2,13 @@ import type from './course.type';
 import service from '../../services/lesson.service';
 
 const action = {
+    setWeek: (data) => {
+        return {
+            type: type.SET_WEEK,
+            payload: data,
+        };
+    },
+
     addLecture: (data) => {
         return {
             type: type.ADD_LECTURE,

@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import label from '../constants/label';
 import Loader from '../components/Loader';
-import ButtonBack from '../components/ButtonBack';
 import service from '../services/lesson.service';
 
 const Lesson = () => {
     const [lesson, setLesson] = useState();
     const [loading, setLoading] = useState(true);
     const { user } = useSelector((state) => state.auth);
+    const { course } = useSelector((state) => state.course);
     const { id } = useParams();
 
     useEffect(() => {
@@ -20,11 +20,23 @@ const Lesson = () => {
             setLoading(false);
         };
         fetchData();
-    }, []);
+    }, [id]);
 
     return (
-        <>
-            <ButtonBack className="ml-6" />
+        <div>
+            <div className="mx-6 text-sm breadcrumbs">
+                <ul>
+                    <li>
+                        <NavLink to="/">Trang chủ</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/course">Khóa học</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to={`/course/learning/${course.Course_ID}`}>{course.Name}</NavLink>
+                    </li>
+                </ul>
+            </div>
             {loading ? (
                 <Loader />
             ) : (
@@ -42,7 +54,7 @@ const Lesson = () => {
                     )}
                 </div>
             )}
-        </>
+        </div>
     );
 };
 
