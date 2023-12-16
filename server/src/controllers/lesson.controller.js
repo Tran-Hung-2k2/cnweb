@@ -26,7 +26,7 @@ const controller = {
             }
         });
 
-        if (Object.keys(whereClause).length === 0 && req.token.role != 'admin')
+        if (Object.keys(whereClause).length === 0 && req.token.role != label.role.ADMIN)
             throw new APIError(403, 'Bạn không có quyền truy cập tài nguyên này');
 
         const lessons = await db.Lesson.findAll({ where: whereClause });

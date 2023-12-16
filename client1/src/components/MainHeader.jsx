@@ -72,7 +72,7 @@ const MainHeader = ({ className }) => {
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/setting" className="text-lg hover:text-lime-700">
+                                    <a href="/change_password" className="text-lg hover:text-lime-700">
                                         <PiPassword className="w-5 h-5" /> Đổi mật khẩu
                                     </a>
                                 </li>

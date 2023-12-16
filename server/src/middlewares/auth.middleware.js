@@ -6,7 +6,7 @@ import api_response from '../utils/api_response.js';
 const middleware = {
     verify_token(req, res, next) {
         const access_token = req.cookies.access_token;
-        if (access_token) {
+            if (access_token) {
             token_service.verify_token(access_token, process.env.JWT_ACCESS_KEY, (err, token_decode) => {
                 if (err) {
                     return res.status(403).json(api_response(true, 'Bạn không có quyền truy cập tài nguyên này'));

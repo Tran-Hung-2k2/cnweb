@@ -14,7 +14,11 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Loader from './components/Loader';
 import RequireStudent from './components/RequireStudent';
+import RequireUser from './components/RequireUser';
+import ForgetPassword from './pages/ForgetPassword';
+import VerifyForgetPassword from './pages/VerifyForgetPassword';
 
+const ChangePassword = lazy(() => import('./pages/ChangePassword'));
 const CourseLearning = lazy(() => import('./pages/CourseLearning'));
 const Course = lazy(() => import('./pages/Course'));
 const CourseDetail = lazy(() => import('./pages/CourseDetail'));
@@ -37,6 +41,18 @@ function App() {
                 <Route element={<AuthLayout />}>
                     <Route path="/signin" element={<SignIn />} />
                     <Route path="/signup" element={<SignUp />} />
+                    <Route path="/forget_passord" element={<ForgetPassword />} />
+                    <Route path="/verify_forget_password" element={<VerifyForgetPassword />} />
+                    <Route element={<RequireUser />}>
+                        <Route
+                            path="/change_password"
+                            element={
+                                <Suspense fallback={<Loader />}>
+                                    <ChangePassword />
+                                </Suspense>
+                            }
+                        />
+                    </Route>
                 </Route>
 
                 <Route element={<MainLayout />}>

@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { useEffect } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,13 +23,13 @@ const ManagerLayout = () => {
                 <div className="sticky left-0 shadow-xl top-20 drawer-side">
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                     <ul className="p-4 bg-white menu w-80 text-base-content">
-                        <h1 className="ml-4 text-xl font-bold">{week.Title}</h1>
-                        {week.Lectures.map((lecture, index) => (
+                        <h1 className="mb-4 ml-4 text-xl font-bold">{week.Title}</h1>
+                        {_.orderBy(week.Lectures, 'Index', 'asc').map((lecture, index) => (
                             <li key={index}>
                                 <details open>
                                     <summary className="font-semibold">{lecture.Lecture_Title}</summary>
                                     <ul>
-                                        {lecture.Lessons.map((lesson, subIndex) => (
+                                        {_.orderBy(lecture.Lessons, 'Index', 'asc').map((lesson, subIndex) => (
                                             <li key={subIndex}>
                                                 <NavLink
                                                     className={({ isActive }) =>

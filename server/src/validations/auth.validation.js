@@ -43,7 +43,6 @@ const validation = {
     // [POST] /api/auth/change_password/
     change_password: () => ({
         body: Joi.object({
-            Email: Joi.string().email().required(),
             Old_Password: Joi.string().required().label('Mật khẩu'),
             Password: Joi.string().required().label('Mật khẩu mới'),
             Confirm_Password: Joi.string().required().label('Mật khẩu xác nhận'),
@@ -59,6 +58,18 @@ const validation = {
             Email: Joi.string().email().required().external(cv.isRegistered),
         })
             .unknown(false)
+            .prefs({ messages }),
+    }),
+
+    // [POST] /api/auth/verify_forget_password/
+    verify_forget_password: () => ({
+        body: Joi.object({
+            reset_pass_token: Joi.string().required().label('Token xác thực'),
+            Password: Joi.string().required().label('Mật khẩu mới'),
+            Confirm_Password: Joi.string().required().label('Mật khẩu xác nhận'),
+        })
+            .unknown(false)
+            .custom(cv.confirmPassword)
             .prefs({ messages }),
     }),
 

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import fields from '../constants/signinFields';
@@ -36,7 +36,7 @@ export default function SignIn() {
                     Đăng ký ngay
                 </NavLink>
             </div>
-            <div className="flex flex-col my-6 space-y-4 w-80">
+            <div className="flex flex-col mt-6 space-y-4 w-80">
                 {fields.map((field) => (
                     <input
                         key={field.id}
@@ -45,6 +45,10 @@ export default function SignIn() {
                         className="w-full max-w-xl input input-bordered input-primary"
                     />
                 ))}
+            </div>
+
+            <div className="mt-2 mb-4 text-primary">
+                <NavLink to="/forget_passord">Quên mật khẩu?</NavLink>
             </div>
 
             <button type="submit" className="btn btn-active btn-primary">

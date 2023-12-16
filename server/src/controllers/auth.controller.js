@@ -2,7 +2,6 @@ import bcrypt from 'bcrypt';
 import db from '../models/index.js';
 import api_response from '../utils/api_response.js';
 import hash_password from '../utils/hash_password.js';
-import generate_random_password from '../utils/generate_random_password.js';
 import async_wrap from '../utils/async_wrap.js';
 import token_service from '../services/token.service.js';
 import email_service from '../services/email.service.js';
@@ -82,12 +81,10 @@ const controller = {
 
     // [POST] /api/auth/change_password/
     change_password: async_wrap(async (req, res) => {
-        const user = await db.User.findOne({
-            where: { Email: req.body.Email },
-        });
+        const user = await db.User.findByPk(req.token.id);
 
         if (!user || !(await bcrypt.compare(req.body.Old_Password, user.Password)))
-            throw new APIError(401, 'Tài khoản hoặc mật khẩu không chính xác');
+            throw new APIError(400, 'Mật khẩu không chính xác');
 
         user.Password = await hash_password(req.body.Password);
         await user.save();
@@ -100,40 +97,26 @@ const controller = {
         const reset_pass_token = token_service.generate_reset_password_token(req.body.Email);
         await email_service.send_email(
             req.body.Email,
-            'Reset Password',
-            `Click the following link to reset your password: ${BASE_URL}/api/auth/verify_forget_password?reset_pass_token=${reset_pass_token}`,
+            'Thiết lập lại mật khẩu',
+            `Click vào link sau để đặt lại mật khẩu cho tài khoản của bạn: ${BASE_URL}/verify_forget_password?reset_pass_token=${reset_pass_token}`,
         );
         return res
             .status(200)
             .json(api_response(false, 'Email xác nhận đã được gửi. Vui lòng kiểm tra hộp thư đến của bạn.'));
     }),
 
-    // [GET] /api/auth/verify_forget_password/
+    // [POST] /api/auth/verify_forget_password/
     verify_forget_password: async_wrap(async (req, res) => {
         token_service.verify_token(
-            req.query.reset_pass_token,
+            req.body.reset_pass_token,
             process.env.JWT_RESET_PASSWORD_KEY,
             async (err, token_decode) => {
                 if (err) return res.status(403).json(api_response(true, 'Token không chính xác'));
                 const user = await db.User.findOne({ where: { Email: token_decode.Email } });
-                const new_password = generate_random_password(6);
-                user.Password = await hash_password(new_password);
+                user.Password = await hash_password(req.body.Password);
                 await user.save();
 
-                await email_service.send_email(
-                    token_decode.Email,
-                    'Đặt lại mật khẩu thành công',
-                    `Mật khẩu của bạn đã được đặt lại thành công. Mật khẩu mới của bạn là "${new_password}", vui lòng không chia sẻ mật khẩu với người khác.`,
-                );
-
-                return res
-                    .status(200)
-                    .json(
-                        api_response(
-                            false,
-                            'Mật khẩu đã được đặt lại thành công và được gửi về email của bạn. Vui lòng kiểm tra hộp thư đến của bạn.',
-                        ),
-                    );
+                return res.status(200).json(api_response(false, 'Mật khẩu đã được đặt lại thành công.'));
             },
         );
     }),
@@ -145,9 +128,7 @@ const controller = {
         if (!refresh_token) throw new APIError(401, 'Vui lòng đăng nhập để tiếp tục');
 
         token_service.verify_token(refresh_token, process.env.JWT_REFRESH_KEY, (err, token_decode) => {
-            if (err) {
-                throw new APIError(403, 'Token đã hết hạn hoặc không chính xác');
-            }
+            if (err) return res.status(403).json(api_response(true, 'Token đã hết hạn hoặc không chính xác'));
             const access_token = token_service.generate_access_token(token_decode.id);
             res.cookie('access_token', access_token, {
                 httpOnly: true,
