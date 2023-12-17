@@ -1,17 +1,17 @@
 const fields = [
     {
-        label: 'Mật khẩu',
+        label: 'Mật khẩu mới',
         id: 'Password',
         type: 'password',
         required: true,
-        placeholder: 'Mật khẩu',
+        placeholder: 'Mật khẩu mới',
     },
     {
-        label: 'Nhập lại mật khẩu',
+        label: 'Nhập lại mật khẩu mới',
         id: 'Confirm_Password',
         type: 'password',
         required: true,
-        placeholder: 'Nhập lại mật khẩu',
+        placeholder: 'Nhập lại mật khẩu mới',
     },
 ];
 

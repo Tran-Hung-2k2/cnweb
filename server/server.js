@@ -46,7 +46,15 @@ app.use((req, res) => {
 
 app.use(function (err, req, res, next) {
     if (err instanceof ValidationError) {
-        return res.status(err.statusCode).json(api_response(true, 'Dữ liệu không hợp lệ', err.details.body));
+        const errorDetails = err.details || {};
+
+        const bodyErrors = errorDetails.body || [];
+        const paramsErrors = errorDetails.params || [];
+        const queryErrors = errorDetails.query || [];
+
+        return res
+            .status(err.statusCode)
+            .json(api_response(true, 'Dữ liệu không hợp lệ', [...bodyErrors, ...paramsErrors, ...queryErrors]));
     } else if (err instanceof APIError) {
         return res.status(err.statusCode).json(api_response(true, err.message));
     }

@@ -2,7 +2,6 @@ import { CgProfile } from 'react-icons/cg';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { HiOutlineLogout } from 'react-icons/hi';
 import { PiPassword } from 'react-icons/pi';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import action from '../redux/auth/auth.action';
@@ -47,8 +46,12 @@ const Header = () => {
                         <p className="mr-2 text-sm">{user.Role}</p>
                     </span>
                     <div tabIndex={0} role="button" className="inline-block btn btn-ghost btn-circle avatar">
-                        <div className="w-12 border-2 rounded-full shadow border-primary">
-                            <img alt="Avatar" src={user.Avatar || avatar} />
+                        <div>
+                            <img
+                                className="w-12 border-2 rounded-full shadow border-primary"
+                                alt="Avatar"
+                                src={user.Avatar || avatar}
+                            />
                         </div>
                     </div>
 

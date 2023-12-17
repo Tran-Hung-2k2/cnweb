@@ -30,7 +30,6 @@ export default function CourseEdit() {
         const res = await service.getCourses({ Course_ID });
 
         const { Name, Level, Category_ID, Need_Approval, Description } = res.data[0];
-        // console.log(res.data[0]);
         return { Name, Level, Category_ID, Need_Approval, Description };
     };
 

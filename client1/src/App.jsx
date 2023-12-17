@@ -14,10 +14,12 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Loader from './components/Loader';
 import RequireStudent from './components/RequireStudent';
+import RequireNotOrg from './components/RequireNotOrg';
 import RequireUser from './components/RequireUser';
 import ForgetPassword from './pages/ForgetPassword';
 import VerifyForgetPassword from './pages/VerifyForgetPassword';
 
+const UserProfile = lazy(() => import('./pages/UserProfile'));
 const ChangePassword = lazy(() => import('./pages/ChangePassword'));
 const CourseLearning = lazy(() => import('./pages/CourseLearning'));
 const Course = lazy(() => import('./pages/Course'));
@@ -56,23 +58,37 @@ function App() {
                 </Route>
 
                 <Route element={<MainLayout />}>
-                    <Route path="/" element={<Home />} />
-                    <Route
-                        path="/course"
-                        element={
-                            <Suspense fallback={<Loader />}>
-                                <Course />
-                            </Suspense>
-                        }
-                    />
-                    <Route
-                        path="/course/:id"
-                        element={
-                            <Suspense fallback={<Loader />}>
-                                <CourseDetail />
-                            </Suspense>
-                        }
-                    />
+                    <Route element={<RequireUser />}>
+                        <Route
+                            path="/profile"
+                            element={
+                                <Suspense fallback={<Loader />}>
+                                    <UserProfile />
+                                </Suspense>
+                            }
+                        />
+                    </Route>
+
+                    <Route element={<RequireNotOrg />}>
+                        <Route path="/" element={<Home />} />
+                        <Route
+                            path="/course"
+                            element={
+                                <Suspense fallback={<Loader />}>
+                                    <Course />
+                                </Suspense>
+                            }
+                        />
+                        <Route
+                            path="/course/:id"
+                            element={
+                                <Suspense fallback={<Loader />}>
+                                    <CourseDetail />
+                                </Suspense>
+                            }
+                        />
+                    </Route>
+
                     <Route element={<RequireStudent />}>
                         <Route
                             path="/my_course"

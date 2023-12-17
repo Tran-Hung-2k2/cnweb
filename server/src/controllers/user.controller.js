@@ -64,7 +64,9 @@ const controller = {
 
         await user.save();
 
-        return res.status(200).json(api_response(false, 'Cập nhật thông tin tài khoản thành công'));
+        user.Password = null;
+
+        return res.status(200).json(api_response(false, 'Cập nhật thông tin tài khoản thành công', user));
     }),
 
     // [DELETE] /api/user/:id
@@ -78,7 +80,7 @@ const controller = {
         await db.User.destroy({
             where: { User_ID: req.params.id },
         });
-        
+
         return res.status(200).json(api_response(false, 'Xóa người dùng thành công'));
     }),
 };

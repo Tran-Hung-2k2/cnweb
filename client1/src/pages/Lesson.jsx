@@ -49,7 +49,7 @@ const Lesson = () => {
                     ) : (
                         <video id="uploadedVideo" src={lesson.Content} controls></video>
                     )}
-                    {user.Role == 'student' && (
+                    {user.Role == label.role.STUDENT && (
                         <button className="btn btn-wide mt-14 btn-primary">Đánh dấu đã hoàn thành</button>
                     )}
                 </div>

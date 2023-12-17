@@ -48,7 +48,7 @@ const service = {
     },
 
     deleteParticipatingCourse: async (user_ID, Course_ID) => {
-        const response = await axios.delete(`/api/participating_course/${user_ID}/${Course_ID}}`, {
+        const response = await axios.delete(`/api/participating_course/${user_ID}/${Course_ID}`, {
             withCredentials: true,
         });
 

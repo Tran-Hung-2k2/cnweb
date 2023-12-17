@@ -6,6 +6,8 @@ import { FaArrowUpWideShort } from 'react-icons/fa6';
 import Loader from '../components/Loader';
 import service from '../services/participating_course.service';
 import label from '../constants/label';
+import avatar from '../assets/images/avatar.jpg';
+import confirm from '../utils/confirm';
 
 function CourseApproval() {
     const [courses, setCourses] = useState([]);
@@ -16,14 +18,46 @@ function CourseApproval() {
         const fetchData = async () => {
             setLoading(true);
             const res = await service.getParticipatingCourseOrg();
-            const sortedCourses = _.orderBy(res.data.Courses, 'Status', 'asc');
-            console.log(sortedCourses);
+            const sortedCourses = _.orderBy(res.data.Courses, 'createdAt', 'asc');
             setCourses(sortedCourses);
             setLoading(false);
         };
 
         fetchData();
     }, []);
+
+    const removeParticipatingCourse = (userId, courseId) => {
+        setCourses((prevCourses) => {
+            // Sử dụng toán tử dải để tạo một bản sao mới của mảng courses
+            return prevCourses.map((course) => {
+                // Nếu Course_ID không phải là Course_ID cần xóa, trả về nguyên mảng
+                if (course.Course_ID !== courseId) {
+                    return course;
+                }
+
+                // Nếu có Course_ID tương ứng, xóa Participating_Courses có User_ID tương ứng
+                return {
+                    ...course,
+                    Participating_Courses: course.Participating_Courses.filter((participatingCourse) => {
+                        // Lọc ra các participatingCourse có User_ID khác với userId cần xóa
+                        return participatingCourse.User_ID !== userId;
+                    }),
+                };
+            });
+        });
+    };
+
+    function deleteParticipatingCourse(partiCourse) {
+        confirm({
+            title: 'Xóa đăng ký của học viên',
+            message: `Khi bạn xác nhận đăng ký của học viên sẽ bị xóa vĩnh viễn và không thể khôi phục. Bạn vẫn muốn xóa?`,
+            onConfirm: async () => {
+                console.log(partiCourse);
+                await service.deleteParticipatingCourse(partiCourse.User_ID, partiCourse.Course_ID);
+                removeParticipatingCourse(partiCourse.User_ID, partiCourse.Course_ID);
+            },
+        });
+    }
 
     const updateParticipatingCourseStatus = (userId, courseId, newStatus) => {
         setCourses((prevCourses) => {
@@ -172,7 +206,7 @@ function CourseApproval() {
                                                                         label.parti_course.NOT_COMPLETED,
                                                                     );
                                                                 }}
-                                                                className="px-6 mx-1 text-white btn btn-success btn-xs"
+                                                                className="px-8 mx-1 text-white btn btn-success btn-xs"
                                                             >
                                                                 Duyệt
                                                             </button>
@@ -197,6 +231,14 @@ function CourseApproval() {
                                                                 Hủy xét duyệt
                                                             </button>
                                                         )}
+                                                        <button
+                                                            onClick={() => {
+                                                                deleteParticipatingCourse(partiCourse);
+                                                            }}
+                                                            className="mx-1 text-white btn btn-error btn-xs"
+                                                        >
+                                                            Xóa
+                                                        </button>
                                                     </th>
                                                 </tr>
                                             ),
