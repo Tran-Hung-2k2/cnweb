@@ -60,7 +60,7 @@ const MainHeader = ({ className }) => {
                                 <p className="mr-2 text-sm">{user.Role}</p>
                             </span>
                             <div tabIndex={0} role="button" className="inline-block btn btn-ghost btn-circle avatar">
-                                <div className="w-12 border-2 rounded-full shadow border-primary">
+                                <div className="w-12 h-12 border-2 rounded-full shadow border-primary">
                                     <img alt="Avatar" src={user.Avatar || avatar} />
                                 </div>
                             </div>

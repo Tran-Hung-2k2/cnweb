@@ -48,7 +48,7 @@ const Header = () => {
                     <div tabIndex={0} role="button" className="inline-block btn btn-ghost btn-circle avatar">
                         <div>
                             <img
-                                className="w-12 border-2 rounded-full shadow border-primary"
+                                className="w-12 h-12 border-2 rounded-full shadow border-primary"
                                 alt="Avatar"
                                 src={user.Avatar || avatar}
                             />
