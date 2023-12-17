@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { Link, useNavigate } from 'react-router-dom';
 import { BsDot } from 'react-icons/bs';
 import { MdOutlineSlowMotionVideo } from 'react-icons/md';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineRead } from 'react-icons/ai';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import { FaRegCircleCheck } from 'react-icons/fa6';
@@ -11,8 +11,10 @@ import { FaRegEdit } from 'react-icons/fa';
 import action from '../redux/course/lesson.action';
 import confirm from '../utils/confirm';
 import notify from '../utils/notify';
+import label from '../constants/label';
 
 function LessonInfo({ lecture, week, owner, isRegistered }) {
+    const { user } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -46,7 +48,8 @@ function LessonInfo({ lecture, week, owner, isRegistered }) {
                                 e.preventDefault();
                                 dispatch(action.setWeek(week));
                                 if (isRegistered) navigate(`/lesson/learning/${lesson.Lesson_ID}`);
-                                else if (owner) navigate(`/lesson/${lesson.Lesson_ID}`);
+                                else if (owner || user.Role == label.role.ADMIN)
+                                    navigate(`/lesson/${lesson.Lesson_ID}`);
                                 else
                                     notify(
                                         'Bạn chưa đăng ký vào khóa học hoặc chưa được xét duyệt. Vui lòng thử lại sau.',
