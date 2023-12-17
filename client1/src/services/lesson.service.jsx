@@ -25,6 +25,14 @@ const service = {
         return response.data;
     },
 
+    addCompletedLesson: async (data) => {
+        const response = await axios.post('/api/completed_lesson', data, {
+            withCredentials: true,
+        });
+
+        return response.data;
+    },
+
     updateLesson: async (data, id) => {
         const response = await axios.patch(`/api/lesson/${id}`, data, {
             withCredentials: true,
@@ -35,6 +43,13 @@ const service = {
 
     deleteLesson: async (id) => {
         const response = await axios.delete(`/api/lesson/${id}`, {
+            withCredentials: true,
+        });
+
+        return response.data;
+    },
+    deleteCompletedLesson: async (lesson_id) => {
+        const response = await axios.delete(`/api/completed_lesson/${lesson_id}`, {
             withCredentials: true,
         });
 

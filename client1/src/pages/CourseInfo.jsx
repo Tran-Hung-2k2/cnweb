@@ -26,7 +26,7 @@ const CourseManager = () => {
 
     useEffect(() => {
         dispatch(
-            action.setCourse(id, (course) => {
+            action.setCourse(id, user?.User_ID, (course) => {
                 if (course.User_ID == user.User_ID) setOwner(true);
                 setLoading(false);
             }),

@@ -9,6 +9,7 @@ import service from '../services/lesson.service';
 const Lesson = () => {
     const [lesson, setLesson] = useState();
     const [loading, setLoading] = useState(true);
+    const [completed, setCompleted] = useState(false);
     const { user } = useSelector((state) => state.auth);
     const { course } = useSelector((state) => state.course);
     const { id } = useParams();
@@ -16,6 +17,8 @@ const Lesson = () => {
     useEffect(() => {
         const fetchData = async () => {
             const res = await service.getLesson({ Lesson_ID: id });
+            if (res.data[0].Completed_Lessons.length > 0) setCompleted(true);
+            else setCompleted(false);
             setLesson(res.data[0]);
             setLoading(false);
         };
@@ -49,8 +52,31 @@ const Lesson = () => {
                     ) : (
                         <video id="uploadedVideo" src={lesson.Content} controls></video>
                     )}
-                    {user.Role == label.role.STUDENT && (
-                        <button className="btn btn-wide mt-14 btn-primary">Đánh dấu đã hoàn thành</button>
+
+                    {user.Role === label.role.STUDENT && (
+                        <>
+                            {completed ? (
+                                <button
+                                    onClick={async () => {
+                                        await service.deleteCompletedLesson(lesson.Lesson_ID);
+                                        setCompleted(false);
+                                    }}
+                                    className="text-white btn btn-wide mt-14 btn-error"
+                                >
+                                    Đánh dấu chưa hoàn thành
+                                </button>
+                            ) : (
+                                <button
+                                    onClick={async () => {
+                                        await service.addCompletedLesson({ Lesson_ID: lesson.Lesson_ID });
+                                        setCompleted(true);
+                                    }}
+                                    className="text-white btn btn-wide mt-14 btn-success"
+                                >
+                                    Đánh dấu đã hoàn thành
+                                </button>
+                            )}
+                        </>
                     )}
                 </div>
             )}

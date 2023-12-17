@@ -21,9 +21,9 @@ const CourseDetail = () => {
 
     useEffect(() => {
         dispatch(
-            action.setCourse(id, (course) => {
+            action.setCourse(id, user?.User_ID, (course) => {
                 const userHasRegistered = course.Participating_Courses.some((item) => item.User_ID == user?.User_ID);
-                
+
                 if (userHasRegistered) {
                     navigate(`/course/learning/${id}`);
                 }

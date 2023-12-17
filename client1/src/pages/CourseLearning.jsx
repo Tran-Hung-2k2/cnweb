@@ -22,7 +22,7 @@ const CourseLearning = () => {
 
     useEffect(() => {
         dispatch(
-            action.setCourse(id, (course) => {
+            action.setCourse(id, user?.User_ID, (course) => {
                 setLoading(false);
             }),
         );

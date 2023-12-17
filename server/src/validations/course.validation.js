@@ -21,6 +21,7 @@ const validation = {
     get_course_detail: () => ({
         query: Joi.object({
             Course_ID: Joi.string().required().custom(cv.uuidv4Id),
+            User_ID: Joi.string().custom(cv.uuidv4Id),
         })
             .unknown(false)
             .prefs({ messages }),

@@ -5,6 +5,7 @@ import { MdOutlineSlowMotionVideo } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
 import { AiOutlineRead } from 'react-icons/ai';
 import { RiDeleteBinLine } from 'react-icons/ri';
+import { FaRegCircleCheck } from 'react-icons/fa6';
 import { FaRegEdit } from 'react-icons/fa';
 
 import action from '../redux/course/lesson.action';
@@ -33,7 +34,9 @@ function LessonInfo({ lecture, week, owner, isRegistered }) {
                     className="flex items-center justify-between just justy hover:bg-slate-100 group hover:opacity-100"
                 >
                     <div className="flex items-center gap-4 px-2">
-                        {lesson.Type == 'Video' ? (
+                        {lesson.Completed_Lessons.length > 0 ? (
+                            <FaRegCircleCheck className="inline-block w-6 h-10 text-success" />
+                        ) : lesson.Type === 'Video' ? (
                             <MdOutlineSlowMotionVideo className="inline-block w-6 h-10" />
                         ) : (
                             <AiOutlineRead className="inline-block w-6 h-10" />

@@ -84,6 +84,15 @@ const controller = {
                         include: {
                             model: db.Lesson,
                             attributes: ['Lesson_ID', 'Lecture_ID', 'Title', 'Type', 'Index', 'Duration'],
+                            include: [
+                                {
+                                    model: db.Completed_Lesson,
+                                    required: false,
+                                    where: {
+                                        User_ID: req.query.User_ID || '',
+                                    },
+                                },
+                            ],
                         },
                     },
                 },

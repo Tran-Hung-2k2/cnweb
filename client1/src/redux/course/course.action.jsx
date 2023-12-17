@@ -2,8 +2,14 @@ import type from './course.type';
 import service from '../../services/course.service';
 
 const action = {
-    setCourse: (id, callback) => async (dispatch) => {
-        const response = await service.getCourseDetail({ Course_ID: id });
+    setCourse: (course_id, user_id, callback) => async (dispatch) => {
+        const requestData = { Course_ID: course_id };
+
+        if (user_id) {
+            requestData.User_ID = user_id;
+        }
+
+        const response = await service.getCourseDetail(requestData);
         dispatch({
             type: type.SET_COURSE,
             payload: response.data,

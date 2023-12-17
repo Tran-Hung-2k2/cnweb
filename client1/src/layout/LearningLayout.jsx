@@ -33,7 +33,10 @@ const ManagerLayout = () => {
                                             <li key={subIndex}>
                                                 <NavLink
                                                     className={({ isActive }) =>
-                                                        isActive ? 'bg-slate-200 !text-primary' : ''
+                                                        [
+                                                            isActive ? 'bg-slate-200 !text-primary' : '',
+                                                            lesson.Completed_Lessons.length > 0 ? 'text-success' : '',
+                                                        ].join(' ')
                                                     }
                                                     to={`/lesson/learning/${lesson.Lesson_ID}`}
                                                 >

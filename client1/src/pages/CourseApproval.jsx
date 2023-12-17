@@ -52,7 +52,6 @@ function CourseApproval() {
             title: 'Xóa đăng ký của học viên',
             message: `Khi bạn xác nhận đăng ký của học viên sẽ bị xóa vĩnh viễn và không thể khôi phục. Bạn vẫn muốn xóa?`,
             onConfirm: async () => {
-                console.log(partiCourse);
                 await service.deleteParticipatingCourse(partiCourse.User_ID, partiCourse.Course_ID);
                 removeParticipatingCourse(partiCourse.User_ID, partiCourse.Course_ID);
             },

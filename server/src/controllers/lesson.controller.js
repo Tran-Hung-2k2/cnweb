@@ -29,7 +29,18 @@ const controller = {
         if (Object.keys(whereClause).length === 0 && req.token.role != label.role.ADMIN)
             throw new APIError(403, 'Bạn không có quyền truy cập tài nguyên này');
 
-        const lessons = await db.Lesson.findAll({ where: whereClause });
+        const lessons = await db.Lesson.findAll({
+            where: whereClause,
+            include: [
+                {
+                    model: db.Completed_Lesson,
+                    required: false,
+                    where: {
+                        User_ID: req.token.id,
+                    },
+                },
+            ],
+        });
         if (lessons.length > 0)
             return res.status(200).json(api_response(false, 'Lấy danh sách tiết học thành công', lessons));
         else return res.status(200).json(api_response(false, 'Không tìm thấy tiết học nào', lessons));
@@ -126,7 +137,7 @@ const controller = {
         lesson.Duration = lesson.Type === label.lesson_type.READING ? req.body.Duration : lesson.Duration;
         lesson.Content = lesson.Type === label.lesson_type.READING ? req.body.Content : lesson.Content;
         lesson.Type = req.body.Type || lesson.Type;
-        
+
         if (lesson.Type === label.lesson_type.VIDEO && req.file) {
             await firebase_service.delete_file(lesson.Content);
             const video_info = await firebase_service.upload_video(req.file.path);

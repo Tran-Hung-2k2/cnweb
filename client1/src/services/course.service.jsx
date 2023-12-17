@@ -20,7 +20,7 @@ const service = {
     },
 
     getCourseDetail: async (params) => {
-        const queryParams = ['Course_ID'];
+        const queryParams = ['Course_ID', 'User_ID'];
         const paramsObject = {};
 
         if (params) {

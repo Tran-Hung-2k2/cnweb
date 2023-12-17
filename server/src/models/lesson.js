@@ -19,10 +19,8 @@ module.exports = (sequelize, DataTypes) => {
                 onDelete: 'CASCADE',
             });
 
-            Lesson.belongsToMany(models.User, {
-                through: 'Completed_Lesson',
+            Lesson.hasMany(models.Completed_Lesson, {
                 foreignKey: 'Lesson_ID',
-                otherKey: 'User_ID',
                 onDelete: 'CASCADE',
             });
         }

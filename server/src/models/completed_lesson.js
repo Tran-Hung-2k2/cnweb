@@ -10,6 +10,15 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // Định nghĩa mối quan hệ ở đây
+            Completed_Lesson.belongsTo(models.User, {
+                foreignKey: 'User_ID',
+                onDelete: 'CASCADE',
+            });
+
+            Completed_Lesson.belongsTo(models.Lesson, {
+                foreignKey: 'Lesson_ID',
+                onDelete: 'CASCADE',
+            });
         }
     }
 
@@ -18,10 +27,12 @@ module.exports = (sequelize, DataTypes) => {
             User_ID: {
                 type: DataTypes.UUID,
                 allowNull: false,
+                primaryKey: true,
             },
             Lesson_ID: {
                 type: DataTypes.UUID,
                 allowNull: false,
+                primaryKey: true,
             },
         },
         {
