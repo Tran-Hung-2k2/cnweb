@@ -32,12 +32,24 @@ const Lesson = () => {
                     <li>
                         <NavLink to="/">Trang chủ</NavLink>
                     </li>
-                    <li>
-                        <NavLink to="/course">Khóa học</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to={`/course/learning/${course.Course_ID}`}>{course.Name}</NavLink>
-                    </li>
+                    {user.Role == label.role.ADMIN ? (
+                        <li>
+                            <NavLink to="/course/manager">Quản lý khóa học</NavLink>
+                        </li>
+                    ) : (
+                        <li>
+                            <NavLink to="/course">Khóa học</NavLink>
+                        </li>
+                    )}
+                    {user.Role != label.role.STUDENT ? (
+                        <li>
+                            <NavLink to={`/course/details/${course.Course_ID}`}>{course.Name}</NavLink>
+                        </li>
+                    ) : (
+                        <li>
+                            <NavLink to={`/course/learning/${course.Course_ID}`}>{course.Name}</NavLink>
+                        </li>
+                    )}
                 </ul>
             </div>
             {loading ? (
