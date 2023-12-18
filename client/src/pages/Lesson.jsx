@@ -50,6 +50,7 @@ const Lesson = () => {
                             <NavLink to={`/course/learning/${course.Course_ID}`}>{course.Name}</NavLink>
                         </li>
                     )}
+                    <li>{lesson?.Title}</li>
                 </ul>
             </div>
             {loading ? (
