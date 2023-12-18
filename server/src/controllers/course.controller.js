@@ -89,7 +89,7 @@ const controller = {
                                     model: db.Completed_Lesson,
                                     required: false,
                                     where: {
-                                        User_ID: req.query.User_ID || '',
+                                        User_ID: req.query.User_ID || 'f9fecc71-9114-437d-94fc-8c9b9e802f73',
                                     },
                                 },
                             ],
