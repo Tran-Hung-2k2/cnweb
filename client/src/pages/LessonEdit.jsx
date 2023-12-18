@@ -75,7 +75,7 @@ export default function LessonEdit() {
     ) : (
         <FormEdit
             fields={type == 'Reading' ? readingFields : videoFields}
-            title="Cập nhật bài giảng"
+            title="Cập nhật tiết học"
             onSubmit={handleSubmit}
             getData={getData}
         >
