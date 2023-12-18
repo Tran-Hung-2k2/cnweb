@@ -27,7 +27,7 @@ const CourseDetail = () => {
                 if (userHasRegistered) {
                     navigate(`/course/learning/${id}`);
                 }
-                setLoading(false);
+                if (course) setLoading(false);
             }),
         );
     }, []);
@@ -42,7 +42,7 @@ const CourseDetail = () => {
                     <li>
                         <NavLink to="/course">Khóa học</NavLink>
                     </li>
-                    <li>{course.Name}</li>
+                    <li>{course?.Name}</li>
                 </ul>
             </div>
             {loading ? (

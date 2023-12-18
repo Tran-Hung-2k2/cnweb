@@ -48,7 +48,7 @@ function LessonInfo({ lecture, week, owner, isRegistered }) {
                                 e.preventDefault();
                                 dispatch(action.setWeek(week));
                                 if (isRegistered) navigate(`/lesson/learning/${lesson.Lesson_ID}`);
-                                else if (owner || user.Role == label.role.ADMIN)
+                                else if (owner || user?.Role == label.role.ADMIN)
                                     navigate(`/lesson/${lesson.Lesson_ID}`);
                                 else
                                     notify(
