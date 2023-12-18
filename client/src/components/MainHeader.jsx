@@ -15,7 +15,7 @@ const MainHeader = ({ className }) => {
     const dispatch = useDispatch();
 
     return (
-        <header className={`sticky top-0 px-20 bg-white border-2 ${className}`}>
+        <header className={`sticky top-0 z-20 px-20 bg-white border-2 ${className}`}>
             <div className="flex justify-between navbar bg-base-100">
                 <NavLink to="/" className="flex items-center">
                     <p className="px-0 py-3 text-4xl font-bold text-primary">coursera</p>
