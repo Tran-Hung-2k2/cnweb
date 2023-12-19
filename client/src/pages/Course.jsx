@@ -48,9 +48,9 @@ const Course = () => {
                             active={sort.field == 'Name'}
                             subLabel={
                                 sort.dimension == 'asc' ? (
-                                    <FaArrowDownAZ className="w-4 h-4" />
+                                    <FaArrowDownAZ className="w-4 h-4 text-white" />
                                 ) : (
-                                    <FaArrowUpAZ className="w-4 h-4" />
+                                    <FaArrowUpAZ className="w-4 h-4 text-white" />
                                 )
                             }
                             onClick={() => {
@@ -64,9 +64,9 @@ const Course = () => {
                             active={sort.field == 'User_ID'}
                             subLabel={
                                 sort.dimension == 'asc' ? (
-                                    <FaArrowDownAZ className="w-4 h-4" />
+                                    <FaArrowDownAZ className="w-4 h-4 text-white" />
                                 ) : (
-                                    <FaArrowUpAZ className="w-4 h-4" />
+                                    <FaArrowUpAZ className="w-4 h-4 text-white" />
                                 )
                             }
                             onClick={() => {
@@ -80,9 +80,9 @@ const Course = () => {
                             active={sort.field == 'updatedAt'}
                             subLabel={
                                 sort.dimension == 'asc' ? (
-                                    <FaArrowDownAZ className="w-4 h-4" />
+                                    <FaArrowDownAZ className="w-4 h-4 text-white" />
                                 ) : (
-                                    <FaArrowUpAZ className="w-4 h-4" />
+                                    <FaArrowUpAZ className="w-4 h-4 text-white" />
                                 )
                             }
                             onClick={() => {
@@ -95,10 +95,7 @@ const Course = () => {
                     <div className="grid items-center gap-4 m-8 w-fit sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4">
                         {courses.map((course) => (
                             <div key={course.Course_ID} className="h-full border shadow-xl card bg-base-100">
-                                <Link
-                                    to={`/course/${course.Course_ID}`}
-                                    className="w-full p-3 border rounded-lg"
-                                >
+                                <Link to={`/course/${course.Course_ID}`} className="w-full p-3 border rounded-lg">
                                     <img
                                         className="object-cover w-full rounded-lg h-52"
                                         src={course.Image}

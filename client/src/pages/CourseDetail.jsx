@@ -74,7 +74,7 @@ const CourseDetail = () => {
                                         onClick={() => {
                                             if (user) {
                                                 service.addParticipatingCourse({ Course_ID: course.Course_ID });
-                                                navigate(`/course/learning/${id}`);
+                                                navigate(`/my_course`);
                                             } else navigate(`/signin`);
                                         }}
                                         className="my-4 text-white btn btn-active btn-primary btn-md"

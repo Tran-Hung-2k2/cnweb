@@ -77,9 +77,9 @@ const CourseOwner = () => {
                             active={sort.field == 'Name'}
                             subLabel={
                                 sort.dimension == 'asc' ? (
-                                    <FaArrowDownAZ className="w-4 h-4" />
+                                    <FaArrowDownAZ className="w-4 h-4 text-white" />
                                 ) : (
-                                    <FaArrowUpAZ className="w-4 h-4" />
+                                    <FaArrowUpAZ className="w-4 h-4 text-white" />
                                 )
                             }
                             onClick={() => {
@@ -93,9 +93,9 @@ const CourseOwner = () => {
                             active={sort.field == 'User_ID'}
                             subLabel={
                                 sort.dimension == 'asc' ? (
-                                    <FaArrowDownAZ className="w-4 h-4" />
+                                    <FaArrowDownAZ className="w-4 h-4 text-white" />
                                 ) : (
-                                    <FaArrowUpAZ className="w-4 h-4" />
+                                    <FaArrowUpAZ className="w-4 h-4 text-white" />
                                 )
                             }
                             onClick={() => {
@@ -109,9 +109,9 @@ const CourseOwner = () => {
                             active={sort.field == 'updatedAt'}
                             subLabel={
                                 sort.dimension == 'asc' ? (
-                                    <FaArrowDownAZ className="w-4 h-4" />
+                                    <FaArrowDownAZ className="w-4 h-4 text-white" />
                                 ) : (
-                                    <FaArrowUpAZ className="w-4 h-4" />
+                                    <FaArrowUpAZ className="w-4 h-4 text-white" />
                                 )
                             }
                             onClick={() => {
