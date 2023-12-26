@@ -89,7 +89,7 @@ const controller = {
         user.Password = await hash_password(req.body.Password);
         await user.save();
 
-        return res.status(200).json(api_response(true, 'Đổi mật khẩu thành công'));
+        return res.status(200).json(api_response(false, 'Đổi mật khẩu thành công'));
     }),
 
     // [POST] /api/auth/forget_password/
